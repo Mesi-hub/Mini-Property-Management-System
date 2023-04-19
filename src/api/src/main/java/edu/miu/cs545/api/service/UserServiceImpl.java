@@ -1,10 +1,10 @@
-package edu.miu.cs545.spring.services;
+package edu.miu.cs545.api.service;
 
-import edu.miu.cs545.spring.aspect.ExecutionTime;
-import edu.miu.cs545.spring.dto.PostDto;
-import edu.miu.cs545.spring.dto.UserDto;
-import edu.miu.cs545.spring.models.User;
-import edu.miu.cs545.spring.repositories.UserRepository;
+import edu.miu.cs545.api.dto.RoleDto;
+import edu.miu.cs545.api.dto.UserDto;
+import edu.miu.cs545.api.entity.Role;
+import edu.miu.cs545.api.entity.User;
+import edu.miu.cs545.api.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,16 +20,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private PostService postService;
+    ModelMapper modelMapper;
 
     @Override
-    @ExecutionTime
     public UserDto getById(Long id) {
         return getUserDto(userRepository.findById(id).orElse(null));
     }
-
-    @Autowired
-    ModelMapper modelMapper;
 
     @Override
     public UserDto add(UserDto userDto) {
@@ -53,33 +49,20 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-    @Override
-    public Collection<PostDto> getUserPostsAll(Long id) { return postService.findPostsByUserId(id); }
-
-    @Override
-    public Collection<UserDto> getUsersWithPostsTitle(String title) {
-        Collection<UserDto> userDto = new ArrayList<>();
-        userRepository.findByPostsTitleIgnoreCase(title).forEach(x->userDto.add(getUserDto(x)));
-        return userDto;
-    }
-
-    @Override
-    public Collection<UserDto> getUsersWithNoOfPostsGreaterThan(Long count) {
-        Collection<UserDto> userDto = new ArrayList<>();
-        userRepository.getUsersWithNoOfPostsGreaterThan(count).forEach(x->userDto.add(getUserDto(x)));
-        return userDto;
-    }
-
     private UserDto getUserDto(User user){
-        return modelMapper.map(user, UserDto.class);
+        UserDto userDto = modelMapper.map(user, UserDto.class);
+        userDto.setRoles(user.getRoles().stream().map(x->modelMapper.map(x, RoleDto.class)).toList());
+        return userDto;
     }
 
     private User getUser(UserDto userDto){
-        return modelMapper.map(userDto, User.class);
+        User user = modelMapper.map(userDto, User.class);
+        user.setRoles(userDto.getRoles().stream().map(x-> modelMapper.map(x, Role.class)).toList());
+        return user;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByName(username).orElse(null);
+        return userRepository.findByEmail(username).orElse(null);
     }
 }

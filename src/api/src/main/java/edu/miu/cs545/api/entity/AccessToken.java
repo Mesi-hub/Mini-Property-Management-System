@@ -1,4 +1,4 @@
-package edu.miu.cs545.spring.models;
+package edu.miu.cs545.api.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;

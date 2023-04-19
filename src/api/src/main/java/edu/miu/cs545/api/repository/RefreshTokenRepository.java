@@ -1,6 +1,7 @@
-package edu.miu.cs545.spring.repositories;
+package edu.miu.cs545.api.repository;
 
-import edu.miu.cs545.spring.models.RefreshToken;
+
+import edu.miu.cs545.api.entity.RefreshToken;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

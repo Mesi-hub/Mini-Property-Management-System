@@ -1,4 +1,4 @@
-package edu.miu.cs545.spring.models;
+package edu.miu.cs545.api.entity;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -16,4 +16,5 @@ public class Role {
     String description;
     @ManyToMany(cascade = CascadeType.ALL)
     List<User> users;
+
 }

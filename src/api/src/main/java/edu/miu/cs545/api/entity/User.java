@@ -1,4 +1,4 @@
-package edu.miu.cs545.spring.models;
+package edu.miu.cs545.api.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -16,14 +16,16 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @Column(unique = true, nullable = false)
     String name;
+    @Column(unique = true, nullable = false)
+    String email;
     String password;
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(name="user_id")
-    List<Post> posts;
+
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     List<Role> roles;
+
+    @OneToMany(mappedBy = "user")
+    List<RefreshToken> refreshTokens;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -32,7 +34,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return name;
+        return email;
     }
 
     @Override

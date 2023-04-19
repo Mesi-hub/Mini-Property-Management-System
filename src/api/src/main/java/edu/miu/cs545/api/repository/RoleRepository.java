@@ -1,6 +1,7 @@
-package edu.miu.cs545.spring.repositories;
+package edu.miu.cs545.api.repository;
 
-import edu.miu.cs545.spring.models.Role;
+
+import edu.miu.cs545.api.entity.Role;
 import org.springframework.data.repository.CrudRepository;
 
 public interface RoleRepository extends CrudRepository<Role, String> {

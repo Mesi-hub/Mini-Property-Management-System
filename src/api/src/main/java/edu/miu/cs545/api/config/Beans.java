@@ -1,4 +1,4 @@
-package edu.miu.cs545.spring.config;
+package edu.miu.cs545.api.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

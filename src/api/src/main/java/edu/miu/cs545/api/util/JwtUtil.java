@@ -1,6 +1,6 @@
-package edu.miu.cs545.spring.utils;
+package edu.miu.cs545.api.util;
 
-import edu.miu.cs545.spring.services.AccessTokenService;
+import edu.miu.cs545.api.service.AccessTokenService;
 import io.jsonwebtoken.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;

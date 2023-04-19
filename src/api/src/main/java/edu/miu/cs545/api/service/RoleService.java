@@ -1,6 +1,6 @@
-package edu.miu.cs545.spring.services;
+package edu.miu.cs545.api.service;
 
-import edu.miu.cs545.spring.dto.RoleDto;
+import edu.miu.cs545.api.dto.RoleDto;
 
 import java.util.Collection;
 

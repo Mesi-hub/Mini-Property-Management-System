@@ -1,14 +1,13 @@
-package edu.miu.cs545.spring.config.sysinit;
+package edu.miu.cs545.api.config.init;
 
-import edu.miu.cs545.spring.models.Role;
-import edu.miu.cs545.spring.models.User;
-import edu.miu.cs545.spring.repositories.RoleRepository;
-import edu.miu.cs545.spring.repositories.UserRepository;
+import edu.miu.cs545.api.entity.Role;
+import edu.miu.cs545.api.entity.User;
+import edu.miu.cs545.api.repository.RoleRepository;
+import edu.miu.cs545.api.repository.UserRepository;
 import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,7 @@ public class AuthEntryCreator {
         if (role == null) {
             role = new Role();
             role.setRole("ADMIN");
+            role.setDescription("Admin privileges");
             role = roleRepository.save(role);
         }
         roles.add(role);
@@ -39,11 +39,12 @@ public class AuthEntryCreator {
         if (role == null) {
             role = new Role();
             role.setRole("CLIENT");
+            role.setDescription("Client privileges");
             role = roleRepository.save(role);
         }
         roles.add(role);
 
-        User existingUser = userRepository.findByName("admin").orElse(null);
+        User existingUser = userRepository.findByEmail("admin@admin.com").orElse(null);
         if (existingUser != null) {
             existingUser.setPassword(bCryptPasswordEncoder.encode("admin"));
             userRepository.save(existingUser);
@@ -51,6 +52,7 @@ public class AuthEntryCreator {
         else {
             existingUser = new User();
             existingUser.setName("admin");
+            existingUser.setEmail("admin@admin.com");
             existingUser.setPassword(bCryptPasswordEncoder.encode("admin"));
             userRepository.save(existingUser);
         }

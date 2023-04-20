@@ -3,7 +3,11 @@ package edu.miu.cs545.api.controller;
 import edu.miu.cs545.api.dto.AuthDto;
 import edu.miu.cs545.api.dto.JwtResponseDto;
 import edu.miu.cs545.api.dto.RefreshDto;
+import edu.miu.cs545.api.dto.UserDto;
+import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.AuthService;
+import edu.miu.cs545.api.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,8 +27,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
     @Autowired
     private AuthService authService;
+
+    @Autowired
+    private UserService userService;
     @Autowired
     private DaoAuthenticationProvider daoAuthenticationProvider;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @PostMapping("")
     public ResponseEntity<JwtResponseDto> createToken(@RequestBody AuthDto
@@ -53,5 +63,14 @@ public class AuthController {
         }
         authService.logout(username);
         return ResponseEntity.ok().build();
+    }
+    @RequestMapping("/userinfo")
+    public ResponseEntity<UserDto> getUserInfo(){
+        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null &&
+                SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            return ResponseEntity.ok(modelMapper.map(user, UserDto.class));
+        }
+        return ResponseEntity.badRequest().build();
     }
 }

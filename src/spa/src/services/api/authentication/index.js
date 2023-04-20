@@ -1,7 +1,7 @@
-import { api } from "..";
+import { apiUnsecured } from "..";
 
 const authenticateUser = async (username, password) => {
-  let result = await api.post("/authenticate", {
+  let result = await apiUnsecured.post("/authenticate", {
     username: username,
     password: password,
   });

@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const authenticationSlice = createSlice({
-  name: 'authentication',
+  name: "authentication",
   initialState: {
-    value: {}
+    value: {},
   },
   reducers: {
     authenticationSuccess: (state, action) => {
@@ -14,10 +14,11 @@ export const authenticationSlice = createSlice({
     },
     logoff: (state, action) => {
       state.value = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
-export const { authenticationSuccess, refreshSuccess, logoff} = authenticationSlice.actions
+export const { authenticationSuccess, refreshSuccess, logoff } =
+  authenticationSlice.actions;
 
-export default authenticationSlice.reducer
+export default authenticationSlice.reducer;

@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { injectStoreState } from "../../services/api";
-import logo from "../../static/images/logo.svg";
 import { AuthenticationWidget } from "../AuthenticationWidget";
 import "./App.css";
 

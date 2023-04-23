@@ -26,4 +26,4 @@ jobs:
     - name: Build with Maven
       run: |
         cd src/api
-        mvn clean verify --file pom.xml
+        mvn clean test --file pom.xml

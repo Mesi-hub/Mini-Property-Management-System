@@ -3,12 +3,8 @@ name: Build and Test SPA
 on:
   push:
     branches: [ "main" ]
-    paths:
-      - src/spa/**
   pull_request:
     branches: [ "main" ]
-    paths:
-      - src/spa/**
 
 jobs:
   build:

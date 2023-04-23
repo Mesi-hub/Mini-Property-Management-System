@@ -4,7 +4,7 @@ import { AuthenticationWidget } from "../AuthenticationWidget";
 import "./App.css";
 
 function App() {
-  const store = useSelector(state => state)
+  const store = useSelector((state) => state);
   injectStoreState(store);
   return (
     <div className="App">

@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 export const loggedinUserSlice = createSlice({
-  name: 'loggedinUser',
+  name: "loggedinUser",
   initialState: {
-    value: {}
+    value: {},
   },
   reducers: {
     userinfoSuccess: (state, action) => {
@@ -11,10 +11,10 @@ export const loggedinUserSlice = createSlice({
     },
     logoff: (state, action) => {
       state.value = action.payload;
-    }
-  }
-})
+    },
+  },
+});
 
-export const { userinfoSuccess, logoff} = loggedinUserSlice.actions
+export const { userinfoSuccess, logoff } = loggedinUserSlice.actions;
 
-export default loggedinUserSlice.reducer
+export default loggedinUserSlice.reducer;

@@ -16,11 +16,11 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/spa
+        working-directory: src/spa/
 
     strategy:
       matrix:
-        node-version: [18.16.0]
+        node-version: [18.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -30,6 +30,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: './src/spa/package-lock.json'
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test

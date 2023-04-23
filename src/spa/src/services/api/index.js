@@ -1,11 +1,11 @@
 import axiosUnsecuredInstance from "axios";
 import axiosSecuredInstance from "axios";
 
-let storeState
+let storeState;
 
-export const injectStoreState = _storeState => {
-    storeState = _storeState
-}
+export const injectStoreState = (_storeState) => {
+  storeState = _storeState;
+};
 
 export const apiUnsecured = axiosUnsecuredInstance.create({
   baseURL: "http://localhost:8080",

@@ -6,7 +6,6 @@ import edu.miu.cs545.api.dto.RefreshDto;
 import edu.miu.cs545.api.dto.UserDto;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.AuthService;
-import edu.miu.cs545.api.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +27,6 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    @Autowired
-    private UserService userService;
     @Autowired
     private DaoAuthenticationProvider daoAuthenticationProvider;
 

@@ -8,16 +8,16 @@ import Banner from "../Banner/Banner";
 import Houses from "../Houses/Houses";
 
 function App() {
-    const store = useSelector((state) => state);
-    injectStoreState(store);
-    return (
-        <div>
-            <Header />
-            <Banner />
-            {/* <AuthenticationWidget /> */}
-            <Houses />
-        </div>
-    );
+  const store = useSelector((state) => state);
+  injectStoreState(store);
+  return (
+    <div>
+      <Header />
+      <Banner />
+      {/* <AuthenticationWidget /> */}
+      <Houses />
+    </div>
+  );
 }
 
 export default App;

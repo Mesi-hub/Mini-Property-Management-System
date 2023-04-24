@@ -8,13 +8,13 @@ INSERT INTO users (name, email, password) VALUES ('customer', 'customer@customer
 INSERT INTO users (name, email, password) VALUES ('blacklisted', 'blacklisted@blacklisted.com', 'owner');
 
 -- admin, ADMIN
-INSERT INTO role_users (roles_role, users_id) VALUES (1, 1);
+INSERT INTO role_users (roles_role, users_id) VALUES ('ADMIN', 1);
 -- owner, OWNER
-INSERT INTO role_users (roles_role, users_id) VALUES (2, 2);
+INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 2);
 -- customer, CUSTOMER
-INSERT INTO role_users (roles_role, users_id) VALUES (3, 3);
+INSERT INTO role_users (roles_role, users_id) VALUES ('CUSTOMER', 3);
 -- blacklisted, OWNER
-INSERT INTO role_users (roles_role, users_id) VALUES (4, 2);
+INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 2);
 
 -- Taken from https://gist.github.com/dankohn/09e5446feb4a8faea24f
 INSERT INTO address (latitude, longitude, street, city, state, zip) VALUES (-149.8935557, 61.21759217, '603 West Street_601 West 5th Avenue', 'Anchorage', 'AK', '99501');

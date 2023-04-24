@@ -2,11 +2,14 @@ import { configureStore } from '@reduxjs/toolkit'
 import authenticationReducer from '../feature/Authentication/authenticationSlice';
 import loggedinUserReducer from '../feature/Authentication/loggedinUserSlice';
 
-const store = configureStore({
+export const setupStore = (preloadedState)  =>  { return configureStore({
   reducer:{
     authentication: authenticationReducer,
-    loggedinUser: loggedinUserReducer,
+    loggedinUser: loggedinUserReducer
   },
-})
+  preloadedState,
+})}
+
+const store = setupStore({});
 
 export default store

@@ -15,7 +15,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      CI: ""
+      CI: true
     defaults:
       run:
         working-directory: src/spa/

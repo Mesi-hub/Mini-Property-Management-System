@@ -10,7 +10,7 @@ import java.util.List;
 public class RefreshToken {
     @Id
     String token;
-    @OneToOne
+    @ManyToOne
     User user;
     @OneToMany(mappedBy = "refreshToken", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<AccessToken> accessTokens;

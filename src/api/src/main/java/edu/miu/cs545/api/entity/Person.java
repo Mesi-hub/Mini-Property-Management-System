@@ -24,6 +24,9 @@ public abstract class Person {
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
     private Address address;
+    boolean approved;
+    @ManyToOne(fetch = FetchType.LAZY)
+    Administrator approvedBy;
     boolean blackListed;
     @ManyToOne(fetch = FetchType.LAZY)
     Administrator blackListedBy;

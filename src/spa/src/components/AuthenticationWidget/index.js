@@ -1,6 +1,6 @@
 import { useRef, useState } from "react";
 import { authenticateUser } from "../../services/api/authentication";
-import { authenticationSuccess } from "../../feature/Authentication/authenticationSlice";
+import { authenticationSuccess, isAuthStatusValid } from "../../feature/Authentication/authenticationSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfo } from "../../services/api/loggedinUser";
 import { userinfoSuccess } from "../../feature/Authentication/loggedinUserSlice";
@@ -28,7 +28,7 @@ export const AuthenticationWidget = () => {
   };
   return (
     <>
-      {store?.authentication?.value?.token ? (
+      {isAuthStatusValid(store) ? (
          <div className="nav-link active">
          Welcome {store?.loggedinUser?.value?.name}
        </div>

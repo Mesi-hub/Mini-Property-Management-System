@@ -22,7 +22,7 @@ export const AuthenticationWidget = () => {
     await dispatch(authenticationSuccess(authResult));
     let userInfo = await getUserInfo();
     console.log("Returned UserInfo from API" + userInfo.name);
-    dispatch(userinfoSuccess(userInfo));
+    await dispatch(userinfoSuccess(userInfo));
     setAuthenticationStoreValueChanged(true);
     setLoggedinUserStoreValueChanged(true);
   };
@@ -33,12 +33,12 @@ export const AuthenticationWidget = () => {
          Welcome {store?.loggedinUser?.value?.name}
        </div>
       ) : (
-        <form ref={authenticationForm} onSubmit={authenticate}>
-          <input name="username"></input>
+        <form ref={authenticationForm} onSubmit={authenticate} className="d-flex">
+          <input name="username" className="form-control me-2" placeholder="Username"></input>
           <br />
-          <input name="password"></input>
+          <input type="password" name="password" className="form-control me-2" placeholder="Password"></input>
           <br />
-          <button>Login</button>
+          <button className="btn btn-outline-success">Login</button>
         </form>
       )}
     </>

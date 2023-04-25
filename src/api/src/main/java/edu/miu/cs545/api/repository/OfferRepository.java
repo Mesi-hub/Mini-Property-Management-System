@@ -9,7 +9,6 @@ import java.util.List;
 
 public interface OfferRepository extends JpaRepository<Offer, Long> {
     List<Offer> findByPropertyOwner(Customer customer);
-
     List<Offer> findAllByCustomerEquals(Customer cust);
     List<Offer> findByCustomerId(Long CustomerId);
     List<Offer> findByPropertyOwnerAndStatusIn(Customer customer, List<OfferState> offerStates);

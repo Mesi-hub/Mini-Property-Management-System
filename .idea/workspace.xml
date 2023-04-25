@@ -5,61 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="295b7d63-cdc5-4d9e-a43a-017255211ad0" name="Changes" comment="implemented Check offer History">
-      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460/storage_v2/_src_/database/postgres.edMnLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460/storage_v2/_src_/database/postgres.edMnLQ/schema/information_schema.FNRwLQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460/storage_v2/_src_/database/postgres.edMnLQ/schema/pg_catalog.0S1ZNQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460/storage_v2/_src_/database/postgres.edMnLQ/schema/public.abK9xQ.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/controller/AdministratorController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/controller/PropertyController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/dto/AdministratorDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/dto/PersonDto.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/RoleTypes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/AdministratorRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/AdministratorService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/AdministratorServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/PropertyServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/interfaces/PropertyService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/Routes/PageRoutes.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/components/HouseDetail/HouseDetail.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/components/HouseDetail/HouseDetail.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/pages/Admin/Admin.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/pages/Auth/Login.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/pages/Auth/SignUp.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/spa/src/pages/Dashboard/Dashboard.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.github/workflows/node.js.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/node.js.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/config/SecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/config/init/AuthEntryCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/config/init/AuthEntryCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/dto/PropertyDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/dto/PropertyDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Administrator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Administrator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Customer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Customer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Owner.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Owner.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Person.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Property.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Property.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Role.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/Role.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/entity/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/OfferRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/OfferRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/PropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/resources/import.sql" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/resources/import.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/App/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/App/App.test.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/App/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/components/App/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/AuthenticationWidget/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/components/AuthenticationWidget/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/Banner/Banner.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/components/Banner/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/Header/Header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/components/Header/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/House/House.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/components/House/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/components/Houses/Houses.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/components/Houses/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/spa/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/spa/src/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -127,7 +73,7 @@
       <option name="presentableId" value="Default" />
       <updated>1682434972326</updated>
       <workItem from="1682434974466" duration="274000" />
-      <workItem from="1682435324913" duration="9090000" />
+      <workItem from="1682435324913" duration="9439000" />
     </task>
     <task id="LOCAL-00001" summary="implemented Check offer History">
       <created>1682441961244</created>
@@ -136,11 +82,36 @@
       <option name="project" value="LOCAL" />
       <updated>1682441961244</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="implemented Check offer History">
+      <created>1682444619824</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1682444619824</updated>
+    </task>
+    <task id="LOCAL-00003" summary="implemented Check offer History">
+      <created>1682444638145</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1682444638145</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="implemented Check offer History" />

@@ -1,5 +1,6 @@
 import React from "react";
 import "./House.css";
+import { Link } from "react-router-dom";
 
 const House = () => {
     return (
@@ -7,13 +8,17 @@ const House = () => {
             <div className="col">
                 <div className="card shadow-sm">
                     <div>
-                        <a href="#" className="img-wrap" data-abc="true">
-                            <img src="https://ap.rdcpix.com/5fe850a043989a3b24730a05621a8849l-m563540908od-w480_h360.webp" />
-                        </a>
+                        <Link to="/house-detail/1">
+                            <a href="#" className="img-wrap" data-abc="true">
+                                <img src="https://ap.rdcpix.com/5fe850a043989a3b24730a05621a8849l-m563540908od-w480_h360.webp" />
+                            </a>
+                        </Link>
                     </div>
 
                     <div className="card-body">
-                        <h5 class="card-title">Card title</h5>
+                        <Link to="/house-detail/1">
+                            <h5 class="card-title">Card title</h5>
+                        </Link>
                         <p className="card-text">
                             This is a wider card with supporting text below as a
                             natural lead-in to additional content.

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { AuthenticationWidget } from "../AuthenticationWidget";
 
 const Header = () => {
@@ -6,9 +7,9 @@ const Header = () => {
         <header>
             <nav className="navbar navbar-expand-md navbar-dark  bg-dark">
                 <div className="container-fluid">
-                    <a className="navbar-brand" href="#">
-                        Property Management 
-                    </a>
+                    <Link to="/" className="navbar-brand">
+                        Property Management
+                    </Link>
                     <button
                         className="navbar-toggler"
                         type="button"
@@ -26,28 +27,24 @@ const Header = () => {
                     >
                         <ul className="navbar-nav me-auto mb-2 mb-md-0">
                             <li className="nav-item">
-                                <a
-                                    className="nav-link active"
-                                    aria-current="page"
-                                    href="#"
-                                >
+                                <Link to="/" className="nav-link">
                                     Home
-                                </a>
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">
-                                    Link
-                                </a>
+                                <Link to="/login" className="nav-link">
+                                    Login
+                                </Link>
                             </li>
                             <li className="nav-item">
-                                <a
-                                    className="nav-link disabled"
-                                    href="#"
-                                    tabindex="-1"
-                                    aria-disabled="true"
-                                >
-                                    Disabled
-                                </a>
+                                <Link to="/signup" className="nav-link">
+                                    SignUp
+                                </Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link to="/admin" className="nav-link">
+                                    Admin
+                                </Link>
                             </li>
                         </ul>
                         <form className="d-flex">
@@ -64,10 +61,10 @@ const Header = () => {
                                 Search
                             </button>
                         </form>
-                    </div>                    
-                    <AuthenticationWidget/>
+                    </div>
+                    <AuthenticationWidget />
                 </div>
-            </nav>            
+            </nav>
         </header>
     );
 };

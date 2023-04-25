@@ -1,6 +1,7 @@
 import React from "react";
 import "./Houses.css";
 import House from "../House";
+import { Link } from "react-router-dom";
 const Houses = () => {
     const cards = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 

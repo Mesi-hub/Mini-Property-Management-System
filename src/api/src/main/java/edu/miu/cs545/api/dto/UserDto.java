@@ -12,6 +12,5 @@ import java.util.List;
 public class UserDto {
     Long id;
     String name;
-
     List<RoleDto> roles;
 }

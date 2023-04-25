@@ -16,7 +16,9 @@ public class Property {
     Double plotSize;
     Double price;
     Double area;
+    String description;
     @OneToOne(fetch = FetchType.LAZY)
+
     Address address;
     @ManyToOne(fetch = FetchType.LAZY)
     Owner owner;

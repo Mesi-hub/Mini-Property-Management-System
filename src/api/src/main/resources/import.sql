@@ -32,9 +32,9 @@ INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_i
 INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id, approved) VALUES  ('Customer', false, 'customer@customer.com', 'Ben', 'Alpha', 3, 3, false);
 INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id, black_listed_by_id, approved) VALUES  ('Owner', true, 'blacklisted@blacklisted.com', 'Wide', 'Dan', 4, 4, 1, false);
 
-INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, address_id, owner_id) VALUES (1, 2, 265000, 1250, 6500.5, 'PENDING', 5, 2);
-INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, address_id, owner_id) VALUES (3, 4, 755000, 2550, 10500.5, 'AVAILABLE', 6, 2);
-INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, address_id, owner_id) VALUES (1, 1, 125800, 750, 2500.0, 'AVAILABLE', 7, 4);
+INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, description,address_id, owner_id) VALUES (1, 2, 265000, 1250, 6500.5, 'PENDING','Description here', 5, 2);
+INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, description,address_id, owner_id) VALUES (3, 4, 755000, 2550, 10500.5, 'AVAILABLE', 'Description here',6, 2);
+INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, description,address_id, owner_id) VALUES (1, 1, 125800, 750, 2500.0, 'AVAILABLE', 'Description here',7, 4);
 
 INSERT INTO message (date, time, message, property_id, recipient_id, reply_to_id, sender_id) VALUES (TO_DATE('04/10/2023', 'MM/DD/YYYY'), '11:15:00', 'Hello there!!!, Can you please send me when I can view this property?', 1, 2, null, 3);
 INSERT INTO message (date, time, message, property_id, recipient_id, reply_to_id, sender_id) VALUES (TO_DATE('04/10/2023', 'MM/DD/YYYY'), '11:30:00', 'Hi, Thank you for the inquiry. I am available this week end. Please let me know when you will be arriving. There are couple of more people who will be coming for a viewing.', 1, 2, 1, 3);

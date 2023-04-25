@@ -1,11 +1,11 @@
-import { isAuthStatusValid } from "../../feature/Authentication/authenticationSlice";
+import { isLoggedIn } from "../../feature/Authentication/authenticationSlice";
 import { useSelector } from "react-redux";
 
 export const AuthenticationWidget = () => {
   const store = useSelector((state) => state);
   return (
     <>
-      {isAuthStatusValid(store) ? (
+      {isLoggedIn(store) ? (
         <>
           <span className="badge text-bg-primary">
             {store?.loggedinUser?.value?.name}

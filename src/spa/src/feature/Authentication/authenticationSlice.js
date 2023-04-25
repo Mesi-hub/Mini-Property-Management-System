@@ -33,4 +33,14 @@ export const isAuthStatusValid = (store) => {
   return false;
 };
 
+export const isLoggedIn = (store) => {
+  if (
+    store?.authentication?.value?.token &&
+    store?.authentication?.value?.expiresAt
+  ) {
+      return true;    
+  }
+  return false;
+};
+
 export default authenticationSlice.reducer;

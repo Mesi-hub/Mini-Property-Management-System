@@ -4,6 +4,7 @@ import { injectStoreState } from "../services/api";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import Customers from "../components/Customers/Customers";
+import { PageNotFound } from "../components/PageNotFound/PageNotFound";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -32,6 +33,7 @@ export default function PageRoutes(props) {
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />
             <Route path="selected-students" element={<Following />} /> */}
+      <Route path='*' element={renderWithHeader(<PageNotFound />)}/>
     </Routes>
   );
 }

@@ -1,6 +1,7 @@
 package edu.miu.cs545.api.config.init;
 
 import edu.miu.cs545.api.entity.Role;
+import edu.miu.cs545.api.entity.RoleTypes;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.repository.RoleRepository;
 import edu.miu.cs545.api.repository.UserRepository;
@@ -25,29 +26,32 @@ public class AuthEntryCreator {
 
     @PostConstruct
     public void init() {
+        // This creates the roles and the admin user with all roles.
+        // Also encrypts the passwords
+        // Ideally the usernames and passwords should be set using the combination of EL and env variables
         List<Role> roles = new ArrayList<>();
-        Role role = roleRepository.findById("Admin").orElse(null);
+        Role role = roleRepository.findById(RoleTypes.ADMIN.toString()).orElse(null);
         if (role == null) {
             role = new Role();
-            role.setRole("ADMIN");
+            role.setRole(RoleTypes.ADMIN.toString());
             role.setDescription("Admin privileges");
             role = roleRepository.save(role);
         }
         roles.add(role);
 
-        role = roleRepository.findById("CUSTOMER").orElse(null);
+        role = roleRepository.findById(RoleTypes.CUSTOMER.toString()).orElse(null);
         if (role == null) {
             role = new Role();
-            role.setRole("CUSTOMER");
+            role.setRole(RoleTypes.CUSTOMER.toString());
             role.setDescription("Customer privileges");
             role = roleRepository.save(role);
         }
         roles.add(role);
 
-        role = roleRepository.findById("OWNER").orElse(null);
+        role = roleRepository.findById(RoleTypes.OWNER.toString()).orElse(null);
         if (role == null) {
             role = new Role();
-            role.setRole("OWNER");
+            role.setRole(RoleTypes.OWNER.toString());
             role.setDescription("Owner privileges");
             role = roleRepository.save(role);
         }
@@ -64,12 +68,13 @@ public class AuthEntryCreator {
             existingUser.setEmail("admin@admin.com");
             existingUser.setPassword(bCryptPasswordEncoder.encode("admin"));
             userRepository.save(existingUser);
-        }
-        List<User> users = new ArrayList<>();
-        users.add(existingUser);
-        for(Role savedRole : roles){
-            savedRole.setUsers(users);
-            roleRepository.save(savedRole);
+
+            List<User> users = new ArrayList<>();
+            users.add(existingUser);
+            for(Role savedRole : roles){
+                savedRole.setUsers(users);
+                roleRepository.save(savedRole);
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AuthenticationWidget } from "../AuthenticationWidget";
 
 const Header = () => {
     return (
@@ -61,6 +62,7 @@ const Header = () => {
                             </button>
                         </form>
                     </div>
+                    <AuthenticationWidget />
                 </div>
             </nav>
         </header>

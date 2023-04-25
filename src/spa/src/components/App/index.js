@@ -1,6 +1,5 @@
 import { useSelector } from "react-redux";
 import { injectStoreState } from "../../services/api";
-import { AuthenticationWidget } from "../AuthenticationWidget";
 import "./App.css";
 import House from "../House/House";
 import Header from "../Header/Header";
@@ -14,7 +13,6 @@ function App() {
     <div>
       <Header />
       <Banner />
-      {/* <AuthenticationWidget /> */}
       <Houses />
     </div>
   );

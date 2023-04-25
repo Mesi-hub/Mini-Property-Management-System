@@ -1,4 +1,5 @@
 import React from "react";
+import { AuthenticationWidget } from "../AuthenticationWidget";
 
 const Header = () => {
     return (
@@ -63,9 +64,10 @@ const Header = () => {
                                 Search
                             </button>
                         </form>
-                    </div>
+                    </div>                    
+                    <AuthenticationWidget/>
                 </div>
-            </nav>
+            </nav>            
         </header>
     );
 };

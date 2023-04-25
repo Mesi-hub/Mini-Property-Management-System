@@ -1,12 +1,15 @@
 package edu.miu.cs545.api.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Customer extends Person {
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
     List<Offer> offers;
 }

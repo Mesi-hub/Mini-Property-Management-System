@@ -16,6 +16,8 @@ public class AdministratorServiceImpl implements AdministratorService{
     ModelMapper modelMapper;
     @Override
     public List<AdministratorDto> getAll() {
-        return administratorRepository.findAll().stream().map(x->modelMapper.map(x, AdministratorDto.class)).toList();
+        return administratorRepository.findAll().stream()
+                .map(x->modelMapper.map(x, AdministratorDto.class))
+                .toList();
     }
 }

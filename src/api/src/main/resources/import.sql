@@ -7,8 +7,10 @@ INSERT INTO users (name, email, password) VALUES ('owner', 'owner@owner.com', 'o
 INSERT INTO users (name, email, password) VALUES ('customer', 'customer@customer.com', 'customer');
 INSERT INTO users (name, email, password) VALUES ('blacklisted', 'blacklisted@blacklisted.com', 'owner');
 
--- admin, ADMIN
+-- admin -> ADMIN, OWNER, CUSTOMER
 INSERT INTO role_users (roles_role, users_id) VALUES ('ADMIN', 1);
+INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 1);
+INSERT INTO role_users (roles_role, users_id) VALUES ('CUSTOMER', 1);
 -- owner, OWNER
 INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 2);
 -- customer, CUSTOMER

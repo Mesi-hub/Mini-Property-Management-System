@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/administrator")
+@RequestMapping("/administrators")
 public class AdministratorController {
     @Autowired
     AdministratorService administratorService;

@@ -1,5 +1,6 @@
 package edu.miu.cs545.api.config;
 
+import edu.miu.cs545.api.entity.RoleTypes;
 import edu.miu.cs545.api.filter.JwtFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -23,7 +24,13 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JwtFilter jwtFilter;
-    String [] roles = {"CLIENT" , "ADMIN"};
+    String [] roles = {RoleTypes.ADMIN.toString(), RoleTypes.OWNER.toString(), RoleTypes.CUSTOMER.toString()};
+    String [] unsecuredUrls = {"/authenticate", "/authenticate/refresh"};
+    String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
+    String [] customerUrls = {};
+    String [] ownerUrls = {};
+    String [] adminUrls = {"/administrator"};
+
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -34,9 +41,20 @@ public class SecurityConfig {
         http
                 .csrf().disable().cors().and()
                 .authorizeHttpRequests()
-                .requestMatchers("/authenticate", "/authenticate/refresh").permitAll()
-                .anyRequest().permitAll()
-                //.authenticated()
+
+                //Comment the lines after this line to bypass authentication during dev
+                .requestMatchers(unsecuredUrls).permitAll()
+                .requestMatchers(genericLoggedInUserUrls).hasAnyAuthority(roles)
+                .requestMatchers(customerUrls).hasAuthority(RoleTypes.CUSTOMER.toString())
+                .requestMatchers(ownerUrls).hasAuthority(RoleTypes.OWNER.toString())
+                .requestMatchers(adminUrls).hasAuthority(RoleTypes.ADMIN.toString())
+                //Comment the lines upto this line to bypass authentication during dev
+
+                // below line should be uncommented during dev to bypass authentication
+                //.anyRequest().permitAll()
+
+                //below line should be commented during dev to bypass authentication
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

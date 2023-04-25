@@ -11,7 +11,7 @@ public class Role {
     @Id
     String role;
     String description;
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<User> users;
 
 }

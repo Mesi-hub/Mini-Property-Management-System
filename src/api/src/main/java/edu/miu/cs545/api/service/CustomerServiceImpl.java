@@ -2,6 +2,7 @@ package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.AddressDto;
 import edu.miu.cs545.api.dto.CustomerDto;
+import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.dto.UserDto;
 import edu.miu.cs545.api.entity.Address;
 import edu.miu.cs545.api.entity.Customer;
@@ -45,6 +46,11 @@ public class CustomerServiceImpl implements CustomerService {
     public boolean save(CustomerDto customerDto ) {
         customerRepo.save(mapDtoToCustomer(customerDto));
         return true;
+    }
+
+    @Override
+    public List<OfferDto> findOffersByCustomerId(long customerId) {
+        return null;
     }
 
     private CustomerDto mapCustomerToDto(Customer cust) {

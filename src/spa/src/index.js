@@ -6,8 +6,6 @@ import reportWebVitals from "./reportWebVitals";
 import store from "./store";
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.css";
-import Banner from "./components/Banner";
-import Header from "./components/Header";
 import PageRoutes from "./Routes/PageRoutes";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -15,7 +13,6 @@ root.render(
     <React.StrictMode>
         <Provider store={store}>
             <BrowserRouter>
-                <Header />
                 <PageRoutes />
             </BrowserRouter>
         </Provider>

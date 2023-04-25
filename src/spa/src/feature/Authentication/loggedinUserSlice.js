@@ -17,4 +17,14 @@ export const loggedinUserSlice = createSlice({
 
 export const { userinfoSuccess, logoff } = loggedinUserSlice.actions;
 
+export const loggedinUserHasRole = (store, roleName) => {
+  if (
+    store?.loggedinUser?.value?.roles
+  ) {
+    return (store.loggedinUser.value.roles.filter(role => role.role === roleName).length > 0)
+  }
+  return false;
+};
+
+
 export default loggedinUserSlice.reducer;

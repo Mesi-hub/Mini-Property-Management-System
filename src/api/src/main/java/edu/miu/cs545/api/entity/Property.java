@@ -14,6 +14,8 @@ public class Property {
     Integer noOfBedrooms;
     Double noOfBathrooms;
     Double plotSize;
+    Double price;
+    Double area;
     @OneToOne
     Address address;
     @ManyToOne

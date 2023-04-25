@@ -14,6 +14,7 @@ public class Offer {
     Long id;
     LocalDate date;
     LocalTime time;
+    Double offerAmount;
     @ManyToOne
     Property property;
     @ManyToOne

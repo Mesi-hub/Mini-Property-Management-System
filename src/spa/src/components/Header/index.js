@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { AuthenticationWidget } from "../AuthenticationWidget";
 import { hasRole } from "../../services/api";
-import { isAuthStatusValid } from "../../feature/Authentication/authenticationSlice";
+import { isLoggedIn } from "../../feature/Authentication/authenticationSlice";
 import { useSelector } from "react-redux";
 
 const Header = () => {
@@ -32,17 +32,19 @@ const Header = () => {
                   Home
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/login" className="nav-link">
-                  Login
-                </Link>
-              </li>
-              {!isAuthStatusValid(store) ? (
-                <li className="nav-item">
-                  <Link to="/signup" className="nav-link">
-                    SignUp
-                  </Link>
-                </li>
+              {!isLoggedIn(store) ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/login" className="nav-link">
+                      Login
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/signup" className="nav-link">
+                      SignUp
+                    </Link>
+                  </li>
+                </>
               ) : (
                 ""
               )}

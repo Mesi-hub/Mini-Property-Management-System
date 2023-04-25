@@ -1,0 +1,8 @@
+.bottomright {
+    position: fixed;
+    right: 20px; bottom: 50px;
+    min-width: 200px;
+    min-height:40px;
+    background-color:rgb(230, 173, 173);
+    padding: 5px;
+  }

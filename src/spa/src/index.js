@@ -7,6 +7,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import "bootstrap/dist/css/bootstrap.css";
 import PageRoutes from "./Routes/PageRoutes";
+import { ErrorToast } from "./components/ErrorToast";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,6 +16,7 @@ root.render(
             <BrowserRouter>
                 <PageRoutes />
             </BrowserRouter>
+            <ErrorToast/>
         </Provider>
     </React.StrictMode>
 );

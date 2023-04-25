@@ -50,3 +50,7 @@ export const apiSecured = () => {
 export const hasRole = (roleName) => {
   return loggedinUserHasRole(storeState, roleName);
 }
+
+export const getStoreState = () => {
+  return storeState;
+}

@@ -23,7 +23,7 @@ export default function PageRoutes(props) {
 
   return (
     <Routes>
-      <Route path="/" element={<Dashboard />} />
+      <Route path="/" element={renderWithHeader(<Dashboard />)} />
       <Route path="house-detail/:id" element={renderWithHeader(<HouseDetail />)} />
       <Route path="login" element={renderWithHeader(<Login />)} />
       <Route path="signup" element={renderWithHeader(<SignUp />)} />

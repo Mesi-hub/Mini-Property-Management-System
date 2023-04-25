@@ -19,4 +19,5 @@ public class PropertyDto {
     private List<OfferDto> offers;
     private PropertyState status;
     private OwnerDto owner;
+    private String description;
 }

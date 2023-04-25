@@ -2,7 +2,6 @@ import { useSelector } from "react-redux";
 import { injectStoreState } from "../../services/api";
 import { AuthenticationWidget } from "../AuthenticationWidget";
 import "./App.css";
-import House from "../House/House";
 import Header from "../Header/Header";
 import Banner from "../Banner/Banner";
 import Houses from "../Houses/Houses";

@@ -3,6 +3,7 @@ import loadable from "@loadable/component";
 import { injectStoreState } from "../services/api";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
+import Customers from "../components/Customers/Customers";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -22,11 +23,12 @@ export default function PageRoutes(props) {
 
   return (
     <Routes>
-      <Route path="/" element={renderWithHeader(<Dashboard />)} />
+      <Route path="/" element={<Dashboard />} />
       <Route path="house-detail/:id" element={renderWithHeader(<HouseDetail />)} />
       <Route path="login" element={renderWithHeader(<Login />)} />
       <Route path="signup" element={renderWithHeader(<SignUp />)} />
       <Route path="admin" element={renderWithHeader(<Admin />)} />
+      <Route path="customers" element={renderWithHeader(<Customers />)} />
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />
             <Route path="selected-students" element={<Following />} /> */}

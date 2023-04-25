@@ -15,5 +15,7 @@ public class OwnerDto {
     private String lastName;
     private String email;
     private String phone;
+    private Boolean approved;
+    private Boolean blackListed;
     private List<PropertyDto> properties;
 }

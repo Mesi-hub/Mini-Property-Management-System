@@ -1,7 +1,6 @@
 import React from "react";
-import Header from "../../components/Header/Header";
-import Banner from "../../components/Banner/Banner";
-import Houses from "../../components/Houses/Houses";
+import Banner from "../../components/Banner";
+import Houses from "../../components/Houses";
 
 const Dashboard = () => {
     return (

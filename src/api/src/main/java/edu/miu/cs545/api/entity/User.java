@@ -1,6 +1,8 @@
 package edu.miu.cs545.api.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +19,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String name;
-    @Column(unique = true, nullable = false)
+    @Column(unique = true)
+    @NotEmpty
+    @Email
     String email;
     String password;
 
@@ -29,9 +33,10 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(x-> (GrantedAuthority) () -> x.getRole()).toList();
+        return roles.stream().map(x-> (GrantedAuthority) x::getRole).toList();
     }
-
+    @OneToOne(mappedBy = "user")
+    Person person;
     @Override
     public String getUsername() {
         return email;

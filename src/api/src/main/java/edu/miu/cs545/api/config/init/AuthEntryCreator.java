@@ -35,11 +35,20 @@ public class AuthEntryCreator {
         }
         roles.add(role);
 
-        role = roleRepository.findById("CLIENT").orElse(null);
+        role = roleRepository.findById("CUSTOMER").orElse(null);
         if (role == null) {
             role = new Role();
-            role.setRole("CLIENT");
-            role.setDescription("Client privileges");
+            role.setRole("CUSTOMER");
+            role.setDescription("Customer privileges");
+            role = roleRepository.save(role);
+        }
+        roles.add(role);
+
+        role = roleRepository.findById("OWNER").orElse(null);
+        if (role == null) {
+            role = new Role();
+            role.setRole("OWNER");
+            role.setDescription("Owner privileges");
             role = roleRepository.save(role);
         }
         roles.add(role);

@@ -1,9 +1,7 @@
 package edu.miu.cs545.api.controller;
 
 import edu.miu.cs545.api.dto.CustomerDto;
-import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.service.CustomerService;
-import edu.miu.cs545.api.service.OfferService;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +17,6 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private OfferService offerService;
     @GetMapping
     ResponseEntity<List<CustomerDto>> findAll() {
         return ResponseEntity.ok(customerService.findAll());
@@ -49,10 +45,4 @@ public class CustomerController {
                 .status(HttpStatus.CREATED)
                 .body (customerService.save(customerDto));
     }
-    @GetMapping("/{id}/offers")
-    public ResponseEntity<List<OfferDto>> checkOfferHistory(@PathVariable long id) {
-        List<OfferDto> offers = offerService.checkOfferHistory(id);
-        return ResponseEntity.ok(offers);
-    }
-
 }

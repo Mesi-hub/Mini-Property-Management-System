@@ -21,12 +21,12 @@ public abstract class Person {
     @Column(unique = true)
     @Email
     private String email;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @NotNull
     private Address address;
     boolean blackListed;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Administrator blackListedBy;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     User user;
 }

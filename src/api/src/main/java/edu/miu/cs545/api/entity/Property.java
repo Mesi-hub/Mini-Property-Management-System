@@ -17,11 +17,12 @@ public class Property {
     Double price;
     Double area;
     String description;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+
     Address address;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     Owner owner;
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
     List<Offer> offers;
     @Enumerated(EnumType.STRING)
     PropertyState status;

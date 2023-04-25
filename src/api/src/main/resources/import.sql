@@ -7,8 +7,10 @@ INSERT INTO users (name, email, password) VALUES ('owner', 'owner@owner.com', 'o
 INSERT INTO users (name, email, password) VALUES ('customer', 'customer@customer.com', 'customer');
 INSERT INTO users (name, email, password) VALUES ('blacklisted', 'blacklisted@blacklisted.com', 'owner');
 
--- admin, ADMIN
+-- admin -> ADMIN, OWNER, CUSTOMER
 INSERT INTO role_users (roles_role, users_id) VALUES ('ADMIN', 1);
+INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 1);
+INSERT INTO role_users (roles_role, users_id) VALUES ('CUSTOMER', 1);
 -- owner, OWNER
 INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 2);
 -- customer, CUSTOMER
@@ -25,10 +27,10 @@ INSERT INTO address (latitude, longitude, street, city, state, zip) VALUES (-73.
 INSERT INTO address (latitude, longitude, street, city, state, zip) VALUES (-87.62449686, 41.88599507, 'Illinois Center_225 N Michigan Ave', 'Chicago', 'IL', '60601');
 INSERT INTO address (latitude, longitude, street, city, state, zip) VALUES (-108.5762797, 45.76378374, 'Billings-Rimrock Mall_316 South 24th Street West_Billings', 'Montana', 'MT', '59102');
 
-INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id) VALUES  ('Administrator', false, 'admin@admin.com', 'John', 'Doe', 1, 1);
-INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id) VALUES  ('Owner', false, 'owner@owner.com', 'Keith', 'Junior', 2, 2);
-INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id) VALUES  ('Customer', false, 'customer@customer.com', 'Ben', 'Alpha', 3, 3);
-INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id) VALUES  ('Owner', false, 'blacklisted@blacklisted.com', 'Wide', 'Dan', 4, 4);
+INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id, approved) VALUES  ('Administrator', false, 'admin@admin.com', 'John', 'Doe', 1, 1, false);
+INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id, approved, approved_by_id) VALUES  ('Owner', false, 'owner@owner.com', 'Keith', 'Junior', 2, 2, true, 1);
+INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id, approved) VALUES  ('Customer', false, 'customer@customer.com', 'Ben', 'Alpha', 3, 3, false);
+INSERT INTO person (dtype, black_listed, email, first_name, last_name, address_id, user_id, black_listed_by_id, approved) VALUES  ('Owner', true, 'blacklisted@blacklisted.com', 'Wide', 'Dan', 4, 4, 1, false);
 
 INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, description,address_id, owner_id) VALUES (1, 2, 265000, 1250, 6500.5, 'PENDING','Description here', 5, 2);
 INSERT INTO property (no_of_bathrooms, no_of_bedrooms, price, area, plot_size, status, description,address_id, owner_id) VALUES (3, 4, 755000, 2550, 10500.5, 'AVAILABLE', 'Description here',6, 2);

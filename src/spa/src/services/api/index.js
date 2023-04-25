@@ -12,7 +12,7 @@ export const apiUnsecured = axiosUnsecuredInstance.create({
   headers: {
     "Content-Type": "application/json",
   },
-});
+}); 
 
 // Request interceptor for API calls
 axiosSecuredInstance.interceptors.request.use(

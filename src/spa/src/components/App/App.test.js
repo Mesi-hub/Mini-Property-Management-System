@@ -7,6 +7,6 @@ import { renderWithProviders } from '../../util/testUtil';
 test('renders Student Project text', () => {
   const store = setupStore({});
   renderWithProviders(<App />, {store});
-  const linkElement = screen.getByText(/Student Project/i);
+  const linkElement = screen.getByText(/Property Management/i);
   expect(linkElement).toBeInTheDocument();
 });

@@ -16,6 +16,7 @@ public class Property {
     Double plotSize;
     Double price;
     Double area;
+    String description;
     @OneToOne
     Address address;
     @ManyToOne

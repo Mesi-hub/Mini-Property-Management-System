@@ -29,7 +29,7 @@ public class SecurityConfig {
     String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
     String [] customerUrls = {};
     String [] ownerUrls = {};
-    String [] adminUrls = {"/administrator"};
+    String [] adminUrls = {"/administrators"};
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

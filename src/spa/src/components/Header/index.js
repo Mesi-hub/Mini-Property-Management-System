@@ -1,8 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { AuthenticationWidget } from "../AuthenticationWidget";
+import { hasRole } from "../../services/api";
+import { isAuthStatusValid } from "../../feature/Authentication/authenticationSlice";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const store = useSelector((state) => state);
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark  bg-dark">
@@ -33,21 +37,31 @@ const Header = () => {
                   Login
                 </Link>
               </li>
-              <li className="nav-item">
-                <Link to="/signup" className="nav-link">
-                  SignUp
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/admin" className="nav-link">
-                  Admin
-                </Link>
-              </li>
-              <li className="nav-item">
-                <Link to="/customers" className="nav-link">
-                  Customers
-                </Link>
-              </li>
+              {!isAuthStatusValid(store) ? (
+                <li className="nav-item">
+                  <Link to="/signup" className="nav-link">
+                    SignUp
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {hasRole("ADMIN") ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/admin" className="nav-link">
+                      Admin
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/customers" className="nav-link">
+                      Customers
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
             </ul>
             <form className="d-flex">
               <input

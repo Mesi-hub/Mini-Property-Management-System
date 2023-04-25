@@ -1,5 +1,6 @@
 import axiosUnsecuredInstance from "axios";
 import axiosSecuredInstance from "axios";
+import { loggedinUserHasRole } from "../../feature/Authentication/loggedinUserSlice";
 
 let storeState;
 
@@ -45,3 +46,7 @@ export const apiSecured = () => {
   });
   return instance;
 };
+
+export const hasRole = (roleName) => {
+  return loggedinUserHasRole(storeState, roleName);
+}

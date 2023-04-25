@@ -1,5 +1,6 @@
 package edu.miu.cs545.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import edu.miu.cs545.api.entity.PropertyState;
 import lombok.*;
 
@@ -16,8 +17,8 @@ public class PropertyDto {
     private Double price;
     private Double area;
     private AddressDto address;
-    private List<OfferDto> offers;
+    //private List<OfferDto> offers;
     private PropertyState status;
-    private OwnerDto owner;
+    //private OwnerDto owner;
     private String description;
 }

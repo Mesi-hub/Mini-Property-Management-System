@@ -46,11 +46,6 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     public List<PropertyDto> findAll() {
-        List<Property> propertyEntities = propertyRepo.findByOrderByIdDesc();
-        List<PropertyDto> productDtos = new ArrayList<>();
-        propertyEntities.stream()
-                .map(pe -> productDtos.add(modelMapper.map(pe, PropertyDto.class)))
-                .collect(Collectors.toList());
-        return productDtos;
+        return propertyRepo.findByOrderByIdDesc().stream().map(x-> modelMapper.map(x, PropertyDto.class)).toList();
     }
 }

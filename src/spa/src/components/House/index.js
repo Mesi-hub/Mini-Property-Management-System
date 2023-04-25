@@ -2,7 +2,7 @@ import React from "react";
 import "./House.css";
 import { Link } from "react-router-dom";
 
-const House = () => {
+const House = (props) => {
     return (
         <>
             <div className="col">
@@ -20,13 +20,14 @@ const House = () => {
                             <h5 class="card-title">Card title</h5>
                         </Link>
                         <p className="card-text">
-                            This is a wider card with supporting text below as a
-                            natural lead-in to additional content.
+                            {props.property.description}
                         </p>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
+                            <li class="list-group-item">Price $  {props.property.price}</li>
+                            <li class="list-group-item">BedRooms:  {props.property.noOfBedrooms}</li>
+                            <li class="list-group-item">Bathrooms.  {props.property.noOfBathrooms}</li>
+                            <li class="list-group-item">Area.  {props.property.area}</li>
+                            <li class="list-group-item">Land Extent.  {props.property.plotSize}</li>
                         </ul>
                     </div>
                 </div>

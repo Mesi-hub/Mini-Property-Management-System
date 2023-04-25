@@ -13,5 +13,5 @@ public class PropertyDto {
     Double price;
     Double area;
     String description;
-    Address address;
+    AddressDto address;
 }

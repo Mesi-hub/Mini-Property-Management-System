@@ -1,20 +1,19 @@
 import { useSelector } from "react-redux";
 import { injectStoreState } from "../../services/api";
 import "./App.css";
-import House from "../House/House";
-import Header from "../Header/Header";
-import Banner from "../Banner/Banner";
-import Houses from "../Houses/Houses";
-
+import Header from "../../components/Header";
+import { BrowserRouter } from "react-router-dom";
+import { PageRoutes } from "../PageRoutes";
 function App() {
   const store = useSelector((state) => state);
   injectStoreState(store);
   return (
-    <div>
-      <Header />
-      <Banner />
-      <Houses />
-    </div>
+    <BrowserRouter>
+      <div>
+        <Header />
+        <PageRoutes />
+      </div>
+    </BrowserRouter>
   );
 }
 

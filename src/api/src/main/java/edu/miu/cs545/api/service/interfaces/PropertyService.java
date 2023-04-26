@@ -17,4 +17,6 @@ public interface PropertyService {
     public void deleteProperty(long id) ;
     public List<PropertyDto> findAll() ;
 
+    List<Property> findProperByFilter(String city, Double max, Double min, Integer room);
+
 }

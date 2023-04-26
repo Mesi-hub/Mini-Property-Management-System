@@ -26,29 +26,25 @@ const HouseDetail = () => {
                         <div className="col-md-6">
                             <div className="p-3 right-side">
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <h3>{property.description}</h3>
+                                    <h3>{property.title}</h3>
                                     <span className="heart">
                                         <i className="bx bx-heart"></i>
                                     </span>
                                 </div>
-                                <div className="mt-2 pr-3 content">
-                                    <p>
-                                        Lorem ipsum dolor sit amet, consectetur
-                                        adipiscing elit, sed do eiusmod tempor
-                                        incididunt ut labore et dolore magna
-                                        aliqua Lorem ipsum dolor sit amet,
-                                        consectetur adipiscing elit, sed do
-                                        eiusmod tempor incididunt ut labore et
-                                        dolore magna aliqua
-                                    </p>
-                                </div>
-                                <h3>{property.price}$</h3>
-                                <br />
-                                <h4>Additional information</h4>
                                 <ul className="list-group list-group-flush">
+                                    <li className="list-group-item">Price : {property.price}$</li>
                                     <li className="list-group-item">
                                         Status : <b>{property.status}</b>
                                     </li>
+                                    </ul>
+                                <div className="mt-2 pr-3 content">
+                                    <p>
+                                    {property.description}
+                                    </p>
+                                </div>
+                                <br />
+                                <h4>Additional information</h4>
+                                <ul className="list-group list-group-flush">
                                     <li className="list-group-item">
                                         BedRooms: {property.noOfBedrooms}
                                     </li>
@@ -65,7 +61,12 @@ const HouseDetail = () => {
 
                                 <div className="buttons d-flex flex-row mt-5 gap-3">
                                     <button className="btn btn-dark">
-                                        Make a proposal
+                                        Make an offer
+                                    </button>
+                                </div>
+                                <div className="buttons d-flex flex-row mt-5 gap-3">
+                                    <button className="btn btn-dark">
+                                        Contact
                                     </button>
                                 </div>
                             </div>

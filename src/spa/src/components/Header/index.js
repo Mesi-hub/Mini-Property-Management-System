@@ -63,12 +63,7 @@ const Header = () => {
                 </>
               ) : (
                 ""
-              )}
-              <li className="nav-item">
-                <Link to="/register-customer" className="nav-link">
-                  Register Customer
-                </Link>
-              </li>
+              )}              
             </ul>
             <form className="d-flex">
               <input

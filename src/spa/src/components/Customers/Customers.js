@@ -62,7 +62,7 @@ const Customers = () => {
       return (
         <button
           type="button"
-          class="btn btn-primary btn-sm"
+          className="btn btn-primary btn-sm"
           onClick={() => onWhitelistedClick(cust)}
         >
           White list
@@ -72,7 +72,7 @@ const Customers = () => {
       return (
         <button
           type="button"
-          class="btn btn-primary btn-sm"
+          className="btn btn-primary btn-sm"
           onClick={() => onBlacklistedClick(cust)}
         >
           Black List
@@ -108,7 +108,7 @@ const Customers = () => {
         <div>
           <h3>Customers List </h3>
         </div>
-        <table class="table table-bordered">
+        <table className="table table-bordered">
           <thead>
             <tr>
               <th scope="col">#</th>

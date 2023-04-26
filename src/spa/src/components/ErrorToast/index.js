@@ -8,7 +8,7 @@ export const ErrorToast = (props) => {
   const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
-    dispatch(errorStoreInit({ setErrorMessage: setErrorText }));
+    //dispatch(errorStoreInit({ setErrorMessage: setErrorText }));
   }, [props]);
 
   setTimeout(() => {

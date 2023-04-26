@@ -13,6 +13,7 @@ import edu.miu.cs545.api.repository.CustomerRepository;
 import edu.miu.cs545.api.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,7 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
     private AddressRepository addressRepo;
     @Autowired
     private ModelMapper modelMapper;
-
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Override
     public List<CustomerDto> findAll() {
         var customersDtoList = new ArrayList<CustomerDto>();
@@ -51,7 +53,27 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean save(CustomerDto customerDto) {
+    public boolean addNewCustomer(CustomerDto customerDto) {
+        var user = new User();
+        user.setName(customerDto.getFirstName());
+        user.setEmail(customerDto.getEmail());
+        user.setPassword(bCryptPasswordEncoder.encode(customerDto.getPassword()));
+        userRepo.save(user);
+        var customer = mapDtoToCustomer(customerDto);
+        var address = addressRepo.save(customer.getAddress());
+        customer.setAddress(address);
+        customer.setUser(user);
+        customerRepo.save(customer);
+        return true;
+    }
+
+    @Override
+    public boolean updateCustomer(CustomerDto customerDto) {
+        var user = userRepo.findById(customerDto.getUser().getId()).orElseThrow();
+        if(!customerDto.getPassword().isBlank()) {
+            user.setPassword(bCryptPasswordEncoder.encode(customerDto.getPassword()));
+            userRepo.save(user);
+        }
         var customer = mapDtoToCustomer(customerDto);
         var address = addressRepo.save(customer.getAddress());
         customer.setAddress(address);
@@ -100,6 +122,7 @@ public class CustomerServiceImpl implements CustomerService {
         var customer = modelMapper.map(dto, Customer.class);
         customer.setAddress(modelMapper.map(dto.getAddress(), Address.class));
 
+        if(dto.getUser() != null)
         userRepo.findById(dto.getUser().getId())
                 .ifPresent(customer::setUser);
 

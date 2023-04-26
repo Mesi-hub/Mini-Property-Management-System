@@ -2,6 +2,7 @@ package edu.miu.cs545.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.List;
@@ -17,6 +18,10 @@ public class Property {
     Double plotSize;
     Double price;
     Double area;
+    @NotEmpty
+    String title;
+    @NotEmpty
+    @Column(columnDefinition = "text")
     String description;
     @OneToOne(fetch = FetchType.LAZY)
     Address address;

@@ -24,6 +24,8 @@ public class CustomerDto {
     private String lastName;
     private String email;
     private AddressDto address;
+    //To be sent from client when registering
+    private String password;
     UserDto user;
     private Boolean blackListed;
 }

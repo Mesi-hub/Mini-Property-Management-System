@@ -48,35 +48,40 @@ const Header = () => {
               ) : (
                 ""
               )}
-              {//TODO  loggedin
-              true ? (
-                <>
-                  <li className="nav-item">
-                    <Link to="/messages" className="nav-link">
-                      Messages
-                    </Link>
-                  </li>                  
-                  <li className="nav-item">
-                    <Link to="/saved-properties" className="nav-link">
-                      Saved Properties
-                    </Link>
-                  </li>
-                </>
-              ) : (
-                ""
-              )}
-              {//TODO !hasRole(OWNER) and loggedin
-              true ? (
-                <>
-                  <li className="nav-item">
-                    <Link to="/become-a-seller" className="nav-link">
-                      Become a Seller
-                    </Link>
-                  </li>                  
-                </>
-              ) : (
-                ""
-              )}
+              {
+                //TODO  loggedin
+                true ? (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/messages" className="nav-link">
+                        Messages
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/saved-properties" className="nav-link">
+                        Saved Properties
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  ""
+                )
+              }
+              {
+                //TODO !hasRole(OWNER) and loggedin
+                true ? (
+                  <>
+                    <li className="nav-item">
+                      <Link to="/become-a-seller" className="nav-link">
+                        Become a Seller
+                      </Link>
+                    </li>
+                  </>
+                ) : (
+                  ""
+                )
+              }
+
               {hasRole("ADMIN") ? (
                 <>
                   <li className="nav-item">
@@ -92,7 +97,12 @@ const Header = () => {
                 </>
               ) : (
                 ""
-              )}              
+              )}
+              <li className="nav-item">
+                <Link to="/customer-offers-history" className="nav-link">
+                  My Offers
+                </Link>
+              </li>
             </ul>
             <form className="d-flex">
               <input

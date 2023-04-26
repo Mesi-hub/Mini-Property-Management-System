@@ -8,6 +8,7 @@ import { PageNotFound } from "../components/PageNotFound/PageNotFound";
 import BecomeAnOwner from "../pages/Auth/BecomeAnOwner";
 import Messages from "../components/Messages";
 import SavedProperties from "../components/SavedProperties";
+import { CustomerOffersHistory } from "../components/Customers/CustomerOffersHistory";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -38,11 +39,22 @@ export default function PageRoutes(props) {
       />
       <Route path="login" element={renderWithHeader(<Login />)} />
       <Route path="signup" element={renderWithHeader(<SignUp />)} />
-      <Route path="become-a-seller" element={renderWithHeader(<BecomeAnOwner />)} />
+      <Route
+        path="become-a-seller"
+        element={renderWithHeader(<BecomeAnOwner />)}
+      />
       <Route path="admin" element={renderWithHeader(<Admin />)} />
       <Route path="customers" element={renderWithHeader(<Customers />)} />
+      <Route
+        path="customer-offers-history"
+        element={renderWithHeader(<CustomerOffersHistory />)}
+      />
       <Route path="messages" element={renderWithHeader(<Messages />)} />
-      <Route path="saved-properties" element={renderWithHeader(<SavedProperties />)} />
+      <Route
+        path="saved-properties"
+        element={renderWithHeader(<SavedProperties />)}
+      />
+
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />
             <Route path="selected-students" element={<Following />} /> */}

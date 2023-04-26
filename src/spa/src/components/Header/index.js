@@ -48,6 +48,18 @@ const Header = () => {
               ) : (
                 ""
               )}
+              {//TODO  loggedin
+              true ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/messages" className="nav-link">
+                      Messages
+                    </Link>
+                  </li>                  
+                </>
+              ) : (
+                ""
+              )}
               {//TODO !hasRole(OWNER) and loggedin
               true ? (
                 <>

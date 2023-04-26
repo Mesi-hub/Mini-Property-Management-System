@@ -19,8 +19,12 @@ public class PropertyController {
 
 
     @GetMapping
-    public List<PropertyDto> getProperties() {
-        return this.propertyService.findAll();
+    public List<Property> getProperties(@RequestParam(value = "city" ,required = false) String city,
+                                        @RequestParam(value = "max" ,required = false) Double max,
+                                        @RequestParam(value = "min" ,required = false) Double min,
+                                        @RequestParam(value = "room" ,required = false) Integer room) {
+
+        return this.propertyService.findProperByFilter(city, max, min, room);
     }
     @GetMapping("/{id}")
     public PropertyDto getPropertyById(@PathVariable("id") Long id) {

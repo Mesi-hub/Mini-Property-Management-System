@@ -7,7 +7,7 @@ import java.util.List;
 public interface OfferService {
     List<OfferDto> checkOfferHistory(Long customerId);
     boolean makeOffer(OfferDto offerDto);
-
+    OfferDto findById(Long id);
     List<OfferDto> findCurrentOffersByCustomerId(Long customerId);
 
 }

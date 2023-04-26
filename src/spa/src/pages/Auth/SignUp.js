@@ -47,7 +47,7 @@ const SignUp = () => {
   return (
     <div>
       <div className="content-center  row">
-        <div className="col-md-4 mx-auto mt-50 mb-50 py-5 px-5">
+        <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
           <div>
             <h3>Sign up</h3>
           </div>

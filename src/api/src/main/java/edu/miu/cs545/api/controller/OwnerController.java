@@ -5,6 +5,7 @@ import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.dto.OwnerDto;
 import edu.miu.cs545.api.entity.Owner;
+import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.AdministratorService;
 import edu.miu.cs545.api.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,17 @@ public class OwnerController {
     @Autowired
     OwnerService ownerService;
 
+    @Autowired
+    ControllerSecurityUtil controllerSecurityUtil;
     @GetMapping
     public ResponseEntity<List<OwnerDto>> getAll(){
         return ResponseEntity.ok(ownerService.getAll());
+    }
+
+    @PostMapping("/register")
+    ResponseEntity<Long> register(){
+        User user = controllerSecurityUtil.getLoggedinUser();
+        return ResponseEntity.ok(ownerService.register(user));
     }
 
     @PutMapping("/approve/{id}")

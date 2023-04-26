@@ -3,9 +3,14 @@ import axiosSecuredInstance from "axios";
 import { loggedinUserHasRole } from "../../feature/Authentication/loggedinUserSlice";
 
 let storeState;
+let errorMessagesContext;
 
 export const injectStoreState = (_storeState) => {
   storeState = _storeState;
+};
+
+export const injectErrorMessagesContext = (_errorMessagesContext) => {
+  errorMessagesContext = _errorMessagesContext;
 };
 
 export const apiUnsecured = axiosUnsecuredInstance.create({
@@ -53,4 +58,8 @@ export const hasRole = (roleName) => {
 
 export const getStoreState = () => {
   return storeState;
+}
+
+export const getErrorMessagesContext = () => {
+  return errorMessagesContext;
 }

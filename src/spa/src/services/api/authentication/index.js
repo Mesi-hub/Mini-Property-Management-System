@@ -1,12 +1,12 @@
-import { apiUnsecured, getStoreState } from "..";
-import { setErrorToastMessage } from "../../../feature/Toasts/errorToastSlice";
+import { apiUnsecured, getErrorMessagesContext, getStoreState } from "..";
+import { addErrorMessage } from "../../../context/errorMessagesContext";
 
 const authenticateUser = async (username, password) => {
   let result = await apiUnsecured.post("/authenticate", {
     username: username,
     password: password,
   }).catch(error=> {
-    setErrorToastMessage(getStoreState(), error.message);
+    addErrorMessage(getErrorMessagesContext(), error.message);
     return error;
   });
   return result.data;

@@ -1,23 +1,41 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./ErrorToast.css";
-import { useDispatch } from "react-redux";
-import { errorStoreInit } from "../../feature/Toasts/errorToastSlice";
+import {
+  ErrorMessagesContext,
+  initContextWithNewParams,
+} from "../../context/errorMessagesContext";
+import { injectErrorMessagesContext } from "../../services/api";
 
 export const ErrorToast = (props) => {
-  const dispatch = useDispatch();
-  const [errorText, setErrorText] = useState("");
+  const errorMessagesContext = useContext(ErrorMessagesContext);
+  const [errorTexts, setErrorTexts] = useState([]);
 
   useEffect(() => {
-    //dispatch(errorStoreInit({ setErrorMessage: setErrorText }));
-  }, [props]);
+    initContextWithNewParams(errorMessagesContext, errorTexts, setErrorTexts);
+    injectErrorMessagesContext(errorMessagesContext);
+  }, []);
 
-  setTimeout(() => {
-    setErrorText("");
-  }, 5000);
+  if (errorTexts && errorTexts.length > 0) {
+    setTimeout(() => {
+      setErrorTexts([]);
+    }, 5000);
+  }
 
-  return errorText && errorText.length > 0 ? (
-    <div className="bottomright">{errorText}</div>
-  ) : (
-    ""
-  );
+  let errorHtml = () => {
+    let html = "";
+    let index = 1;
+    if (errorTexts && errorTexts.length > 0) {
+      html = (
+        <div className="bottomright">
+          {errorTexts.map((errorText) => (
+            <p key={index++}>{errorText}</p>
+          ))}
+        </div>
+      );
+    } else {
+      html = "";
+    }
+    return html;
+  };
+  return errorHtml();
 };

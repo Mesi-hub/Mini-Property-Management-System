@@ -1,12 +1,22 @@
 package edu.miu.cs545.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import lombok.Data;
 
 import java.util.List;
 
 @Entity
+@Data
 public class Owner extends Person{
-    @OneToMany(mappedBy = "owner")
+    boolean approved;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
+    Administrator approvedBy;
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
+    @JsonBackReference
     List<Property> properties;
 }

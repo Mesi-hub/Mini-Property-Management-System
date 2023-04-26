@@ -1,5 +1,7 @@
 package edu.miu.cs545.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -26,9 +28,11 @@ public class User implements UserDetails {
     String password;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
     List<Role> roles;
 
     @OneToMany(mappedBy = "user")
+    @JsonBackReference
     List<RefreshToken> refreshTokens;
 
     @Override
@@ -36,6 +40,7 @@ public class User implements UserDetails {
         return roles.stream().map(x-> (GrantedAuthority) x::getRole).toList();
     }
     @OneToOne(mappedBy = "user")
+    @JsonBackReference
     Person person;
     @Override
     public String getUsername() {
@@ -60,5 +65,9 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true ;
+    }
+    @Override
+    public String toString(){
+        return "Id: " + id + " name: " + name;
     }
 }

@@ -1,0 +1,19 @@
+.card {
+    border: none;
+    overflow: hidden;
+}
+.main_product_image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    min-height: auto !important;
+    width: 100%;
+    overflow: hidden;
+}
+
+.image {
+    /* min-width: 100%; REMOVE THIS */
+    max-width: 100%;
+    height: auto;
+}

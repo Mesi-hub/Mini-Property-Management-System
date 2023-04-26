@@ -1,6 +1,8 @@
 package edu.miu.cs545.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
 import java.util.List;
@@ -16,11 +18,18 @@ public class Property {
     Double plotSize;
     Double price;
     Double area;
-    @OneToOne
+    @NotEmpty
+    String title;
+    @NotEmpty
+    @Column(columnDefinition = "text")
+    String description;
+    @OneToOne(fetch = FetchType.LAZY)
     Address address;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     Owner owner;
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
+    @JsonBackReference
     List<Offer> offers;
     @Enumerated(EnumType.STRING)
     PropertyState status;

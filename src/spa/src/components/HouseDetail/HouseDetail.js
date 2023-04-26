@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./HouseDetail";
+import { getPropertyById } from "../../services/api/properties";
+import { useParams } from "react-router";
 
 const HouseDetail = () => {
+    const params = useParams();
+
+    const [property, setProperty] = useState({});
+    useEffect(() => {
+        getPropertyById(params.id).then((data) => setProperty(data));
+    }, []);
+
     return (
         <div>
             <div className="container mt-5 mb-5">
@@ -9,16 +18,15 @@ const HouseDetail = () => {
                     <div className="row g-0">
                         <div className="col-md-6 border-end">
                             <img
+                                alt="house"
                                 src="https://ap.rdcpix.com/de02eeb19bbf4ed177ba516795534095l-m3043654886od-w480_h360_x2.webp"
-                                className="main_product_image"
-                                width={640}
-                                height={481}
+                                className="image"
                             />
                         </div>
                         <div className="col-md-6">
                             <div className="p-3 right-side">
                                 <div className="d-flex justify-content-between align-items-center">
-                                    <h3>IIlana</h3>
+                                    <h3>{property.description}</h3>
                                     <span className="heart">
                                         <i className="bx bx-heart"></i>
                                     </span>
@@ -34,24 +42,30 @@ const HouseDetail = () => {
                                         dolore magna aliqua
                                     </p>
                                 </div>
-                                <h3>$430.99</h3>
-                                <div className="ratings d-flex flex-row align-items-center">
-                                    <div className="d-flex flex-row">
-                                        <i className="bx bxs-star"></i>{" "}
-                                        <i className="bx bxs-star"></i>
-                                        <i className="bx bxs-star"></i>{" "}
-                                        <i className="bx bxs-star"></i>
-                                        <i className="bx bx-star"></i>
-                                    </div>
-                                    <span>441 reviews</span>
-                                </div>
+                                <h3>{property.price}$</h3>
+                                <br />
+                                <h4>Additional information</h4>
+                                <ul className="list-group list-group-flush">
+                                    <li className="list-group-item">
+                                        Status : <b>{property.status}</b>
+                                    </li>
+                                    <li className="list-group-item">
+                                        BedRooms: {property.noOfBedrooms}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Bathrooms. {property.noOfBathrooms}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Area. {property?.area}
+                                    </li>
+                                    <li className="list-group-item">
+                                        Land Extent. {property?.plotSize}
+                                    </li>
+                                </ul>
 
                                 <div className="buttons d-flex flex-row mt-5 gap-3">
-                                    <button className="btn btn-outline-dark">
-                                        Buy Now
-                                    </button>
                                     <button className="btn btn-dark">
-                                        Add to Basket
+                                        Make a proposal
                                     </button>
                                 </div>
                             </div>

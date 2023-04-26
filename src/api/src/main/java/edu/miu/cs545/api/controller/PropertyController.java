@@ -4,6 +4,7 @@ package edu.miu.cs545.api.controller;
 import edu.miu.cs545.api.dto.PropertyDto;
 import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.service.interfaces.PropertyService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,8 @@ public class PropertyController {
 
     @Autowired
     PropertyService propertyService;
+    @Autowired
+    ModelMapper modelMapper;
 
     @GetMapping
     public List<Property> getProperties(@RequestParam(value = "city" ,required = false) String city,
@@ -32,11 +35,11 @@ public class PropertyController {
     }
 
     @PostMapping()
-    public Property createProperty(@RequestBody Property property) {
-        return this.propertyService.createProperty(property);
+    public PropertyDto createProperty(@RequestBody PropertyDto property) {
+        return this.propertyService.createProperty( property);
     }
     @PutMapping
-    public Property updateProperty(@RequestBody Property property) {
+    public PropertyDto updateProperty(@RequestBody PropertyDto property) {
         return this.propertyService.updateProperty(property);
     }
 

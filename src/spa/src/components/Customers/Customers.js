@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { fetchAllCustomers } from "../../services/api/Customers";
+import {
+  addToBlacklist,
+  addToWhitelist,
+  fetchAllCustomers,
+} from "../../services/api/Customers";
 
 const Customers = () => {
   const [customersState, setCustomersState] = useState([]);
+  const [reloadCustomers, setReloadCustomers] = useState(false);
 
   useEffect(() => {
     fetchAllCustomers()
@@ -13,30 +18,67 @@ const Customers = () => {
       .catch((err) => {
         console.log("fetchAllCustomers - error: ", err);
       });
-  }, []);
+  }, [reloadCustomers]);
 
-  const onApproveClick = (cust) => {
-    console.log("onApproveClick");
+  const onWhitelistedClick = (cust) => {
+    console.log("onWhitelistedClick");
+    addToWhitelist(cust)
+      .then((response) => {
+        console.log("onWhitelistedClick  res: ", response);
+        setReloadCustomers(!reloadCustomers);
+      })
+      .catch((err) => {
+        console.log("onWhitelistedClick - error: ", err);
+      });
   };
-  const onDisableClick = (cust) => {
-    console.log("onDisableClick");
+
+  const onBlacklistedClick = (cust) => {
+    console.log("onBlacklistedClick");
+    addToBlacklist(cust)
+      .then((response) => {
+        console.log("onBlacklistedClick  res: ", response);
+        setReloadCustomers(!reloadCustomers);
+      })
+      .catch((err) => {
+        console.log("onBlacklistedClick - error: ", err);
+      });
   };
 
   const prepareAddressString = (cust) => {
     return (
-      "" +
       (cust.address.street ? cust.address.street + ", " : "") +
       (cust.city ? cust.city + ", " : "") +
       (cust.state ? cust.state + ", " : "") +
       (cust.zip ? cust.zip : "")
     );
   };
+
   const prepareStatus = (cust) => {
-    return cust.blackListed ? "Black listed" : "approved";
+    return cust.blackListed ? "Black listed" : "Regular   ";
   };
 
-  const isAlreadyApproved = (cust) => {
-    return false;
+  const createActionsUI = (cust) => {
+    if (cust.blackListed) {
+      return (
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          onClick={() => onWhitelistedClick(cust)}
+        >
+          White list
+        </button>
+      );
+    } else {
+      return (
+        <button
+          type="button"
+          class="btn btn-primary btn-sm"
+          onClick={() => onBlacklistedClick(cust)}
+        >
+          Black List
+        </button>
+      );
+    }
   };
 
   const createSingleRowUIFromCustomer = (cust) => {
@@ -48,25 +90,7 @@ const Customers = () => {
         <td>{cust.email}</td>
         <td>{prepareAddressString(cust)}</td>
         <td>{prepareStatus(cust)}</td>
-        <td>
-          {isAlreadyApproved() ? (
-            <button
-              type="button"
-              class="btn btn-primary btn-sm"
-              onClick={() => onDisableClick(cust)}
-            >
-              Disable
-            </button>
-          ) : (
-            <button
-              type="button"
-              class="btn btn-primary btn-sm"
-              onClick={() => onApproveClick(cust)}
-            >
-              Approve
-            </button>
-          )}
-        </td>
+        <td>{createActionsUI(cust)}</td>
       </tr>
     );
   };

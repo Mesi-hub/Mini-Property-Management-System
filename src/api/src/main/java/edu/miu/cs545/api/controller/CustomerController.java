@@ -2,6 +2,7 @@ package edu.miu.cs545.api.controller;
 
 import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
+import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.CustomerService;
 import edu.miu.cs545.api.service.OfferService;
 import lombok.Getter;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +41,10 @@ public class CustomerController {
 
     @PostMapping()
     ResponseEntity<Boolean> addCustomer(@RequestBody CustomerDto customerDto) {
+        var user = getLoggedinUser();
+        if(user != null ) {
+            customerDto.getUser().setId(user.getId());
+        }
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body (customerService.save(customerDto));
@@ -56,4 +63,47 @@ public class CustomerController {
         return ResponseEntity.ok(offers);
     }
 
+
+    @PostMapping("/black-list/{id}")
+    ResponseEntity<Boolean> addCustomerToBlacklist(@PathVariable long id) {
+        var user = getLoggedinUser();
+        var result = false;
+        if(user != null ) {
+           result =  customerService.addCustomerToBlacklist(id, user.getId());
+        } else {
+           result = customerService.addCustomerToBlacklist(id, 1);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/white-list/{id}")
+    ResponseEntity<Boolean> addCustomerToWhiteList(@PathVariable long id) {
+        var user = getLoggedinUser();
+        var result = false;
+        if(user != null ) {
+            result =  customerService.addCustomerToWhitelist(id, user.getId());
+        } else {
+            //TODO not necessary when auth is applied - just for dev
+            result = customerService.addCustomerToWhitelist(id, 1);
+        }
+        return ResponseEntity.ok(result);
+    }
+
+    private  User getLoggedinUser() {
+        if(SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal() != null
+                && SecurityContextHolder
+                .getContext()
+                .getAuthentication()
+                .getPrincipal() instanceof UserDetails) {
+
+            return (User) SecurityContextHolder
+                    .getContext()
+                    .getAuthentication()
+                    .getPrincipal();
+        }
+        return null;
+    }
 }

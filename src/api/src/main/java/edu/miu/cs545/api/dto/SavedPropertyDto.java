@@ -1,9 +1,5 @@
 package edu.miu.cs545.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import edu.miu.cs545.api.entity.Customer;
-import edu.miu.cs545.api.entity.Property;
-import jakarta.persistence.ManyToOne;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

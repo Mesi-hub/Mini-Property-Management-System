@@ -21,4 +21,16 @@ const addToWhitelist = async (customer) => {
   return result.data;
 };
 
-export { fetchAllCustomers, addToBlacklist, addToWhitelist };
+const registerNewCustomer = async (newCustomer) => {
+  console.log("registerNewCustomer - api newCustomer data: ", newCustomer);
+  let result = await apiSecured().post("/customers", newCustomer);
+  console.log("registerNewCustomer - result in api:", result);
+  return result.data;
+};
+
+export {
+  fetchAllCustomers,
+  addToBlacklist,
+  addToWhitelist,
+  registerNewCustomer,
+};

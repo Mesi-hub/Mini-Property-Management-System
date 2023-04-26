@@ -41,6 +41,10 @@ public class CustomerController {
 
     @PostMapping()
     ResponseEntity<Boolean> addCustomer(@RequestBody CustomerDto customerDto) {
+        var user = getLoggedinUser();
+        if(user != null ) {
+            customerDto.getUser().setId(user.getId());
+        }
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body (customerService.save(customerDto));
@@ -85,7 +89,7 @@ public class CustomerController {
         return ResponseEntity.ok(result);
     }
 
-    private User getLoggedinUser() {
+    private  User getLoggedinUser() {
         if(SecurityContextHolder
                 .getContext()
                 .getAuthentication()

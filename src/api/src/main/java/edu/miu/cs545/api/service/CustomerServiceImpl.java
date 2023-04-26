@@ -8,7 +8,9 @@ import edu.miu.cs545.api.entity.Address;
 import edu.miu.cs545.api.entity.Administrator;
 import edu.miu.cs545.api.entity.Customer;
 import edu.miu.cs545.api.entity.User;
+import edu.miu.cs545.api.repository.AddressRepository;
 import edu.miu.cs545.api.repository.CustomerRepository;
+import edu.miu.cs545.api.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,10 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
     private CustomerRepository customerRepo;
+    @Autowired
+    private UserRepository userRepo;
+    @Autowired
+    private AddressRepository addressRepo;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -46,9 +52,13 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean save(CustomerDto customerDto) {
-        customerRepo.save(mapDtoToCustomer(customerDto));
+        var customer = mapDtoToCustomer(customerDto);
+        var address = addressRepo.save(customer.getAddress());
+        customer.setAddress(address);
+        customerRepo.save(customer);
         return true;
     }
+
 
     @Override
     public List<OfferDto> findOffersByCustomerId(long customerId) {
@@ -69,13 +79,13 @@ public class CustomerServiceImpl implements CustomerService {
         AtomicBoolean isSaved = new AtomicBoolean(false);
         customerRepo.findById(customerId)
                 .ifPresent(customer -> {
-                            customer.setBlackListed(isBlackListed);
-                            var admin = new Administrator();
-                            admin.setId(blackListedById);
-                            customer.setBlackListedBy(admin);
-                            customerRepo.save(customer);
-                            isSaved.set(true);
-                        });
+                    customer.setBlackListed(isBlackListed);
+                    var admin = new Administrator();
+                    admin.setId(blackListedById);
+                    customer.setBlackListedBy(admin);
+                    customerRepo.save(customer);
+                    isSaved.set(true);
+                });
         return isSaved.get();
     }
 
@@ -89,7 +99,10 @@ public class CustomerServiceImpl implements CustomerService {
     private Customer mapDtoToCustomer(CustomerDto dto) {
         var customer = modelMapper.map(dto, Customer.class);
         customer.setAddress(modelMapper.map(dto.getAddress(), Address.class));
-        customer.setUser(modelMapper.map(dto.getUser(), User.class));
+
+        userRepo.findById(dto.getUser().getId())
+                .ifPresent(customer::setUser);
+
         return customer;
     }
 }

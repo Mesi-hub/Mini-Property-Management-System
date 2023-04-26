@@ -1,5 +1,6 @@
 package edu.miu.cs545.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -18,13 +19,17 @@ public class Message {
     String message;
     @OneToOne
     @NotNull
+    @JsonBackReference
     Person recipient;
     @OneToOne
     @NotNull
+    @JsonBackReference
     Person sender;
     @OneToOne
+    @JsonBackReference
     Message replyTo;
     @ManyToOne
+    @JsonBackReference
     Property property;
     LocalDate date;
     LocalTime time;

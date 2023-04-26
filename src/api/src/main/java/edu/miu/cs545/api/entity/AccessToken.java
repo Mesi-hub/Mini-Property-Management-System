@@ -1,5 +1,6 @@
 package edu.miu.cs545.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -11,5 +12,6 @@ public class AccessToken {
     @OneToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     RefreshToken refreshToken;
 }

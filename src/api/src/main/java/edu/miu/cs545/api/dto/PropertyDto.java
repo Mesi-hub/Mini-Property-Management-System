@@ -1,6 +1,6 @@
 package edu.miu.cs545.api.dto;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import edu.miu.cs545.api.entity.PropertyState;
 import lombok.*;
 

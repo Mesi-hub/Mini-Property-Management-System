@@ -1,5 +1,6 @@
 package edu.miu.cs545.api.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
@@ -25,7 +26,9 @@ public abstract class Person {
     private Address address;
     boolean blackListed;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     Administrator blackListedBy;
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     User user;
 }

@@ -26,7 +26,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class AuthController {
     @Autowired
     private AuthService authService;
-
+    @Autowired
+    ControllerSecurityUtil controllerSecurityUtil;
     @Autowired
     private DaoAuthenticationProvider daoAuthenticationProvider;
 
@@ -53,19 +54,14 @@ public class AuthController {
 
     @RequestMapping("/logout")
     public ResponseEntity<Void> logout(){
-        String username = "";
-        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null &&
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
-            username = ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
-        }
-        authService.logout(username);
+        User user = controllerSecurityUtil.getLoggedinUser();
+        authService.logout(user.getUsername());
         return ResponseEntity.ok().build();
     }
     @RequestMapping("/userinfo")
     public ResponseEntity<UserDto> getUserInfo(){
-        if(SecurityContextHolder.getContext().getAuthentication().getPrincipal() != null &&
-                SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof UserDetails) {
-            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = controllerSecurityUtil.getLoggedinUser();
+        if(user != null) {
             return ResponseEntity.ok(modelMapper.map(user, UserDto.class));
         }
         return ResponseEntity.badRequest().build();

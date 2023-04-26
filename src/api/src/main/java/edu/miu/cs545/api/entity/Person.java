@@ -18,7 +18,6 @@ public abstract class Person {
     @NotEmpty
     private String lastName;
     @NotEmpty
-    @Column(unique = true)
     @Email
     private String email;
     @OneToOne(fetch = FetchType.LAZY)

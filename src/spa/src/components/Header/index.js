@@ -48,6 +48,18 @@ const Header = () => {
               ) : (
                 ""
               )}
+              {//TODO !hasRole(OWNER) and loggedin
+              true ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/become-a-seller" className="nav-link">
+                      Become a Seller
+                    </Link>
+                  </li>                  
+                </>
+              ) : (
+                ""
+              )}
               {hasRole("ADMIN") ? (
                 <>
                   <li className="nav-item">

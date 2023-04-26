@@ -25,6 +25,8 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private OfferService offerService;
+    @Autowired
+    ControllerSecurityUtil controllerSecurityUtil;
     @GetMapping
     ResponseEntity<List<CustomerDto>> findAll() {
         return ResponseEntity.ok(customerService.findAll());
@@ -63,7 +65,7 @@ public class CustomerController {
 
     @PostMapping("/black-list/{id}")
     ResponseEntity<Boolean> addCustomerToBlacklist(@PathVariable long id) {
-        var user = getLoggedinUser();
+        var user = controllerSecurityUtil.getLoggedinUser();
         var result = false;
         if(user != null ) {
            result =  customerService.addCustomerToBlacklist(id, user.getId());
@@ -75,7 +77,7 @@ public class CustomerController {
 
     @PostMapping("/white-list/{id}")
     ResponseEntity<Boolean> addCustomerToWhiteList(@PathVariable long id) {
-        var user = getLoggedinUser();
+        var user = controllerSecurityUtil.getLoggedinUser();
         var result = false;
         if(user != null ) {
             result =  customerService.addCustomerToWhitelist(id, user.getId());
@@ -84,23 +86,5 @@ public class CustomerController {
             result = customerService.addCustomerToWhitelist(id, 1);
         }
         return ResponseEntity.ok(result);
-    }
-
-    private  User getLoggedinUser() {
-        if(SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal() != null
-                && SecurityContextHolder
-                .getContext()
-                .getAuthentication()
-                .getPrincipal() instanceof UserDetails) {
-
-            return (User) SecurityContextHolder
-                    .getContext()
-                    .getAuthentication()
-                    .getPrincipal();
-        }
-        return null;
     }
 }

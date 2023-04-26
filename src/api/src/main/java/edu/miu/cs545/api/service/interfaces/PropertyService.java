@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 
 public interface PropertyService {
 
-    public Property createProperty(Property property);
+    public PropertyDto createProperty(PropertyDto property);
     public PropertyDto findPropertyById(Long id);
-    public Property updateProperty(Property property);
+    public PropertyDto updateProperty(PropertyDto property);
     public void deleteProperty(long id) ;
     public List<PropertyDto> findAll() ;
 

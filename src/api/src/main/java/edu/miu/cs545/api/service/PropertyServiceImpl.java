@@ -2,9 +2,9 @@
 package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.PropertyDto;
-import edu.miu.cs545.api.dto.UserDto;
 import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.entity.PropertyState;
+import edu.miu.cs545.api.repository.AddressRepository;
 import edu.miu.cs545.api.repository.PropertyRepository;
 import edu.miu.cs545.api.service.interfaces.PropertyService;
 import jakarta.persistence.EntityManager;
@@ -30,10 +30,17 @@ public class PropertyServiceImpl implements PropertyService {
     PropertyRepository propertyRepo;
 
     @Autowired
+    AddressRepository addressRepo;
+
+    @Autowired
     ModelMapper modelMapper;
 
-    public Property createProperty(Property property) {
-        return propertyRepo.save(property);
+    public PropertyDto createProperty(PropertyDto property) {
+        var address = addressRepo.save(modelMapper.map(property, Property.class).getAddress());
+        Property p = modelMapper.map(property, Property.class);
+        p.setAddress(address);
+        p.setOwner(null); // get the Owner info here
+        return modelMapper.map(propertyRepo.save(p), PropertyDto.class) ;
     }
 
     public PropertyDto findPropertyById(Long id) {
@@ -41,8 +48,10 @@ public class PropertyServiceImpl implements PropertyService {
         return modelMapper.map(property, PropertyDto.class);
     }
 
-    public Property updateProperty(Property property) {
-        return propertyRepo.save(property);
+    public PropertyDto updateProperty(PropertyDto property) {
+        Property p = modelMapper.map(property, Property.class);
+        return modelMapper.map(propertyRepo.save(p), PropertyDto.class) ;
+
     }
 
     public void deleteProperty(long id) {

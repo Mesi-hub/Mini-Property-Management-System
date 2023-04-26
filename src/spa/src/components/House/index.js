@@ -9,33 +9,31 @@ const House = (props) => {
                 <div className="card shadow-sm">
                     <div>
                         <Link to={"/house-detail/" + props.id}>
-                            <a href="#" className="img-wrap" data-abc="true">
-                                <img src="https://ap.rdcpix.com/5fe850a043989a3b24730a05621a8849l-m563540908od-w480_h360.webp" />
-                            </a>
+                            <img src="https://ap.rdcpix.com/5fe850a043989a3b24730a05621a8849l-m563540908od-w480_h360.webp" alt={props?.property?.title}/>
                         </Link>
                     </div>
 
                     <div className="card-body">
                         <Link to={"/house-detail/" + props?.property?.id}>
-                            <h5 class="card-title">Card title</h5>
+                            <h5 className="card-title">{props.property.title}</h5>
                         </Link>
                         <p className="card-text">
-                            {props.property.description}
+                            {props.property.description.substring(0, 200) + (props.property.description.length > 200 ? "..." : "")}
                         </p>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
+                        <ul className="list-group list-group-flush">
+                            <li className="list-group-item">
                                 Price $ {props.property.price}
                             </li>
-                            <li class="list-group-item">
+                            <li className="list-group-item">
                                 BedRooms: {props.property.noOfBedrooms}
                             </li>
-                            <li class="list-group-item">
+                            <li className="list-group-item">
                                 Bathrooms. {props.property.noOfBathrooms}
                             </li>
-                            <li class="list-group-item">
+                            <li className="list-group-item">
                                 Area. {props.property.area}
                             </li>
-                            <li class="list-group-item">
+                            <li className="list-group-item">
                                 Land Extent. {props.property.plotSize}
                             </li>
                         </ul>

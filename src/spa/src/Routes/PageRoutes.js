@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import Customers from "../components/Customers/Customers";
 import { PageNotFound } from "../components/PageNotFound/PageNotFound";
-import AddCustomer from "../components/Customers/AddCustomer";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -38,10 +37,6 @@ export default function PageRoutes(props) {
       <Route path="signup" element={renderWithHeader(<SignUp />)} />
       <Route path="admin" element={renderWithHeader(<Admin />)} />
       <Route path="customers" element={renderWithHeader(<Customers />)} />
-      <Route
-        path="register-customer"
-        element={renderWithHeader(<AddCustomer />)}
-      />
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />
             <Route path="selected-students" element={<Following />} /> */}

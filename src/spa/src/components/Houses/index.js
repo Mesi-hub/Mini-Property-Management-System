@@ -10,7 +10,7 @@ const Houses = (props) => {
       .then((data) => setPropertiesList(data));
   }, [props]);
 
-  const cardsCompo = propertiesList.map((property) => <House property={property} key={property.id}/>);
+  const cardsCompo = propertiesList? propertiesList.map((property) => <House property={property} key={property.id}/>) :"Loading...";
 
   return (
     <div>

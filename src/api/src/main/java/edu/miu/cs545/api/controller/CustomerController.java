@@ -2,6 +2,7 @@ package edu.miu.cs545.api.controller;
 
 import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
+import edu.miu.cs545.api.dto.UserDto;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.CustomerService;
 import edu.miu.cs545.api.service.OfferService;
@@ -41,20 +42,16 @@ public class CustomerController {
 
     @PostMapping()
     ResponseEntity<Boolean> addCustomer(@RequestBody CustomerDto customerDto) {
-        var user = getLoggedinUser();
-        if(user != null ) {
-            customerDto.getUser().setId(user.getId());
-        }
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body (customerService.save(customerDto));
+                .body (customerService.addNewCustomer(customerDto));
     }
 
     @PutMapping()
     ResponseEntity<Boolean> updateCustomer(@RequestBody CustomerDto customerDto) {
         return ResponseEntity
-                .status(HttpStatus.CREATED)
-                .body (customerService.save(customerDto));
+                .status(HttpStatus.OK)
+                .body (customerService.updateCustomer(customerDto));
     }
     @GetMapping("/{id}/offers")
     public ResponseEntity<List<OfferDto>> checkOfferHistory(@PathVariable long id) {

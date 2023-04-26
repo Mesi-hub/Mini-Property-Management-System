@@ -37,7 +37,7 @@ const Admin = () => {
                 <div>
                     <h3>Owner List </h3>
                 </div>
-                <table class="table table-bordered">
+                <table className="table table-bordered">
                     <thead>
                         <tr>
                             <th scope="col">First name</th>
@@ -56,13 +56,13 @@ const Admin = () => {
                                     <td>{owner?.email}</td>
                                     <td>
                                         {owner.approved ? (
-                                            <span class="badge bg-success">
+                                            <span className="badge bg-success">
                                                 Approved
                                             </span>
                                         ) : null}
                                         &nbsp;
                                         {owner.blackListed ? (
-                                            <span class="badge bg-danger">
+                                            <span className="badge bg-danger">
                                                 Disabled
                                             </span>
                                         ) : null}
@@ -77,7 +77,7 @@ const Admin = () => {
                                                     );
                                                 }}
                                                 type="button"
-                                                class="btn btn-primary btn-sm"
+                                                className="btn btn-primary btn-sm"
                                             >
                                                 Approve
                                             </button>
@@ -92,7 +92,7 @@ const Admin = () => {
                                                     );
                                                 }}
                                                 type="button"
-                                                class="btn btn-primary btn-sm"
+                                                className="btn btn-primary btn-sm"
                                             >
                                                 Enable
                                             </button>
@@ -105,7 +105,7 @@ const Admin = () => {
                                                     );
                                                 }}
                                                 type="button"
-                                                class="btn btn-primary btn-sm"
+                                                className="btn btn-primary btn-sm"
                                             >
                                                 Disable
                                             </button>

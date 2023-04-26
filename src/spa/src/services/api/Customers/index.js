@@ -1,4 +1,4 @@
-import { apiSecured, apiUnsecured } from "..";
+import { apiSecured } from "..";
 
 const fetchAllCustomers = async () => {
   console.log("fetchAllCustomers - api");

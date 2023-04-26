@@ -16,10 +16,10 @@ public class Offer {
     LocalDate date;
     LocalTime time;
     Double offerAmount;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     Property property;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
     Customer customer;
     @Enumerated(EnumType.STRING)

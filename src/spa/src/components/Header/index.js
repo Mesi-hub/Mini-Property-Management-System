@@ -56,6 +56,11 @@ const Header = () => {
                       Messages
                     </Link>
                   </li>                  
+                  <li className="nav-item">
+                    <Link to="/saved-properties" className="nav-link">
+                      Saved Properties
+                    </Link>
+                  </li>
                 </>
               ) : (
                 ""

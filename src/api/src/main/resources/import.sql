@@ -40,4 +40,7 @@ INSERT INTO message (date, time, message, property_id, recipient_id, reply_to_id
 INSERT INTO message (date, time, message, property_id, recipient_id, reply_to_id, sender_id) VALUES (TO_DATE('04/10/2023', 'MM/DD/YYYY'), '11:30:00', 'Hi, Thank you for the inquiry. I am available this week end. Please let me know when you will be arriving. There are couple of more people who will be coming for a viewing.', 2, 3, 1, 2);
 INSERT INTO message (date, time, message, property_id, recipient_id, reply_to_id, sender_id) VALUES (TO_DATE('04/10/2023', 'MM/DD/YYYY'), '11:40:00', 'Ok, I will update you on Friday.', 1, 2, 2, 3);
 
+INSERT INTO saved_property (date, time, customer_id, property_id) VALUES (TO_DATE('04/10/2023', 'MM/DD/YYYY'), '10:00:00', 3, 1);
+INSERT INTO saved_property (date, time, customer_id, property_id) VALUES (TO_DATE('04/10/2023', 'MM/DD/YYYY'), '10:00:00', 3, 2);
+
 INSERT INTO offer (date, time, offer_amount, customer_id, property_id, status) VALUES (TO_DATE('04/11/2023', 'MM/DD/YYYY'), '10:00:00', 225000, 3, 1, 'EVALUATING');

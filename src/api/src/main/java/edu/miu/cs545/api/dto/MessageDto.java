@@ -20,8 +20,8 @@ public class MessageDto {
     String message;
     Person recipient;
     Person sender;
-    Message replyTo;
-    Property property;
+    MessageDto replyTo;
+    PropertyDto property;
     Long propertyId;
     Long recipientId;
     Long senderId;

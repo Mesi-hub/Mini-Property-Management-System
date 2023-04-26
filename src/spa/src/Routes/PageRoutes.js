@@ -7,6 +7,7 @@ import Customers from "../components/Customers/Customers";
 import { PageNotFound } from "../components/PageNotFound/PageNotFound";
 import BecomeAnOwner from "../pages/Auth/BecomeAnOwner";
 import Messages from "../components/Messages";
+import SavedProperties from "../components/SavedProperties";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -41,6 +42,7 @@ export default function PageRoutes(props) {
       <Route path="admin" element={renderWithHeader(<Admin />)} />
       <Route path="customers" element={renderWithHeader(<Customers />)} />
       <Route path="messages" element={renderWithHeader(<Messages />)} />
+      <Route path="saved-properties" element={renderWithHeader(<SavedProperties />)} />
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />
             <Route path="selected-students" element={<Following />} /> */}

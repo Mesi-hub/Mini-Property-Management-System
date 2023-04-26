@@ -12,6 +12,7 @@ const HouseDetail = () => {
     }, []);
 
     return (
+        (property)?
         <div>
             <div className="container mt-5 mb-5">
                 <div className="card">
@@ -74,7 +75,7 @@ const HouseDetail = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div> : ""
     );
 };
 

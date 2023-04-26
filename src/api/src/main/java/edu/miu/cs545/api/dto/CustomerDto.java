@@ -12,15 +12,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class CustomerDto {
     Long id;
-    public String firstName;
-    public String lastName;
-    public String email;
-    public AddressDto address;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private AddressDto address;
     UserDto user;
+    private Boolean blackListed;
 }

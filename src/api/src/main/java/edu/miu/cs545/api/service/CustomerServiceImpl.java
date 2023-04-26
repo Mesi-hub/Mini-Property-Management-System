@@ -5,6 +5,7 @@ import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.dto.UserDto;
 import edu.miu.cs545.api.entity.Address;
+import edu.miu.cs545.api.entity.Administrator;
 import edu.miu.cs545.api.entity.Customer;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.repository.CustomerRepository;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
@@ -43,7 +45,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public boolean save(CustomerDto customerDto ) {
+    public boolean save(CustomerDto customerDto) {
         customerRepo.save(mapDtoToCustomer(customerDto));
         return true;
     }
@@ -53,11 +55,35 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
     }
 
+    @Override
+    public boolean addCustomerToBlacklist(long customerId, long blackListedById) {
+        return saveCustomerStatus(customerId, blackListedById, true);
+    }
+
+    @Override
+    public boolean addCustomerToWhitelist(long customerId, long whiteListedById) {
+        return saveCustomerStatus(customerId, whiteListedById, false);
+    }
+
+    private boolean saveCustomerStatus(long customerId, long blackListedById, boolean isBlackListed) {
+        AtomicBoolean isSaved = new AtomicBoolean(false);
+        customerRepo.findById(customerId)
+                .ifPresent(customer -> {
+                            customer.setBlackListed(isBlackListed);
+                            var admin = new Administrator();
+                            admin.setId(blackListedById);
+                            customer.setBlackListedBy(admin);
+                            customerRepo.save(customer);
+                            isSaved.set(true);
+                        });
+        return isSaved.get();
+    }
+
     private CustomerDto mapCustomerToDto(Customer cust) {
         var customerDto = modelMapper.map(cust, CustomerDto.class);
         customerDto.setAddress(modelMapper.map(cust.getAddress(), AddressDto.class));
         customerDto.setUser(modelMapper.map(cust.getUser(), UserDto.class));
-        return  customerDto;
+        return customerDto;
     }
 
     private Customer mapDtoToCustomer(CustomerDto dto) {

@@ -7,6 +7,11 @@ import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.entity.PropertyState;
 import edu.miu.cs545.api.repository.PropertyRepository;
 import edu.miu.cs545.api.service.interfaces.PropertyService;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jakarta.persistence.criteria.CriteriaQuery;
+import jakarta.persistence.criteria.Predicate;
+import jakarta.persistence.criteria.Root;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +24,8 @@ import java.util.stream.Collectors;
 @Service
 public class PropertyServiceImpl implements PropertyService {
 
+    @Autowired
+    EntityManager em;
     @Autowired
     PropertyRepository propertyRepo;
 
@@ -48,4 +55,30 @@ public class PropertyServiceImpl implements PropertyService {
     public List<PropertyDto> findAll() {
         return propertyRepo.findByOrderByIdDesc().stream().map(x-> modelMapper.map(x, PropertyDto.class)).toList();
     }
+
+    @Override
+    public List<Property> findProperByFilter(String city, Double max, Double min, Integer room) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Property> cq = cb.createQuery(Property.class);
+
+        Root<Property> property = cq.from(Property.class);
+        List<Predicate> predicates = new ArrayList<>();
+
+        if (city != null && city != "") {
+            predicates.add(cb.equal(property.get("address").get("city"), city));
+        }
+        if (max != null && max != 0) {
+            predicates.add(cb.lessThanOrEqualTo(property.get("price"), max));
+        }
+        if (min != null && min != 0) {
+            predicates.add(cb.greaterThanOrEqualTo(property.get("price"), min));
+        }
+        if (room != null && room != 0) {
+            predicates.add(cb.greaterThanOrEqualTo(property.get("noOfBedrooms"), room));
+        }
+        cq.where(predicates.toArray(new Predicate[0]));
+
+        return em.createQuery(cq).getResultList();
+    }
+
 }

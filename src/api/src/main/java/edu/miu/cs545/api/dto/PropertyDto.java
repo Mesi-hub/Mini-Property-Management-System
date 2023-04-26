@@ -1,6 +1,7 @@
 package edu.miu.cs545.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import edu.miu.cs545.api.entity.BlobStorageInfo;
 import edu.miu.cs545.api.entity.PropertyState;
 import lombok.*;
 
@@ -22,4 +23,5 @@ public class PropertyDto {
     //private OwnerDto owner;
     private String title;
     private String description;
+    private List<ImageFileInfoDto> images;
 }

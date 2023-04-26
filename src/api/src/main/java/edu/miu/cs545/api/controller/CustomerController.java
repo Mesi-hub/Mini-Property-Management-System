@@ -57,9 +57,15 @@ public class CustomerController {
     }
     @GetMapping("/{id}/offers")
     public ResponseEntity<List<OfferDto>> checkOfferHistory(@PathVariable long id) {
-        List<OfferDto> offers = offerService.checkOfferHistory(id);
-        System.out.println("contrller checkOfferHistory: ");
+        List<OfferDto> offers = customerService.findOffersByCustomerId(id);
+        System.out.println("contrller checkOfferHistory size: " + offers.size());
         return ResponseEntity.ok(offers);
+    }
+
+    @PostMapping("/{id}/offers")
+    public ResponseEntity<Boolean> updateOfferStatus(@RequestBody OfferDto offerDto,
+                                                            @PathVariable long id) {
+        return ResponseEntity.ok( customerService.updateOfferStatus(offerDto, id));
     }
 
 

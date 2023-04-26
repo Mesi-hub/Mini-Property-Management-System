@@ -39,11 +39,11 @@ public class OfferServiceImpl implements OfferService {
 //        return offers.stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());
 //    }
 //
-//    @Override
-//    public OfferDto findById(Long id) {
-//        Offer offer = offerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Offer not found"));
-//        return modelMapper.map(offer, OfferDto.class);
-//    }
+    @Override
+    public OfferDto findById(Long id) {
+        Offer offer = offerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("Offer not found"));
+        return modelMapper.map(offer, OfferDto.class);
+    }
 //
 //    @Override
 //    public boolean save(OfferDto offerDto) {

@@ -1,15 +1,10 @@
 package edu.miu.cs545.api.service;
 
-import edu.miu.cs545.api.dto.AddressDto;
-import edu.miu.cs545.api.dto.CustomerDto;
-import edu.miu.cs545.api.dto.OfferDto;
-import edu.miu.cs545.api.dto.UserDto;
-import edu.miu.cs545.api.entity.Address;
-import edu.miu.cs545.api.entity.Administrator;
-import edu.miu.cs545.api.entity.Customer;
-import edu.miu.cs545.api.entity.User;
+import edu.miu.cs545.api.dto.*;
+import edu.miu.cs545.api.entity.*;
 import edu.miu.cs545.api.repository.AddressRepository;
 import edu.miu.cs545.api.repository.CustomerRepository;
+import edu.miu.cs545.api.repository.OfferRepository;
 import edu.miu.cs545.api.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +23,8 @@ public class CustomerServiceImpl implements CustomerService {
     private UserRepository userRepo;
     @Autowired
     private AddressRepository addressRepo;
+    @Autowired
+    private OfferRepository offerRepo;
     @Autowired
     private ModelMapper modelMapper;
     @Autowired
@@ -85,7 +82,30 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<OfferDto> findOffersByCustomerId(long customerId) {
-        return null;
+        var offersDtoList = new ArrayList<OfferDto>();
+        customerRepo.findById(customerId).ifPresent(customer -> {
+          offerRepo.findAllByCustomerEquals(customer).forEach(off -> {
+              System.out.println("findOffersByCustomerId - id: "+off.getId());
+              var dto = modelMapper.map(off, OfferDto.class);
+              var prop = off.getProperty();
+              dto.setProperty(modelMapper.map(prop, PropertyDto.class));
+              dto.setCustomer(modelMapper.map(customer, CustomerDto.class));
+              offersDtoList.add(dto);
+          });
+        });
+        return offersDtoList;
+    }
+
+    @Override
+    public boolean updateOfferStatus(OfferDto offerDto, long customerId) {
+        AtomicBoolean isSaved = new AtomicBoolean(false);
+        var offer = modelMapper.map(offerDto, Offer.class);
+        customerRepo.findById(customerId).ifPresent(customer -> {
+            offer.setCustomer(customer);
+            offerRepo.save(offer);
+            isSaved.set(true);
+        });
+        return isSaved.get();
     }
 
     @Override

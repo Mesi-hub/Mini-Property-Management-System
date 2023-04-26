@@ -5,6 +5,7 @@ import edu.miu.cs545.api.dto.PropertyDto;
 import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.service.interfaces.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +18,13 @@ public class PropertyController {
     @Autowired
     PropertyService propertyService;
 
-
     @GetMapping
-    public List<PropertyDto> getProperties() {
-        return this.propertyService.findAll();
+    public List<Property> getProperties(@RequestParam(value = "city" ,required = false) String city,
+                                        @RequestParam(value = "max" ,required = false) Double max,
+                                        @RequestParam(value = "min" ,required = false) Double min,
+                                        @RequestParam(value = "room" ,required = false) Integer room) {
+
+        return this.propertyService.findProperByFilter(city, max, min, room);
     }
     @GetMapping("/{id}")
     public PropertyDto getPropertyById(@PathVariable("id") Long id) {

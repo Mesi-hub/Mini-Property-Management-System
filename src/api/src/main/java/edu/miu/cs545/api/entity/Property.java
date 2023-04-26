@@ -33,4 +33,8 @@ public class Property {
     List<Offer> offers;
     @Enumerated(EnumType.STRING)
     PropertyState status;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    @JsonBackReference
+    List<BlobStorageInfo> images;
 }

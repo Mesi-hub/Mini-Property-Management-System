@@ -1,6 +1,6 @@
 package edu.miu.cs545.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
@@ -26,9 +26,10 @@ public class Property {
     @OneToOne(fetch = FetchType.LAZY)
     Address address;
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     Owner owner;
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     List<Offer> offers;
     @Enumerated(EnumType.STRING)
     PropertyState status;

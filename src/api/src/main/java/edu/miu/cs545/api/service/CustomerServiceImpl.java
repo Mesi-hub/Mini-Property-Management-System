@@ -69,7 +69,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public boolean updateCustomer(CustomerDto customerDto) {
-        var user = userRepo.findById(customerDto.getUser().getId()).orElseThrow();
+        Customer customerOld = customerRepo.findById(customerDto.getId()).orElseThrow();
+        var user = customerOld.getUser();
         if(!customerDto.getPassword().isBlank()) {
             user.setPassword(bCryptPasswordEncoder.encode(customerDto.getPassword()));
             userRepo.save(user);
@@ -114,7 +115,7 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDto mapCustomerToDto(Customer cust) {
         var customerDto = modelMapper.map(cust, CustomerDto.class);
         customerDto.setAddress(modelMapper.map(cust.getAddress(), AddressDto.class));
-        customerDto.setUser(modelMapper.map(cust.getUser(), UserDto.class));
+        //customerDto.setUser(modelMapper.map(cust.getUser(), UserDto.class));
         return customerDto;
     }
 
@@ -122,9 +123,9 @@ public class CustomerServiceImpl implements CustomerService {
         var customer = modelMapper.map(dto, Customer.class);
         customer.setAddress(modelMapper.map(dto.getAddress(), Address.class));
 
-        if(dto.getUser() != null)
+        /*if(dto.getUser() != null)
         userRepo.findById(dto.getUser().getId())
-                .ifPresent(customer::setUser);
+                .ifPresent(customer::setUser);*/
 
         return customer;
     }

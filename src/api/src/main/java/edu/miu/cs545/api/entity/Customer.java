@@ -1,6 +1,6 @@
 package edu.miu.cs545.api.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
@@ -12,6 +12,6 @@ import java.util.List;
 @Data
 public class Customer extends Person {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    @JsonManagedReference
+    @JsonBackReference
     List<Offer> offers;
 }

@@ -1,6 +1,13 @@
 {
     "configurations": [
         {
+            "type": "java",
+            "name": "ApiApplication",
+            "request": "launch",
+            "mainClass": "edu.miu.cs545.api.ApiApplication",
+            "projectName": "api"
+        },
+        {
             "type": "chrome",
             "name": "http://localhost:3000",
             "request": "launch",

@@ -20,7 +20,8 @@ public class PropertyController {
     PropertyService propertyService;
     @Autowired
     ModelMapper modelMapper;
-
+    @Autowired
+    ControllerSecurityUtil controllerSecurityUtil;
     @GetMapping
     public List<Property> getProperties(@RequestParam(value = "city" ,required = false) String city,
                                         @RequestParam(value = "max" ,required = false) Double max,
@@ -37,7 +38,7 @@ public class PropertyController {
     @PostMapping()
     @PreAuthorize("hasRole('OWNER')")
     public PropertyDto createProperty(@RequestBody PropertyDto property) {
-        return this.propertyService.createProperty( property);
+        return this.propertyService.createProperty( property, controllerSecurityUtil.getLoggedinUser());
     }
     @PutMapping
     @PreAuthorize("hasRole('OWNER')")

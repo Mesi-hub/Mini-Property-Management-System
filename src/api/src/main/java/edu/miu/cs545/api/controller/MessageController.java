@@ -32,11 +32,13 @@ public class MessageController {
     ModelMapper modelMapper;
     @GetMapping
     ResponseEntity<List<MessageDto>> findAll() {
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%");
         return findAllByUser(Optional.empty());
     }
 
     @GetMapping("/user/{id}")
     ResponseEntity<List<MessageDto>> findAllByUser(@PathVariable Optional<Long> userId) {
+        System.out.println("1%%%%%%%%%%%%%%%%%%%%%%");
         User user = getUser(userId);
         return ResponseEntity.ok(messageService.getMessagesForUserOrderByDateTimeDesc(user));
     }
@@ -45,6 +47,7 @@ public class MessageController {
 
     @GetMapping("/user/{userId}/property/{propertyId}")
     ResponseEntity<List<MessageDto>> findAllByUserProperty(@PathVariable Optional<Long> userId, @PathVariable Optional<Long> propertyId) {
+        System.out.println("2%%%%%%%%%%%%%%%%%%%%%%");
         Long paramPropertyId = propertyId.orElse(null);
         PropertyDto propertyDto = null;
         if(paramPropertyId != null) {
@@ -58,7 +61,6 @@ public class MessageController {
     }
     @PostMapping()
     ResponseEntity<MessageDto> addMessage(@RequestBody MessageDto messageDto) {
-        System.out.println("%%%%%%%%%%%%%%%%");
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body (messageService.postMessage(messageDto, controllerSecurityUtil.getLoggedinUser()));

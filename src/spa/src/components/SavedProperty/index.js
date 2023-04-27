@@ -8,7 +8,7 @@ const SavedProperty = (props) => {
         removePropertyfromSavedList(id)
           .then((res) => {
             console.log(res);
-            navigate("/saved-properties");
+            navigate("/");
           })
           .catch((err) => {
             console.log(err);

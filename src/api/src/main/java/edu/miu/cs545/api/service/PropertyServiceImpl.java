@@ -6,7 +6,6 @@ import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.entity.PropertyState;
 import edu.miu.cs545.api.repository.AddressRepository;
 import edu.miu.cs545.api.repository.PropertyRepository;
-import edu.miu.cs545.api.service.interfaces.PropertyService;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
@@ -19,7 +18,6 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class PropertyServiceImpl implements PropertyService {

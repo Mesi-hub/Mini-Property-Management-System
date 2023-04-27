@@ -104,7 +104,7 @@ const CustomerOffersHistory = () => {
   };
 
   let offersAllRowsUI = [];
-  if (offersState.length > 0) {
+  if (offersState?.length && offersState.length > 0) {
     offersAllRowsUI = offersState.map((offer) => {
       return createSingleRowUIFromData(offer);
     });

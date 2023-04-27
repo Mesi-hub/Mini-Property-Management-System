@@ -12,6 +12,6 @@ import java.util.List;
 @Data
 public class Customer extends Person {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="customer-offer")
     List<Offer> offers;
 }

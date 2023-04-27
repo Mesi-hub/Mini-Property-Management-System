@@ -32,11 +32,21 @@ public class MessageController {
     ModelMapper modelMapper;
     @GetMapping
     ResponseEntity<List<MessageDto>> findAll() {
-        return ResponseEntity.ok(messageService.getAll());
+        System.out.println("%%%%%%%%%%%%%%%%%%%%%%");
+        return findAllByUser(Optional.empty());
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<MessageDto> getPropertyById(@PathVariable("id") Long id) {
+        System.out.println("5%%%%%%%%%%%%%%%%%%%%%%");
+        MessageDto message = this.messageService.getById(id);
+        User user = controllerSecurityUtil.getLoggedinUser();
+        if(message.getRecipient().getUser().getId() == user.getId() || message.getSender().getUser().getId() == user.getId())
+            return ResponseEntity.ok(message);
+        return ResponseEntity.notFound().build();
+    }
     @GetMapping("/user/{id}")
     ResponseEntity<List<MessageDto>> findAllByUser(@PathVariable Optional<Long> userId) {
+        System.out.println("1%%%%%%%%%%%%%%%%%%%%%%");
         User user = getUser(userId);
         return ResponseEntity.ok(messageService.getMessagesForUserOrderByDateTimeDesc(user));
     }
@@ -56,6 +66,7 @@ public class MessageController {
         }
         return ResponseEntity.ok(messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(getUser(userId), propertyDto));
     }
+    
     @PostMapping()
     ResponseEntity<MessageDto> addMessage(@RequestBody MessageDto messageDto) {
         return ResponseEntity

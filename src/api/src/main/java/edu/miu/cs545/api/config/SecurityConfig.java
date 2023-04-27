@@ -34,13 +34,13 @@ public class SecurityConfig {
             "/blob/upload",
             "/pdfs/**"};
     String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
+    String [] customerAndOwnerUrls = {
+            "/messages/**"};
     String [] customerUrls = {
-            "/savedProperties",
-            "/messages"};
+            "/savedProperties/**"};
     String [] ownerUrls = {
-            "/savedProperties",
             "/owners/**",
-            "/messages"};
+            "/offers/**"};
     String [] adminUrls = {
             "/administrators"};
 
@@ -58,6 +58,7 @@ public class SecurityConfig {
                 //Comment the lines after this line to bypass authentication during dev
                 .requestMatchers(unsecuredUrls).permitAll()
                 .requestMatchers(genericLoggedInUserUrls).hasAnyAuthority(roles)
+                .requestMatchers(customerAndOwnerUrls).hasAnyAuthority(RoleTypes.CUSTOMER.toString(), RoleTypes.OWNER.toString())
                 .requestMatchers(customerUrls).hasAuthority(RoleTypes.CUSTOMER.toString())
                 .requestMatchers(ownerUrls).hasAuthority(RoleTypes.OWNER.toString())
                 .requestMatchers(adminUrls).hasAuthority(RoleTypes.ADMIN.toString())

@@ -9,4 +9,5 @@ public interface SavedPropertyService {
     List<SavedPropertyDto> getAll();
     List<SavedPropertyDto> getSavedPropertiesForUserOrderByDateTimeDesc(User user);
     SavedPropertyDto saveProperty(SavedPropertyDto savedPropertyDto, User user);
+    void delete(Long id, User user);
 }

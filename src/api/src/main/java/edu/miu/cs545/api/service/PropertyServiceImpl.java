@@ -3,6 +3,8 @@ package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.PropertyDto;
 import edu.miu.cs545.api.entity.Property;
+import edu.miu.cs545.api.entity.User;
+import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.PropertyState;
 import edu.miu.cs545.api.repository.AddressRepository;
 import edu.miu.cs545.api.repository.PropertyRepository;
@@ -33,11 +35,11 @@ public class PropertyServiceImpl implements PropertyService {
     @Autowired
     ModelMapper modelMapper;
 
-    public PropertyDto createProperty(PropertyDto property) {
+    public PropertyDto createProperty(PropertyDto property, User user) {
         var address = addressRepo.save(modelMapper.map(property, Property.class).getAddress());
         Property p = modelMapper.map(property, Property.class);
         p.setAddress(address);
-        p.setOwner(null); // get the Owner info here
+        p.setOwner((Owner)user.getPerson()); // get the Owner info here
         return modelMapper.map(propertyRepo.save(p), PropertyDto.class) ;
     }
 

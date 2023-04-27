@@ -20,9 +20,9 @@ public class MessageDto {
     Person sender;
     MessageDto replyTo;
     PropertyDto property;
-    Long propertyId;
-    Long recipientId;
-    Long senderId;
+    //Long propertyId;
+    //Long recipientId;
+    //Long senderId;
     LocalDate date;
     LocalTime time;
 }

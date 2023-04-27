@@ -19,17 +19,17 @@ public class Message {
     String message;
     @OneToOne
     @NotNull
-    @JsonBackReference
+    @JsonBackReference(value="message-recipient")
     Person recipient;
     @OneToOne
     @NotNull
-    @JsonBackReference
+    @JsonBackReference(value="message-sender")
     Person sender;
     @OneToOne
-    @JsonBackReference
+    @JsonBackReference(value="message-replyTo")
     Message replyTo;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value="message-property")
     Property property;
     LocalDate date;
     LocalTime time;

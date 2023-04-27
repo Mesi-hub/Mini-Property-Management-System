@@ -56,23 +56,24 @@ const Header = () => {
                 ""
               )}
               {isLoggedIn(store) ? (
-                <>
-                  <li className="nav-item">
-                    <Link to="/messages" className="nav-link">
-                      Messages
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/saved-properties" className="nav-link">
-                      Saved Properties
-                    </Link>
-                  </li>
-                </>
+                <li className="nav-item">
+                  <Link to="/messages" className="nav-link">
+                    Messages
+                  </Link>
+                </li>
               ) : (
                 ""
               )}
-              {!isLoggedIn(store) &&
-              !ownerApprovalPending(store) ? (
+              {hasRole("CUSTOMER") ? (
+                <li className="nav-item">
+                  <Link to="/saved-properties" className="nav-link">
+                    Saved Properties
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {!isLoggedIn(store) && !ownerApprovalPending(store) ? (
                 <li className="nav-item">
                   <Link to="/become-a-seller" className="nav-link">
                     Become a Seller

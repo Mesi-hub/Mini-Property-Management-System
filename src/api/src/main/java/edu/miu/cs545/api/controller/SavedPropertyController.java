@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +32,7 @@ public class SavedPropertyController {
     ModelMapper modelMapper;
     @GetMapping
     ResponseEntity<List<SavedPropertyDto>> findAll() {
-        return ResponseEntity.ok(savedPropertyService.getAll());
+        return findAllByUser(Optional.empty());
     }
 
     @GetMapping("/user/{id}")
@@ -40,10 +41,13 @@ public class SavedPropertyController {
         return ResponseEntity.ok(savedPropertyService.getSavedPropertiesForUserOrderByDateTimeDesc(user));
     }
 
-
-
+    @DeleteMapping("/{id}")
+    ResponseEntity<List<SavedPropertyDto>> delete(@PathVariable Long id) {
+        savedPropertyService.delete(id, getUser(Optional.of(id)));
+        return ResponseEntity.ok().build();
+    }
     @PostMapping()
-    ResponseEntity<SavedPropertyDto> addMessage(@RequestBody SavedPropertyDto savedPropertyDto) {
+    ResponseEntity<SavedPropertyDto> addSavedProperty(@RequestBody SavedPropertyDto savedPropertyDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body (savedPropertyService.saveProperty(savedPropertyDto, controllerSecurityUtil.getLoggedinUser()));

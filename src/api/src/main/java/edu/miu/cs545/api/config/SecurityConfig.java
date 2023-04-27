@@ -30,17 +30,17 @@ public class SecurityConfig {
             "/authenticate/refresh",
             "/properties/**",
             "/customers/register",
-            "/owners/register",
-            "/blob/upload",
-            "/pdfs/**"};
+            "/owners/register"};
     String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
     String [] customerAndOwnerUrls = {
             "/messages/**"};
     String [] customerUrls = {
             "/savedProperties/**",
-            "/customers/**"};
+            "/customers/**",
+            "/pdfs/**"};
     String [] ownerUrls = {
-            "/owners/**"};
+            "/owners/**",
+            "/blob/upload"};
     String [] adminUrls = {
             "/administrators"};
 

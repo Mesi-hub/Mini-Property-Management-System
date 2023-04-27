@@ -66,7 +66,7 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Override
-    public List<Property> findProperByFilter(String city, Double max, Double min, Integer room) {
+    public List<PropertyDto> findProperByFilter(String city, Double max, Double min, Integer room) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Property> cq = cb.createQuery(Property.class);
 
@@ -87,7 +87,7 @@ public class PropertyServiceImpl implements PropertyService {
         }
         cq.where(predicates.toArray(new Predicate[0]));
 
-        return em.createQuery(cq).getResultList();
+        return em.createQuery(cq).getResultList().stream().map(x->modelMapper.map(x, PropertyDto.class)).toList();
     }
 
 }

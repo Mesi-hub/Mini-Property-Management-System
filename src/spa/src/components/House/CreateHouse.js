@@ -1,16 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Form, useNavigate } from "react-router-dom";
 import { FaHome, FaMapMarkerAlt } from "react-icons/fa";
-import { saveProperty } from "../../services/api/properties";
+import { saveProperty, savePropertyImage  } from "../../services/api/properties";
 
 const CreateHouse = (props) => {
   const navigate = useNavigate();
   const [inputState, setInputState] = useState({});
+  const [selectedFile, setSelectedFile] = useState();
 
   const onChanged = (e) => {
     setInputState({
       ...inputState,
-      [e.target.name]: e.target.value,
+      [e.target.name]:
+        e.target.files == null ? e.target.value : e.target.files[0],
     });
     console.log(inputState);
   };
@@ -38,14 +40,27 @@ const CreateHouse = (props) => {
       images: null,
     };
 
-    saveProperty(propeerty)
+    const formData = new FormData();
+    formData.append("file", inputState.files);
+
+    savePropertyImage(formData)
       .then((res) => {
         console.log(res);
-        navigate("/");
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+        const img = {
+          id: res.id,
+          fullPath: res.fullPath,
+        };
+        propeerty.images = [img];
+        console.log(propeerty);
+        saveProperty(propeerty)
+          .then((res) => {
+            console.log(res);
+            navigate("/");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+        });
   };
 
   return (

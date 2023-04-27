@@ -45,13 +45,13 @@ public class MessageServiceImpl implements MessageService{
     @Override
     public MessageDto postMessage(MessageDto messageDto, User user) {
         Message message = modelMapper.map(messageDto, Message.class);
-        if(messageDto.getRecipientId() != null) {
-            Person recipient = personRepository.getPersonByUserId(messageDto.getRecipientId());
+        if(messageDto.getRecipient() != null && messageDto.getRecipient().getId() != null) {
+            Person recipient = personRepository.getPersonByUserId(messageDto.getRecipient().getId());
             message.setRecipient(recipient);
         }
 
-        if(messageDto.getPropertyId() != null) {
-            Property property = propertyRepository.findById(messageDto.getPropertyId()).orElse(null);
+        if(messageDto.getProperty() != null && messageDto.getProperty().getId() != null) {
+            Property property = propertyRepository.findById(messageDto.getProperty().getId() ).orElse(null);
             message.setProperty(property);
             message.setRecipient(property.getOwner());
         }

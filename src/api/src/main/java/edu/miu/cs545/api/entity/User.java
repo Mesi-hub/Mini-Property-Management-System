@@ -28,11 +28,10 @@ public class User implements UserDetails {
     String password;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="user-roles")
     List<Role> roles;
 
     @OneToMany(mappedBy = "user")
-    @JsonBackReference
     List<RefreshToken> refreshTokens;
 
     @Override
@@ -51,7 +50,6 @@ public class User implements UserDetails {
         return authorityList;
     }
     @OneToOne(mappedBy = "user")
-    @JsonBackReference
     Person person;
     @Override
     public String getUsername() {

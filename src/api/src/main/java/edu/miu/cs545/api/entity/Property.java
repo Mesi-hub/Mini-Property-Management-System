@@ -24,17 +24,16 @@ public class Property {
     @Column(columnDefinition = "text")
     String description;
     @OneToOne(fetch = FetchType.LAZY)
+    @JsonBackReference("property-address")
     Address address;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
     Owner owner;
     @OneToMany(mappedBy = "property", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference("property-offers")
     List<Offer> offers;
     @Enumerated(EnumType.STRING)
     PropertyState status;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JsonBackReference
     List<BlobStorageInfo> images;
 }

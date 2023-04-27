@@ -16,9 +16,9 @@ public class SavedProperty {
     LocalDate date;
     LocalTime time;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value="savedProperty-property")
     Property property;
     @ManyToOne
-    @JsonBackReference
+    @JsonBackReference(value="savedProperty-customer")
     Customer customer;
 }

@@ -14,6 +14,5 @@ public class RefreshToken {
     @ManyToOne
     User user;
     @OneToMany(mappedBy = "refreshToken", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
     List<AccessToken> accessTokens;
 }

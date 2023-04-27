@@ -58,6 +58,7 @@ public class MessageController {
     }
     @PostMapping()
     ResponseEntity<MessageDto> addMessage(@RequestBody MessageDto messageDto) {
+        System.out.println("%%%%%%%%%%%%%%%%");
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body (messageService.postMessage(messageDto, controllerSecurityUtil.getLoggedinUser()));

@@ -13,7 +13,6 @@ public class Role {
     String role;
     String description;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JsonBackReference
     List<User> users;
 
 }

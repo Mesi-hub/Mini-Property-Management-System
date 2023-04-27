@@ -23,12 +23,13 @@ public abstract class Person {
     private String email;
     @OneToOne(fetch = FetchType.LAZY)
     @NotNull
+    @JsonBackReference(value="person-address")
     private Address address;
     boolean blackListed;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="person-blackListedBy")
     Administrator blackListedBy;
     @OneToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="person-user")
     User user;
 }

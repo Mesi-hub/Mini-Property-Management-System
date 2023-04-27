@@ -32,7 +32,7 @@ public class MessageController {
     ModelMapper modelMapper;
     @GetMapping
     ResponseEntity<List<MessageDto>> findAll() {
-        return ResponseEntity.ok(messageService.getAll());
+        return findAllByUser(Optional.empty());
     }
 
     @GetMapping("/user/{id}")

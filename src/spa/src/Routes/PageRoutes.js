@@ -10,6 +10,7 @@ import Messages from "../components/Messages";
 import SavedProperties from "../components/SavedProperties";
 import { CustomerOffersHistory } from "../components/Customers/CustomerOffersHistory";
 import SignUpOwner from "../pages/Auth/SignUpOwner";
+import SendMessage from "../components/Message/SendMessage";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -57,6 +58,7 @@ export default function PageRoutes(props) {
         element={renderWithHeader(<SavedProperties />)}
       />
       <Route path="add-house" element={renderWithHeader(<CreateHouse />)} />
+      <Route path="send_message/property/:propertyId" element={renderWithHeader(<SendMessage />)} />
 
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />

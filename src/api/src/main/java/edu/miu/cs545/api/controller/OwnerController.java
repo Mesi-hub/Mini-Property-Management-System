@@ -1,5 +1,6 @@
 package edu.miu.cs545.api.controller;
 
+import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OwnerDto;
 import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.User;
@@ -26,9 +27,10 @@ public class OwnerController {
     }
 
     @PostMapping("/register")
-    ResponseEntity<Long> register(){
-        User user = controllerSecurityUtil.getLoggedinUser();
-        return ResponseEntity.ok(ownerService.register(user));
+    ResponseEntity<Long> register(@RequestBody OwnerDto ownerDto){
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body (ownerService.register(ownerDto));
     }
 
     @PutMapping("/approve/{id}")

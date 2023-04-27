@@ -12,5 +12,6 @@ import java.util.List;
 public class UserDto {
     Long id;
     String name;
+    Boolean ownerApprovalPending;
     List<RoleDto> roles;
 }

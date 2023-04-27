@@ -1,6 +1,6 @@
 import axiosUnsecuredInstance from "axios";
 import axiosSecuredInstance from "axios";
-import { loggedinUserHasRole } from "../../feature/Authentication/loggedinUserSlice";
+import { loggedinUserHasRole, loggedinUserOwnerApprovalPending } from "../../feature/Authentication/loggedinUserSlice";
 
 let storeState;
 let errorMessagesContext;
@@ -54,6 +54,10 @@ export const apiSecured = () => {
 
 export const hasRole = (roleName) => {
   return loggedinUserHasRole(storeState, roleName);
+}
+
+export const ownerApprovalPending = (roleName) => {
+  return loggedinUserOwnerApprovalPending(storeState);
 }
 
 export const getStoreState = () => {

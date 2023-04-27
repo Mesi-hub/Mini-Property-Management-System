@@ -30,12 +30,19 @@ public class SecurityConfig {
             "/authenticate/refresh",
             "/properties/**",
             "/customers/register",
+            "/owners/register",
             "/blob/upload",
             "/pdfs/**"};
     String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
-    String [] customerUrls = {};
-    String [] ownerUrls = {};
-    String [] adminUrls = {"/administrators"};
+    String [] customerUrls = {
+            "/savedProperties",
+            "/messages"};
+    String [] ownerUrls = {
+            "/savedProperties",
+            "/owners/**",
+            "/messages"};
+    String [] adminUrls = {
+            "/administrators"};
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {

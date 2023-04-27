@@ -4,6 +4,7 @@ import edu.miu.cs545.api.dto.AuthDto;
 import edu.miu.cs545.api.dto.JwtResponseDto;
 import edu.miu.cs545.api.dto.RefreshDto;
 import edu.miu.cs545.api.dto.UserDto;
+import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.AuthService;
 import org.modelmapper.ModelMapper;
@@ -60,7 +61,11 @@ public class AuthController {
     public ResponseEntity<UserDto> getUserInfo(){
         User user = controllerSecurityUtil.getLoggedinUser();
         if(user != null) {
-            return ResponseEntity.ok(modelMapper.map(user, UserDto.class));
+            UserDto dto = modelMapper.map(user, UserDto.class);
+            if(user.getClass().equals(Owner.class)){
+                dto.setOwnerApprovalPending(!((Owner)user.getPerson()).isApproved());
+            }
+            return ResponseEntity.ok(dto);
         }
         return ResponseEntity.badRequest().build();
     }

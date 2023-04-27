@@ -24,7 +24,7 @@ const SignUp = () => {
     registerNewCustomer(newCustomerData)
       .then((res) => {
         console.log(res);
-        navigate("/customers");
+        navigate("/");
       })
       .catch((err) => {
         console.log(err);

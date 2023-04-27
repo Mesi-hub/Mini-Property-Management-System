@@ -72,7 +72,7 @@ public class PropertyServiceImpl implements PropertyService {
         List<Predicate> predicates = new ArrayList<>();
 
         if (city != null && city != "") {
-            predicates.add(cb.equal(property.get("address").get("city"), city));
+            predicates.add(cb.like(property.get("address").get("city"), "%" + city + "%"));
         }
         if (max != null && max != 0) {
             predicates.add(cb.lessThanOrEqualTo(property.get("price"), max));

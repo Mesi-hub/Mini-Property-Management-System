@@ -34,6 +34,7 @@ export default function PageRoutes(props) {
   return (
     <Routes>
       <Route path="/" element={renderWithHeader(<Dashboard />)} />
+      <Route path="/properties/:citySearch" element={renderWithHeader(<Dashboard />)} />
       <Route
         path="house-detail/:id"
         element={renderWithHeader(<HouseDetail />)}

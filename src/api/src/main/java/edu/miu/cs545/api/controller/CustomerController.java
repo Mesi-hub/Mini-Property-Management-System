@@ -53,6 +53,13 @@ public class CustomerController {
         return ResponseEntity.ok(customerService.deleteById(id));
     }
 
+    @PostMapping("/register")
+    ResponseEntity<Boolean> registerCustomer(@RequestBody CustomerDto customerDto) {
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body (customerService.addNewCustomer(customerDto));
+    }
+
     @PostMapping()
     ResponseEntity<Boolean> addCustomer(@RequestBody CustomerDto customerDto) {
         return ResponseEntity

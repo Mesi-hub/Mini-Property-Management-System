@@ -2,10 +2,7 @@ package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.*;
 import edu.miu.cs545.api.entity.*;
-import edu.miu.cs545.api.repository.AddressRepository;
-import edu.miu.cs545.api.repository.CustomerRepository;
-import edu.miu.cs545.api.repository.OfferRepository;
-import edu.miu.cs545.api.repository.UserRepository;
+import edu.miu.cs545.api.repository.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -21,6 +18,8 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerRepository customerRepo;
     @Autowired
     private UserRepository userRepo;
+    @Autowired
+    private RoleRepository roleRepository;
     @Autowired
     private AddressRepository addressRepo;
     @Autowired
@@ -55,7 +54,14 @@ public class CustomerServiceImpl implements CustomerService {
         user.setName(customerDto.getFirstName());
         user.setEmail(customerDto.getEmail());
         user.setPassword(bCryptPasswordEncoder.encode(customerDto.getPassword()));
-        userRepo.save(user);
+        user = userRepo.save(user);
+
+        Role role = roleRepository.findById(RoleTypes.CUSTOMER.toString()).orElseThrow();
+        List<User> users = role.getUsers() == null ? new ArrayList<>() : role.getUsers();
+        users.add(user);
+        role.setUsers(users);
+        roleRepository.save(role);
+
         var customer = mapDtoToCustomer(customerDto);
         var address = addressRepo.save(customer.getAddress());
         customer.setAddress(address);

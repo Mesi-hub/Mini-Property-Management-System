@@ -25,7 +25,13 @@ public class SecurityConfig {
     private final UserDetailsService userDetailsService;
     private final JwtFilter jwtFilter;
     String [] roles = {RoleTypes.ADMIN.toString(), RoleTypes.OWNER.toString(), RoleTypes.CUSTOMER.toString()};
-    String [] unsecuredUrls = {"/authenticate", "/authenticate/refresh", "/properties/**", "blob/upload", "/pdfs/**"};
+    String [] unsecuredUrls = {
+            "/authenticate",
+            "/authenticate/refresh",
+            "/properties/**",
+            "/customers/register",
+            "/blob/upload",
+            "/pdfs/**"};
     String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
     String [] customerUrls = {};
     String [] ownerUrls = {};

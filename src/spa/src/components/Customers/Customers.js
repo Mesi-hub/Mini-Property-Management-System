@@ -96,7 +96,7 @@ const Customers = () => {
   };
 
   let customersAllRowsUI = [];
-  if (customersState.length > 0) {
+  if (customersState && customersState.length > 0) {
     customersAllRowsUI = customersState.map((cust) => {
       return createSingleRowUIFromCustomer(cust);
     });

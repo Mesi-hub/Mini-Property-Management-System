@@ -112,6 +112,16 @@ const OwnerOffersHistory = () => {
         >
           Close
         </button> : ""}
+        {(offer.status === "ACCEPTED") ?
+        <button
+          type="button"
+          className="btn btn-primary btn-sm"
+          onClick={() => {
+            onActionClick(offer, 'cancel');
+          }}
+        >
+          Cancel (Contingent!!!)
+        </button> : ""}
         </>
       );
     }

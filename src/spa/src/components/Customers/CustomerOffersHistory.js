@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import {
   cancelOffer,
   fetchAllOffersByCustomer,
+  getOfferReceipt,
   updateOfferStatus,
 } from "../../services/api/Customers/OfferHistory";
 
@@ -31,6 +32,10 @@ const CustomerOffersHistory = () => {
         console.log("onCancleClick - error: ", err);
       });
   };
+
+  const onDownloadReceiptClick = (offer) => {
+    getOfferReceipt(offer.id, 3);
+  };
   
   const prepareAddressString = (property) => {
     return (
@@ -56,6 +61,18 @@ const CustomerOffersHistory = () => {
           }}
         >
           Cancel offer
+        </button>
+      );
+    } if (offer.status === "CLOSED") {
+      return (
+        <button
+          type="button"
+          className="btn btn-primary btn-sm"
+          onClick={() => {
+            onDownloadReceiptClick(offer);
+          }}
+        >
+          Download Receipt
         </button>
       );
     } else {

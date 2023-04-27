@@ -89,15 +89,13 @@ public class OfferServiceImpl implements OfferService {
 
     @Override
     public boolean makeOffer(Long customerId, OfferDto offerDto) {
-        System.out.println("customer id: " + offerDto.getCustomer().getId());
-        System.out.println("property id: " + offerDto.getProperty().getId());
         // Retrieve property entity from database using the provided id
         Property property = propertyRepository.findById(offerDto.getProperty().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Property not found"));
 
         // Create a new offer entity
         Offer offer = new Offer();
-        offer.setCustomer(customerRepository.findById(offerDto.getCustomer().getId())
+        offer.setCustomer(customerRepository.findById(customerId)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found")));
         offer.setProperty(property);
         offer.setOfferAmount(offerDto.getOfferAmount());

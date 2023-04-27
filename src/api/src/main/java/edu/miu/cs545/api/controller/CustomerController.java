@@ -2,25 +2,12 @@ package edu.miu.cs545.api.controller;
 
 import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
-import edu.miu.cs545.api.dto.PropertyDto;
-import edu.miu.cs545.api.dto.UserDto;
-import edu.miu.cs545.api.entity.Customer;
-import edu.miu.cs545.api.entity.Offer;
-import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.entity.User;
-import edu.miu.cs545.api.repository.PropertyRepository;
 import edu.miu.cs545.api.service.CustomerService;
 import edu.miu.cs545.api.service.OfferService;
-import edu.miu.cs545.api.service.PropertyService;
-import jakarta.persistence.EntityNotFoundException;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,9 +19,6 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private OfferService offerService;
-
-    //    @Autowired
-//    private PropertyRepository propertyRepository;
     @Autowired
     ControllerSecurityUtil controllerSecurityUtil;
 
@@ -76,7 +60,9 @@ public class CustomerController {
 
     @GetMapping("/{id}/offers")
     public ResponseEntity<List<OfferDto>> checkOfferHistory(@PathVariable long id) {
-        List<OfferDto> offers = customerService.findOffersByCustomerId(id);
+        //Ignore ID and send only the allowed offers
+        User user = controllerSecurityUtil.getLoggedinUser();
+        List<OfferDto> offers = customerService.findOffersByCustomerId(user.getPerson().getId());
         System.out.println("contrller checkOfferHistory size: " + offers.size());
         return ResponseEntity.ok(offers);
     }
@@ -115,10 +101,9 @@ public class CustomerController {
 
     @PostMapping("/{customerId}/addoffer")
     public ResponseEntity<Boolean> makeOffer(@PathVariable Long customerId, @RequestBody OfferDto offerDto) {
-//        offerDto.setProperty(new PropertyDto(customerId));
-        System.out.println("customer id: " + offerDto.getCustomer().getId());
-        System.out.println("property id: " + offerDto.getProperty().getId());
-        boolean success = offerService.makeOffer(customerId, offerDto);
+        //Ignore customer Id
+        User user = controllerSecurityUtil.getLoggedinUser();
+        boolean success = offerService.makeOffer(user.getPerson().getId(), offerDto);
         if (success) {
             return ResponseEntity.status(HttpStatus.CREATED).body(true);
         } else {

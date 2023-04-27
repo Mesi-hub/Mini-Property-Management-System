@@ -9,8 +9,6 @@ INSERT INTO users (name, email, password) VALUES ('blacklisted', 'blacklisted@bl
 
 -- admin -> ADMIN, OWNER, CUSTOMER
 INSERT INTO role_users (roles_role, users_id) VALUES ('ADMIN', 1);
-INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 1);
-INSERT INTO role_users (roles_role, users_id) VALUES ('CUSTOMER', 1);
 -- owner, OWNER
 INSERT INTO role_users (roles_role, users_id) VALUES ('OWNER', 2);
 -- customer, CUSTOMER

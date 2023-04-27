@@ -65,11 +65,18 @@ const Header = () => {
                 ""
               )}
               {hasRole("CUSTOMER") ? (
-                <li className="nav-item">
-                  <Link to="/saved-properties" className="nav-link">
-                    Saved Properties
-                  </Link>
-                </li>
+                <>
+                  <li className="nav-item">
+                    <Link to="/saved-properties" className="nav-link">
+                      Saved Properties
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/customer-offers-history" className="nav-link">
+                      Sent Offers
+                    </Link>
+                  </li>
+                </>
               ) : (
                 ""
               )}
@@ -90,8 +97,8 @@ const Header = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/customer-offers-history" className="nav-link">
-                      My Offers
+                    <Link to="/owner-offers-history" className="nav-link">
+                      Received Offers
                     </Link>
                   </li>
                 </>

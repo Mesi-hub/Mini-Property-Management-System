@@ -1,13 +1,11 @@
 package edu.miu.cs545.api.controller;
 
-import edu.miu.cs545.api.dto.MessageDto;
-import edu.miu.cs545.api.dto.PropertyDto;
 import edu.miu.cs545.api.dto.SavedPropertyDto;
 import edu.miu.cs545.api.entity.User;
-import edu.miu.cs545.api.service.MessageService;
+import edu.miu.cs545.api.service.PropertyService;
 import edu.miu.cs545.api.service.SavedPropertyService;
 import edu.miu.cs545.api.service.UserService;
-import edu.miu.cs545.api.service.interfaces.PropertyService;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

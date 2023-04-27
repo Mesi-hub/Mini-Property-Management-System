@@ -113,9 +113,7 @@ public class OfferServiceImpl implements OfferService {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
 
-        // Retrieve all properties owned by the customer
-        List<Property> properties = propertyRepository.findByOwner(customer);
-
+        
         // Retrieve all offers made on those properties that are still pending
         List<Offer> offers = offerRepository.findByPropertyOwnerAndStatusIn(customer, Arrays.asList(OfferState.PENDING, OfferState.EVALUATING));
 

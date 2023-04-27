@@ -2,18 +2,11 @@ package edu.miu.cs545.api.controller;
 
 import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
-import edu.miu.cs545.api.dto.UserDto;
-import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.CustomerService;
 import edu.miu.cs545.api.service.OfferService;
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,8 +16,6 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private CustomerService customerService;
-    @Autowired
-    private OfferService offerService;
     @Autowired
     ControllerSecurityUtil controllerSecurityUtil;
     @GetMapping

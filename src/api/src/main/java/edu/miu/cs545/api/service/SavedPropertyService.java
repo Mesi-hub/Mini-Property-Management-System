@@ -1,6 +1,5 @@
 package edu.miu.cs545.api.service;
 
-import edu.miu.cs545.api.dto.PropertyDto;
 import edu.miu.cs545.api.dto.SavedPropertyDto;
 import edu.miu.cs545.api.entity.User;
 

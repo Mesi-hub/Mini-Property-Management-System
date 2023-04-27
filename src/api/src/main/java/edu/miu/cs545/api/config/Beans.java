@@ -4,7 +4,6 @@ import edu.miu.cs545.api.dto.ImageFileInfoConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.ui.ModelMap;
 
 @Configuration
 public class Beans {

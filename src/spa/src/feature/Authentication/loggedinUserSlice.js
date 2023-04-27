@@ -9,13 +9,13 @@ export const loggedinUserSlice = createSlice({
     userinfoSuccess: (state, action) => {
       state.value = action.payload;
     },
-    logoff: (state, action) => {
+    logoffUserSuccess: (state, action) => {
       state.value = action.payload;
     },
   },
 });
 
-export const { userinfoSuccess, logoff } = loggedinUserSlice.actions;
+export const { userinfoSuccess, logoffUserSuccess } = loggedinUserSlice.actions;
 
 export const loggedinUserHasRole = (store, roleName) => {
   if (

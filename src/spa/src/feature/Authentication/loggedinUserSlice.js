@@ -26,5 +26,14 @@ export const loggedinUserHasRole = (store, roleName) => {
   return false;
 };
 
+export const loggedinUserOwnerApprovalPending = (store) => {
+  if (
+    store?.loggedinUser?.value?.ownerApprovalPending
+  ) {
+    return (store.loggedinUser.value.ownerApprovalPending)
+  }
+  return false;
+};
+
 
 export default loggedinUserSlice.reducer;

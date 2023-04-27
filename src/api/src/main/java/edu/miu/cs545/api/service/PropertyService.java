@@ -6,6 +6,7 @@ import edu.miu.cs545.api.entity.Property;
 import edu.miu.cs545.api.entity.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PropertyService {
 
@@ -14,7 +15,6 @@ public interface PropertyService {
     public PropertyDto updateProperty(PropertyDto property);
     public void deleteProperty(long id) ;
     public List<PropertyDto> findAll() ;
-
     List<Property> findProperByFilter(String city, Double max, Double min, Integer room);
 
 }

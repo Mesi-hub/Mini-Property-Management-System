@@ -1,0 +1,225 @@
+Index: src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.miu.cs545.api.controller;\r\n\r\nimport edu.miu.cs545.api.dto.CustomerDto;\r\nimport edu.miu.cs545.api.dto.OfferDto;\r\nimport edu.miu.cs545.api.dto.UserDto;\r\nimport edu.miu.cs545.api.entity.User;\r\nimport edu.miu.cs545.api.service.CustomerService;\r\nimport edu.miu.cs545.api.service.OfferService;\r\nimport lombok.Getter;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.http.HttpStatus;\r\nimport org.springframework.http.HttpStatusCode;\r\nimport org.springframework.http.ResponseEntity;\r\nimport org.springframework.security.core.context.SecurityContextHolder;\r\nimport org.springframework.security.core.userdetails.UserDetails;\r\nimport org.springframework.stereotype.Controller;\r\nimport org.springframework.web.bind.annotation.*;\r\n\r\nimport java.util.List;\r\n\r\n@RestController\r\n@RequestMapping(\"/customers\")\r\npublic class CustomerController {\r\n    @Autowired\r\n    private CustomerService customerService;\r\n    @Autowired\r\n    private OfferService offerService;\r\n    @Autowired\r\n    ControllerSecurityUtil controllerSecurityUtil;\r\n    @GetMapping\r\n    ResponseEntity<List<CustomerDto>> findAll() {\r\n        return ResponseEntity.ok(customerService.findAll());\r\n    }\r\n\r\n    @GetMapping(\"/{id}\")\r\n    ResponseEntity<CustomerDto> findById(@PathVariable long id) {\r\n        return ResponseEntity.ok(customerService.findById(id));\r\n    }\r\n\r\n    @DeleteMapping(\"/{id}\")\r\n    ResponseEntity<Boolean> deleteById(@PathVariable long id) {\r\n        return ResponseEntity.ok(customerService.deleteById(id));\r\n    }\r\n\r\n    @PostMapping()\r\n    ResponseEntity<Boolean> addCustomer(@RequestBody CustomerDto customerDto) {\r\n        return ResponseEntity\r\n                .status(HttpStatus.CREATED)\r\n                .body (customerService.addNewCustomer(customerDto));\r\n    }\r\n\r\n    @PutMapping()\r\n    ResponseEntity<Boolean> updateCustomer(@RequestBody CustomerDto customerDto) {\r\n        return ResponseEntity\r\n                .status(HttpStatus.OK)\r\n                .body (customerService.updateCustomer(customerDto));\r\n    }\r\n    @GetMapping(\"/{id}/offers\")\r\n    public ResponseEntity<List<OfferDto>> checkOfferHistory(@PathVariable long id) {\r\n        List<OfferDto> offers = offerService.checkOfferHistory(id);\r\n        System.out.println(\"contrller checkOfferHistory: \");\r\n        return ResponseEntity.ok(offers);\r\n    }\r\n\r\n\r\n    @PostMapping(\"/black-list/{id}\")\r\n    ResponseEntity<Boolean> addCustomerToBlacklist(@PathVariable long id) {\r\n        var user = controllerSecurityUtil.getLoggedinUser();\r\n        var result = false;\r\n        if(user != null ) {\r\n           result =  customerService.addCustomerToBlacklist(id, user.getId());\r\n        } else {\r\n           result = customerService.addCustomerToBlacklist(id, 1);\r\n        }\r\n        return ResponseEntity.ok(result);\r\n    }\r\n\r\n    @PostMapping(\"/white-list/{id}\")\r\n    ResponseEntity<Boolean> addCustomerToWhiteList(@PathVariable long id) {\r\n        var user = controllerSecurityUtil.getLoggedinUser();\r\n        var result = false;\r\n        if(user != null ) {\r\n            result =  customerService.addCustomerToWhitelist(id, user.getId());\r\n        } else {\r\n            //TODO not necessary when auth is applied - just for dev\r\n            result = customerService.addCustomerToWhitelist(id, 1);\r\n        }\r\n        return ResponseEntity.ok(result);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java b/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java
+--- a/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java	(revision acfa071c28706da91c6de079848a0507685869f1)
++++ b/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java	(date 1682548012921)
+@@ -3,6 +3,8 @@
+ import edu.miu.cs545.api.dto.CustomerDto;
+ import edu.miu.cs545.api.dto.OfferDto;
+ import edu.miu.cs545.api.dto.UserDto;
++import edu.miu.cs545.api.entity.Customer;
++import edu.miu.cs545.api.entity.Offer;
+ import edu.miu.cs545.api.entity.User;
+ import edu.miu.cs545.api.service.CustomerService;
+ import edu.miu.cs545.api.service.OfferService;
+@@ -87,4 +89,14 @@
+         }
+         return ResponseEntity.ok(result);
+     }
++    // TODO - Create offers
++    @PostMapping("/{id}/offers")
++    ResponseEntity<Boolean> makeOffer(@PathVariable Long id, @RequestBody OfferDto offerDto) {
++        return ResponseEntity
++                .status(HttpStatus.CREATED)
++                .body(offerService.makeOffer(id, offerDto));
++    }
++
++
++
+ }
+Index: src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.miu.cs545.api.service;\r\n\r\nimport edu.miu.cs545.api.dto.OfferDto;\r\nimport edu.miu.cs545.api.entity.Customer;\r\nimport edu.miu.cs545.api.entity.Offer;\r\nimport edu.miu.cs545.api.entity.OfferState;\r\nimport edu.miu.cs545.api.entity.Property;\r\nimport edu.miu.cs545.api.repository.CustomerRepository;\r\nimport edu.miu.cs545.api.repository.OfferRepository;\r\nimport edu.miu.cs545.api.repository.PropertyRepository;\r\nimport jakarta.persistence.EntityNotFoundException;\r\nimport org.modelmapper.ModelMapper;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Service;\r\n\r\n\r\nimport java.util.ArrayList;\r\nimport java.util.Arrays;\r\nimport java.util.List;\r\nimport java.util.stream.Collectors;\r\n\r\n@Service\r\npublic class OfferServiceImpl implements OfferService {\r\n\r\n    @Autowired\r\n    private OfferRepository offerRepository;\r\n    @Autowired\r\n    private ModelMapper modelMapper;\r\n\r\n    @Autowired\r\n    private CustomerRepository customerRepository;\r\n\r\n    @Autowired\r\n    private PropertyRepository propertyRepository;\r\n\r\n//    @Override\r\n//    public List<OfferDto> findAll() {\r\n//        List<Offer> offers = offerRepository.findAll();\r\n//        return offers.stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());\r\n//    }\r\n//\r\n//    @Override\r\n//    public OfferDto findById(Long id) {\r\n//        Offer offer = offerRepository.findById(id).orElseThrow(() -> new EntityNotFoundException(\"Offer not found\"));\r\n//        return modelMapper.map(offer, OfferDto.class);\r\n//    }\r\n//\r\n//    @Override\r\n//    public boolean save(OfferDto offerDto) {\r\n//        Offer offer = modelMapper.map(offerDto, Offer.class);\r\n//        offerRepository.save(offer);\r\n//        return true;\r\n//    }\r\n//\r\n//    @Override\r\n//    public boolean deleteById(Long id) {\r\n//        offerRepository.deleteById(id);\r\n//        return true;\r\n//    }\r\n//\r\n//    @Override\r\n//    public List<OfferDto> findByCustomerId(Long customerId) {\r\n//        List<Offer> offers = offerRepository.findByCustomerId(customerId);\r\n//        return offers.stream().map(offer -> modelMapper.map(offer, OfferDto.class)).collect(Collectors.toList());\r\n//    }\r\n\r\n    @Override\r\n    public List<OfferDto> checkOfferHistory(Long customerId) {\r\n        // Retrieve customer entity from database\r\n        Customer customer = customerRepository.findById(customerId)\r\n                .orElseThrow(() -> new EntityNotFoundException(\"Customer not found\"));\r\n\r\n        // Retrieve all properties owned by the customer\r\n//        List<Property> properties = propertyRepository.findByOwner(customer);\r\n\r\n        // Retrieve all offers made on those properties\r\n        //List<Offer> offers = offerRepository.findByPropertyOwner(customer);\r\n        List<Offer> offers = offerRepository.findAllByCustomerEquals(customer);\r\n\r\n        List<OfferDto> offerDtos = new ArrayList<>();\r\n\r\n          offers.stream().forEach( off-> {\r\n              offerDtos.add( modelMapper.map(off, OfferDto.class));\r\n              System.out.println(\"offer: \" + off.getId());\r\n          });\r\n\r\n        return offerDtos;\r\n    }\r\n\r\n    @Override\r\n    public boolean makeOffer(OfferDto offerDto) {\r\n        // Retrieve property entity from database\r\n        Property property = propertyRepository.findById(offerDto.getProperty().getId())\r\n                .orElseThrow(() -> new EntityNotFoundException(\"Property not found\"));\r\n\r\n        // Create a new offer entity\r\n        Offer offer = new Offer();\r\n        offer.setCustomer(customerRepository.findById(offerDto.getCustomer().getId())\r\n                .orElseThrow(() -> new EntityNotFoundException(\"Customer not found\")));\r\n        offer.setProperty(property);\r\n        offer.setOfferAmount(offerDto.getOfferAmount());\r\n        offer.setStatus(OfferState.PENDING);\r\n\r\n        // Save the offer entity to database\r\n        offerRepository.save(offer);\r\n\r\n        return true;\r\n    }\r\n\r\n    @Override\r\n    public List<OfferDto> findCurrentOffersByCustomerId(Long customerId) {\r\n        // Retrieve customer entity from database\r\n        Customer customer = customerRepository.findById(customerId)\r\n                .orElseThrow(() -> new EntityNotFoundException(\"Customer not found\"));\r\n\r\n        // Retrieve all properties owned by the customer\r\n        List<Property> properties = propertyRepository.findByOwner(customer);\r\n\r\n        // Retrieve all offers made on those properties that are still pending\r\n        List<Offer> offers = offerRepository.findByPropertyOwnerAndStatusIn(customer, Arrays.asList(OfferState.PENDING, OfferState.EVALUATING));\r\n\r\n        // Convert offers to DTOs\r\n        List<OfferDto> offerDtos = offers.stream()\r\n                .map(offer -> modelMapper.map(offer, OfferDto.class))\r\n                .collect(Collectors.toList());\r\n\r\n        return offerDtos;\r\n    }\r\n\r\n\r\n\r\n//    @Override\r\n//    public boolean update(OfferDto offerDto) {\r\n//        Offer existingOffer = offerRepository.findById(offerDto.getId())\r\n//                .orElseThrow(() -> new EntityNotFoundException(\"Offer not found\"));\r\n//\r\n//        existingOffer.setDate(offerDto.getDate());\r\n//        existingOffer.setTime(offerDto.getTime());\r\n//        existingOffer.setOfferAmount(offerDto.getOfferAmount());\r\n//        existingOffer.setStatus(offerDto.getStatus());\r\n//\r\n//        Property property = propertyRepository.findById(offerDto.getProperty().getId())\r\n//                .orElseThrow(() -> new EntityNotFoundException(\"Property not found\"));\r\n//        existingOffer.setProperty(property);\r\n//\r\n//        Customer customer = customerRepository.findById(offerDto.getCustomer().getId())\r\n//                .orElseThrow(() -> new EntityNotFoundException(\"Customer not found\"));\r\n//        existingOffer.setCustomer(customer);\r\n//\r\n//        offerRepository.save(existingOffer);\r\n//\r\n//        return true;\r\n//    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java b/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java
+--- a/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java	(revision acfa071c28706da91c6de079848a0507685869f1)
++++ b/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java	(date 1682549985707)
+@@ -1,10 +1,7 @@
+ package edu.miu.cs545.api.service;
+ 
+ import edu.miu.cs545.api.dto.OfferDto;
+-import edu.miu.cs545.api.entity.Customer;
+-import edu.miu.cs545.api.entity.Offer;
+-import edu.miu.cs545.api.entity.OfferState;
+-import edu.miu.cs545.api.entity.Property;
++import edu.miu.cs545.api.entity.*;
+ import edu.miu.cs545.api.repository.CustomerRepository;
+ import edu.miu.cs545.api.repository.OfferRepository;
+ import edu.miu.cs545.api.repository.PropertyRepository;
+@@ -14,9 +11,12 @@
+ import org.springframework.stereotype.Service;
+ 
+ 
++import java.time.LocalDate;
++import java.time.LocalTime;
+ import java.util.ArrayList;
+ import java.util.Arrays;
+ import java.util.List;
++import java.util.Optional;
+ import java.util.stream.Collectors;
+ 
+ @Service
+@@ -86,7 +86,7 @@
+ 
+         return offerDtos;
+     }
+-
++// just commented for test in dev
+     @Override
+     public boolean makeOffer(OfferDto offerDto) {
+         // Retrieve property entity from database
+@@ -104,9 +104,40 @@
+         // Save the offer entity to database
+         offerRepository.save(offer);
+ 
++        return true;
++    }
++
++    @Override
++    public boolean makeOffer(Long customerId, Long propertyId, OfferDto offerDto) {
++        // Retrieve the customer entity by id
++        Customer customer = customerRepository.findById(customerId).orElse(null);
++        if (customer == null) {
++            return false;
++        }
++
++        Property property = propertyRepository.findById(propertyId).orElse(null);
++        if (property == null) {
++            return false;
++        }
++
++        // Create a new Offer entity from the offerDto
++        Offer offer = new Offer();
++        offer.setOfferAmount(offerDto.getOfferAmount());
++        offer.setDate(LocalDate.now());
++        offer.setTime(LocalTime.now());
++        offer.setProperty(property.getTitle());
++        offer.setProperty(property.getAddress());
++        offer.setStatus(PropertyState.PENDING); // to be checked
++
++        // Set the customer and property entities for the offer
++        offer.setCustomer(customer);
++        offer.setPropertyEntity(property);
++        offerRepository.save(offer);
+         return true;
+     }
+ 
++
++
+     @Override
+     public List<OfferDto> findCurrentOffersByCustomerId(Long customerId) {
+         // Retrieve customer entity from database
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"295b7d63-cdc5-4d9e-a43a-017255211ad0\" name=\"Changes\" comment=\"implemented Check offer History\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"mavenHome\" value=\"Use Maven wrapper\" />\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"2OvJ9jBse4uqfESwpAGQVvvGZmm\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\"><![CDATA[{\r\n  \"keyToString\": {\r\n    \"RequestMappingsPanelOrder0\": \"0\",\r\n    \"RequestMappingsPanelOrder1\": \"1\",\r\n    \"RequestMappingsPanelWidth0\": \"75\",\r\n    \"RequestMappingsPanelWidth1\": \"75\",\r\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\r\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\r\n    \"WebServerToolWindowFactoryState\": \"false\",\r\n    \"node.js.detected.package.eslint\": \"true\",\r\n    \"node.js.detected.package.tslint\": \"true\",\r\n    \"node.js.selected.package.eslint\": \"(autodetect)\",\r\n    \"node.js.selected.package.tslint\": \"(autodetect)\",\r\n    \"nodejs_package_manager_path\": \"npm\",\r\n    \"settings.editor.selected.configurable\": \"application.passwordSafe\",\r\n    \"spring.configuration.checksum\": \"8a5da52ed126447d359e70c05721a8aa\",\r\n    \"vue.rearranger.settings.migration\": \"true\"\r\n  },\r\n  \"keyToStringList\": {\r\n    \"DatabaseDriversLRU\": [\r\n      \"postgresql\"\r\n    ]\r\n  }\r\n}]]></component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"ApiApplication\" type=\"SpringBootApplicationConfigurationType\" factoryName=\"Spring Boot\" nameIsGenerated=\"true\">\r\n      <module name=\"api\" />\r\n      <option name=\"SPRING_BOOT_MAIN_CLASS\" value=\"edu.miu.cs545.api.ApiApplication\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"295b7d63-cdc5-4d9e-a43a-017255211ad0\" name=\"Changes\" comment=\"\" />\r\n      <created>1682434972326</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1682434972326</updated>\r\n      <workItem from=\"1682434974466\" duration=\"274000\" />\r\n      <workItem from=\"1682435324913\" duration=\"9439000\" />\r\n    </task>\r\n    <task id=\"LOCAL-00001\" summary=\"implemented Check offer History\">\r\n      <created>1682441961244</created>\r\n      <option name=\"number\" value=\"00001\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00001\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1682441961244</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00002\" summary=\"implemented Check offer History\">\r\n      <created>1682444619824</created>\r\n      <option name=\"number\" value=\"00002\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00002\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1682444619824</updated>\r\n    </task>\r\n    <task id=\"LOCAL-00003\" summary=\"implemented Check offer History\">\r\n      <created>1682444638145</created>\r\n      <option name=\"number\" value=\"00003\" />\r\n      <option name=\"presentableId\" value=\"LOCAL-00003\" />\r\n      <option name=\"project\" value=\"LOCAL\" />\r\n      <updated>1682444638145</updated>\r\n    </task>\r\n    <option name=\"localTasksCounter\" value=\"4\" />\r\n    <servers />\r\n  </component>\r\n  <component name=\"TypeScriptGeneratedFilesManager\">\r\n    <option name=\"version\" value=\"3\" />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n  <component name=\"VcsManagerConfiguration\">\r\n    <MESSAGE value=\"implemented Check offer History\" />\r\n    <option name=\"LAST_COMMIT_MESSAGE\" value=\"implemented Check offer History\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision acfa071c28706da91c6de079848a0507685869f1)
++++ b/.idea/workspace.xml	(date 1682549986114)
+@@ -6,6 +6,9 @@
+   <component name="ChangeListManager">
+     <list default="true" id="295b7d63-cdc5-4d9e-a43a-017255211ad0" name="Changes" comment="implemented Check offer History">
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -31,30 +34,30 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RequestMappingsPanelOrder0": "0",
+-    "RequestMappingsPanelOrder1": "1",
+-    "RequestMappingsPanelWidth0": "75",
+-    "RequestMappingsPanelWidth1": "75",
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "WebServerToolWindowFactoryState": "false",
+-    "node.js.detected.package.eslint": "true",
+-    "node.js.detected.package.tslint": "true",
+-    "node.js.selected.package.eslint": "(autodetect)",
+-    "node.js.selected.package.tslint": "(autodetect)",
+-    "nodejs_package_manager_path": "npm",
+-    "settings.editor.selected.configurable": "application.passwordSafe",
+-    "spring.configuration.checksum": "8a5da52ed126447d359e70c05721a8aa",
+-    "vue.rearranger.settings.migration": "true"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
++    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
++    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
++    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
++    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
++    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
++    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
++    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
++    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;application.passwordSafe&quot;,
++    &quot;spring.configuration.checksum&quot;: &quot;8a5da52ed126447d359e70c05721a8aa&quot;,
++    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+   },
+-  "keyToStringList": {
+-    "DatabaseDriversLRU": [
+-      "postgresql"
++  &quot;keyToStringList&quot;: {
++    &quot;DatabaseDriversLRU&quot;: [
++      &quot;postgresql&quot;
+     ]
+   }
+-}]]></component>
++}</component>
+   <component name="RunManager">
+     <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+       <module name="api" />
+@@ -74,6 +77,7 @@
+       <updated>1682434972326</updated>
+       <workItem from="1682434974466" duration="274000" />
+       <workItem from="1682435324913" duration="9439000" />
++      <workItem from="1682544479989" duration="4208000" />
+     </task>
+     <task id="LOCAL-00001" summary="implemented Check offer History">
+       <created>1682441961244</created>
+Index: src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.miu.cs545.api.service;\r\n\r\nimport edu.miu.cs545.api.dto.OfferDto;\r\n\r\nimport java.util.List;\r\n\r\npublic interface OfferService {\r\n    List<OfferDto> checkOfferHistory(Long customerId);\r\n    boolean makeOffer(OfferDto offerDto);\r\n\r\n    List<OfferDto> findCurrentOffersByCustomerId(Long customerId);\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java b/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java
+--- a/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java	(revision acfa071c28706da91c6de079848a0507685869f1)
++++ b/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java	(date 1682548012935)
+@@ -1,12 +1,14 @@
+ package edu.miu.cs545.api.service;
+ 
+ import edu.miu.cs545.api.dto.OfferDto;
++import edu.miu.cs545.api.entity.Offer;
+ 
+ import java.util.List;
+ 
+ public interface OfferService {
+     List<OfferDto> checkOfferHistory(Long customerId);
+-    boolean makeOffer(OfferDto offerDto);
++    boolean makeOffer(Long id, OfferDto offerDto);
++
+ 
+     List<OfferDto> findCurrentOffersByCustomerId(Long customerId);
+ 

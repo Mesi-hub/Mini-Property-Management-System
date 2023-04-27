@@ -1,10 +1,7 @@
 package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.OfferDto;
-import edu.miu.cs545.api.entity.Customer;
-import edu.miu.cs545.api.entity.Offer;
-import edu.miu.cs545.api.entity.OfferState;
-import edu.miu.cs545.api.entity.Property;
+import edu.miu.cs545.api.entity.*;
 import edu.miu.cs545.api.repository.CustomerRepository;
 import edu.miu.cs545.api.repository.OfferRepository;
 import edu.miu.cs545.api.repository.PropertyRepository;
@@ -14,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -88,8 +88,10 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public boolean makeOffer(OfferDto offerDto) {
-        // Retrieve property entity from database
+    public boolean makeOffer(Long customerId, OfferDto offerDto) {
+        System.out.println("customer id: " + offerDto.getCustomer().getId());
+        System.out.println("property id: " + offerDto.getProperty().getId());
+        // Retrieve property entity from database using the provided id
         Property property = propertyRepository.findById(offerDto.getProperty().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Property not found"));
 
@@ -100,12 +102,15 @@ public class OfferServiceImpl implements OfferService {
         offer.setProperty(property);
         offer.setOfferAmount(offerDto.getOfferAmount());
         offer.setStatus(OfferState.PENDING);
+        offer.setDate(LocalDate.now());
+        offer.setTime(LocalTime.now());
 
         // Save the offer entity to database
         offerRepository.save(offer);
 
         return true;
     }
+
 
     @Override
     public List<OfferDto> findCurrentOffersByCustomerId(Long customerId) {
@@ -124,31 +129,5 @@ public class OfferServiceImpl implements OfferService {
 
         return offerDtos;
     }
-
-
-
-//    @Override
-//    public boolean update(OfferDto offerDto) {
-//        Offer existingOffer = offerRepository.findById(offerDto.getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Offer not found"));
-//
-//        existingOffer.setDate(offerDto.getDate());
-//        existingOffer.setTime(offerDto.getTime());
-//        existingOffer.setOfferAmount(offerDto.getOfferAmount());
-//        existingOffer.setStatus(offerDto.getStatus());
-//
-//        Property property = propertyRepository.findById(offerDto.getProperty().getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
-//        existingOffer.setProperty(property);
-//
-//        Customer customer = customerRepository.findById(offerDto.getCustomer().getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-//        existingOffer.setCustomer(customer);
-//
-//        offerRepository.save(existingOffer);
-//
-//        return true;
-//    }
-
 
 }

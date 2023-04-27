@@ -20,3 +20,13 @@ export const updateOfferStatus = async (offer, ownerId) => {
     });
   return result.data;
 };
+
+export const doOfferAction = async (offerId, ownerId, action) => {
+  let result = await apiSecured()
+    .post(`/owners/${ownerId}/offer/${offerId}/${action}`)
+    .catch((error) => {
+      addErrorMessage(getErrorMessagesContext(), error.message);
+      return error;
+    });
+  return result.data;
+};

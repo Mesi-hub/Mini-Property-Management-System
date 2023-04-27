@@ -88,11 +88,16 @@ public class OfferServiceImpl implements OfferService {
     }
 
     @Override
-    public boolean makeOffer(Long customerId, OfferDto offerDto) {
+    public boolean makeOffer(Long customerId, OfferDto offerDto) throws Exception {
         // Retrieve property entity from database using the provided id
         Property property = propertyRepository.findById(offerDto.getProperty().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Property not found"));
-
+        if(!(property.getStatus() == PropertyState.PENDING ||
+           property.getStatus() == PropertyState.AVAILABLE )){
+            throw new Exception("Offers are not accepted.");
+        }
+        property.setStatus(PropertyState.PENDING);
+        propertyRepository.save(property);
         // Create a new offer entity
         Offer offer = new Offer();
         offer.setCustomer(customerRepository.findById(customerId)
@@ -109,6 +114,143 @@ public class OfferServiceImpl implements OfferService {
         return true;
     }
 
+    @Override
+    public boolean startEvaluating(Long ownerId, Long offerId) throws Exception {
+        Offer offer = offerRepository.findById(offerId).orElseThrow();
+        if(offer.getProperty().getOwner().getId() != ownerId){
+            throw new Exception("You can only evaluate your offers.");
+        }
+        if(offer.getStatus() != OfferState.PENDING){
+            throw new Exception("Offer is not in state Pending");
+        }
+        Property property = propertyRepository.findById(offer.getProperty().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        if(!(property.getStatus() == PropertyState.PENDING ||
+            property.getStatus() == PropertyState.AVAILABLE )){
+                throw new Exception("Offers are not accepted.");
+        }
+        property.setStatus(PropertyState.PENDING);
+        propertyRepository.save(property);
+             
+        offer.setStatus(OfferState.EVALUATING);
+        offerRepository.save(offer);
+        return true;
+    }
+
+    @Override
+    public boolean accept(Long ownerId, Long offerId) throws Exception{
+        Offer offer = offerRepository.findById(offerId).orElseThrow();
+        if(offer.getProperty().getOwner().getId() != ownerId){
+            throw new Exception("You can only accept your offers.");
+        }
+        if(offer.getStatus() != OfferState.EVALUATING){
+            throw new Exception("Offer is not in state Evaluating");
+        }
+        Property property = propertyRepository.findById(offer.getProperty().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        if(!(property.getStatus() == PropertyState.PENDING ||
+            property.getStatus() == PropertyState.AVAILABLE )){
+                throw new Exception("Offers are not accepted.");
+        }
+        offer.setStatus(OfferState.ACCEPTED);
+        offerRepository.save(offer);
+
+        property.setStatus(PropertyState.CONTINGENT);
+        propertyRepository.save(property);
+        return true;
+    }
+
+    @Override
+    public boolean cancelByCustomer(Long customerId, Long offerId) throws Exception{
+        Offer offer = offerRepository.findById(offerId).orElseThrow();
+        if(offer.getCustomer().getId() != customerId){
+            throw new Exception("You can only cancel own offers.");
+        }
+        if(!(offer.getStatus() == OfferState.EVALUATING ||
+           offer.getStatus() == OfferState.PENDING)){
+            throw new Exception("Offer is not in state evaluating or pending. It is " + offer.getStatus());
+        }
+        Property property = propertyRepository.findById(offer.getProperty().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        if(!(property.getStatus() == PropertyState.PENDING ||
+            property.getStatus() == PropertyState.AVAILABLE )){
+                throw new Exception("Offers are not accepted.");
+        }
+        offer.setStatus(OfferState.CANCELLED);
+        offerRepository.save(offer);
+
+        List<OfferState> states = new ArrayList<>();
+        states.add(OfferState.EVALUATING);
+        if(offerRepository.findByPropertyIdAndStatusIn(property.getId(), states).size() == 0){
+            property.setStatus(PropertyState.PENDING);
+            propertyRepository.save(property);        
+        }
+        return true;
+    }
+
+    @Override
+    public boolean cancelByOwner(Long ownerId, Long offerId) throws Exception{
+        Offer offer = offerRepository.findById(offerId).orElseThrow();
+        if(offer.getProperty().getOwner().getId() != ownerId){
+            throw new Exception("You can only cancel own offers.");
+        }
+        if(!(offer.getStatus() == OfferState.EVALUATING ||
+           offer.getStatus() == OfferState.PENDING)){
+            throw new Exception("Offer is not in state Evaluating");
+        }
+        Property property = propertyRepository.findById(offer.getProperty().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        if(!(property.getStatus() == PropertyState.PENDING ||
+            property.getStatus() == PropertyState.AVAILABLE ||
+            property.getStatus() == PropertyState.CONTINGENT)){
+                throw new Exception("Offers are not accepted.");
+        }
+             
+        offer.setStatus(OfferState.CANCELLED);
+        offerRepository.save(offer);
+
+        List<OfferState> states = new ArrayList<>();
+        states.add(OfferState.EVALUATING);
+        if(offerRepository.findByPropertyIdAndStatusIn(property.getId(), states).size() == 0){
+            property.setStatus(PropertyState.AVAILABLE);
+            propertyRepository.save(property);        
+        }
+        else {
+            property.setStatus(PropertyState.PENDING);
+            propertyRepository.save(property);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean closeByOwner(Long ownerId, Long offerId) throws Exception{
+        Offer offer = offerRepository.findById(offerId).orElseThrow();
+        if(offer.getProperty().getOwner().getId() != ownerId){
+            throw new Exception("You can only cancel own offers.");
+        }
+        if(offer.getStatus() != OfferState.ACCEPTED){
+            throw new Exception("Offer is not in state Accepted");
+        }
+        Property property = propertyRepository.findById(offer.getProperty().getId())
+                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
+        if(property.getStatus() != PropertyState.CONTINGENT){
+                throw new Exception("Propery is not contingent");
+        }
+             
+        offer.setStatus(OfferState.CLOSED);
+        offerRepository.save(offer);
+
+        property.setStatus(PropertyState.SOLD);
+        propertyRepository.save(property); 
+
+        List<OfferState> states = new ArrayList<>();
+        states.add(OfferState.EVALUATING);
+        states.add(OfferState.PENDING);
+        states.add(OfferState.ACCEPTED);
+        offerRepository.updateOffers(property.getId(), OfferState.CANCELLED, states);
+        
+        return true;
+    }
 
     @Override
     public List<OfferDto> findCurrentOffersByCustomerId(Long customerId) {

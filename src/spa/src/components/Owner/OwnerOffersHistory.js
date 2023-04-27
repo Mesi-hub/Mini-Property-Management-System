@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  doOfferAction,
   fetchAllOffersToOwner,
   updateOfferStatus,
 } from "../../services/api/Owners/OfferHistory";
@@ -18,10 +19,18 @@ const OwnerOffersHistory = () => {
       });
   }, [reloadOffers]);
 
-  const onCancleClick = (offer) => {
-    offer.status = "CANCELLED";
-    //TODO: need to change customer id by loggeduser Id
-    updateOfferStatus(offer, 3)
+  const onActionClick = (offer, action) => {
+    doOfferAction(offer.id, 3, action)
+      .then((response) => {
+        setReloadOffers(!reloadOffers);
+      })
+      .catch((err) => {
+        console.log("onActionClick - error: ", err);
+      });
+  };
+
+  const onEvaluateClick = (offer) => {
+    doOfferAction(offer.id, 3, 'evaluate')
       .then((response) => {
         console.log("onCancleClick  res in comp: ", response);
         setReloadOffers(!reloadOffers);
@@ -58,34 +67,54 @@ const OwnerOffersHistory = () => {
   };
 
   const createActionsUI = (offer) => {
-    if (offer.status === "PENDING" || offer.status === "EVALUATING") {
+    
       return (
+        <>
+        {(offer.status === "PENDING" || offer.status === "EVALUATING") ?
         <button
           type="button"
           className="btn btn-primary btn-sm"
           onClick={() => {
-            onCancleClick(offer);
+            onActionClick(offer, 'cancel');
           }}
         >
-          Cancel offer
-        </button>
-      );
-    } else if (offer.status === "CANCELLED") {
-      return (
+          Cancel
+        </button> 
+        : ""}
+      
+      {(offer.status === "PENDING") ?
         <button
           type="button"
           className="btn btn-primary btn-sm"
           onClick={() => {
-            onOfferClick(offer);
+            onActionClick(offer, 'evaluate');
           }}
         >
-          Offer
-        </button>
+          Start Evaluating
+        </button> : ""}
+      {(offer.status === "EVALUATING") ?
+        <button
+          type="button"
+          className="btn btn-primary btn-sm"
+          onClick={() => {
+            onActionClick(offer, 'accept');
+          }}
+        >
+          Accept
+        </button> : ""}
+      {(offer.status === "ACCEPTED") ?
+        <button
+          type="button"
+          className="btn btn-primary btn-sm"
+          onClick={() => {
+            onActionClick(offer, 'close');
+          }}
+        >
+          Close
+        </button> : ""}
+        </>
       );
-    } else {
-      return offer.status;
     }
-  };
 
   const createSingleRowUIFromData = (offer) => {
     return (

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+  cancelOffer,
   fetchAllOffersByCustomer,
   updateOfferStatus,
 } from "../../services/api/Customers/OfferHistory";
@@ -21,9 +22,7 @@ const CustomerOffersHistory = () => {
   }, [reloadOffers]);
 
   const onCancleClick = (offer) => {
-    offer.status = "CANCELLED";
-    //TODO: need to change customer id by loggeduser Id
-    updateOfferStatus(offer, 3)
+    cancelOffer(offer.id, 3)
       .then((response) => {
         console.log("onCancleClick  res in comp: ", response);
         setReloadOffers(!reloadOffers);
@@ -32,20 +31,7 @@ const CustomerOffersHistory = () => {
         console.log("onCancleClick - error: ", err);
       });
   };
-
-  const onOfferClick = (offer) => {
-    offer.status = "PENDING";
-    //TODO: need to change customer id by loggeduser Id
-    updateOfferStatus(offer, 3)
-      .then((response) => {
-        console.log("onOfferClick  res in comp: ", response);
-        setReloadOffers(!reloadOffers);
-      })
-      .catch((err) => {
-        console.log("onOfferClick - error: ", err);
-      });
-  };
-
+  
   const prepareAddressString = (property) => {
     return (
       (property.address.street ? property.address.street + ", " : "") +
@@ -70,18 +56,6 @@ const CustomerOffersHistory = () => {
           }}
         >
           Cancel offer
-        </button>
-      );
-    } else if (offer.status === "CANCELLED") {
-      return (
-        <button
-          type="button"
-          className="btn btn-primary btn-sm"
-          onClick={() => {
-            onOfferClick(offer);
-          }}
-        >
-          Offer
         </button>
       );
     } else {

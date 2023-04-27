@@ -29,7 +29,7 @@ const saveProperty = async (property) => {
 
 const saveOffer = async (newOffer) => {
     let result = await apiSecured()
-        .post("/customers/3/addoffer", newOffer)
+        .post("/customers/3/offer", newOffer)
         .catch((error) => {
             addErrorMessage(getErrorMessagesContext(), error.message);
             return error;

@@ -1,6 +1,7 @@
 package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.OwnerDto;
+import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.User;
 
@@ -15,5 +16,7 @@ public interface OwnerService {
     boolean save(Owner owner);
 
     Long register(OwnerDto ownerDto);
+    List<OfferDto> findOffersByOwnerId(long ownerId);
+    
 
 }

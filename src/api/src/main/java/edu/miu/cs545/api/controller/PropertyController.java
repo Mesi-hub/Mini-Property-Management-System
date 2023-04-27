@@ -7,6 +7,7 @@ import edu.miu.cs545.api.service.PropertyService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -34,20 +35,19 @@ public class PropertyController {
     }
 
     @PostMapping()
+    @PreAuthorize("hasRole('OWNER')")
     public PropertyDto createProperty(@RequestBody PropertyDto property) {
         return this.propertyService.createProperty( property);
     }
     @PutMapping
+    @PreAuthorize("hasRole('OWNER')")
     public PropertyDto updateProperty(@RequestBody PropertyDto property) {
         return this.propertyService.updateProperty(property);
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('OWNER')")
     public void deleteProperty(@PathVariable("id") Long id){
         this.propertyService.deleteProperty(id);
-    }
-    @GetMapping("/test")
-    public String test(){
-        return  "Test OKKKK";
     }
 }

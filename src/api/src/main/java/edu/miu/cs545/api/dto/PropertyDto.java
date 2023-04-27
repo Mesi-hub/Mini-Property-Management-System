@@ -22,4 +22,7 @@ public class PropertyDto {
     private String title;
     private String description;
     private List<ImageFileInfoDto> images;
+
+    public PropertyDto(Long id) {
+    }
 }

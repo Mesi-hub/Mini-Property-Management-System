@@ -1,10 +1,7 @@
 package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.OfferDto;
-import edu.miu.cs545.api.entity.Customer;
-import edu.miu.cs545.api.entity.Offer;
-import edu.miu.cs545.api.entity.OfferState;
-import edu.miu.cs545.api.entity.Property;
+import edu.miu.cs545.api.entity.*;
 import edu.miu.cs545.api.repository.CustomerRepository;
 import edu.miu.cs545.api.repository.OfferRepository;
 import edu.miu.cs545.api.repository.PropertyRepository;
@@ -14,9 +11,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -86,11 +86,32 @@ public class OfferServiceImpl implements OfferService {
 
         return offerDtos;
     }
+//// just commented for test in dev
+//    @Override
+//    public boolean makeOffer(OfferDto offerDto) {
+//        // Retrieve property entity from database
+//        Property property = propertyRepository.findById(offerDto.getProperty().getId())
+//                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
+//
+//        // Create a new offer entity
+//        Offer offer = new Offer();
+//        offer.setCustomer(customerRepository.findById(offerDto.getCustomer().getId())
+//                .orElseThrow(() -> new EntityNotFoundException("Customer not found")));
+//        offer.setProperty(property);
+//        offer.setOfferAmount(offerDto.getOfferAmount());
+//        offer.setStatus(OfferState.PENDING);
+//
+//        // Save the offer entity to database
+//        offerRepository.save(offer);
+//
+//        return true;
+//    }
 
+    // TODO - UPDATing
     @Override
-    public boolean makeOffer(OfferDto offerDto) {
-        // Retrieve property entity from database
-        Property property = propertyRepository.findById(offerDto.getProperty().getId())
+    public boolean makeOffer(Long id, OfferDto offerDto) {
+        // Retrieve property entity from database using the provided id
+        Property property = propertyRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Property not found"));
 
         // Create a new offer entity
@@ -106,6 +127,7 @@ public class OfferServiceImpl implements OfferService {
 
         return true;
     }
+
 
     @Override
     public List<OfferDto> findCurrentOffersByCustomerId(Long customerId) {

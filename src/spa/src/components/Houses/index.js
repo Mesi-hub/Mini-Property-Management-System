@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import "./Houses.css";
 import House from "../House";
-import { Link } from "react-router-dom";
 import { getProperties } from "../../services/api/properties";
 const Houses = (props) => {
     const formRef = useRef();
@@ -16,6 +14,17 @@ const Houses = (props) => {
     useEffect(() => {
         getProperties(filterData).then((data) => setPropertiesList(data));
     }, [props, filterData]);
+
+    useEffect(() => {
+        let form = formRef.current;
+        if(props && props.citySearch){
+            form["city"].value = props?.citySearch;
+        }
+        else {
+            form["city"].value = "";
+        }
+        getProperties({city: props.citySearch}).then((data) => setPropertiesList(data));
+    }, [props.citySearch]);
 
     const cardsCompo = propertiesList
         ? propertiesList.map((property) => (
@@ -56,6 +65,7 @@ const Houses = (props) => {
                                                 className="form-control form-control-sm"
                                                 id="exampleFormControlInput1"
                                                 placeholder="Location"
+                                                defaultValue={props?.citySearch}
                                             />
                                         </div>
                                     </li>
@@ -110,7 +120,7 @@ const Houses = (props) => {
                                                 name="room"
                                             >
                                                 <option selected value="0">
-                                                    Open this select menu
+                                                    Greater Than or Equal To
                                                 </option>
                                                 <option value="1">One</option>
                                                 <option value="2">Two</option>

@@ -1,13 +1,19 @@
 import { apiSecured, getErrorMessagesContext } from "..";
 import { addErrorMessage } from "../../../context/errorMessagesContext";
 
-const getProperties = async () => {
-  let result = await apiSecured().get("/properties");
+const getProperties = async (filter) => {
+  let result = await apiSecured().get("/properties", {params: filter}).catch((error) => {
+    addErrorMessage(getErrorMessagesContext(), error.message);
+    return error;
+  });
   return result.data;
 };
 
 const getPropertyById = async (id) => {
-  let result = await apiSecured().get("/properties/" + id);
+  let result = await apiSecured().get("/properties/" + id).catch((error) => {
+    addErrorMessage(getErrorMessagesContext(), error.message);
+    return error;
+  });
   return result.data;
 };
 

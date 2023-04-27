@@ -14,7 +14,7 @@ import java.util.List;
 public class Owner extends Person{
     boolean approved;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="person-approvedBy")
     Administrator approvedBy;
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY)
     @JsonBackReference

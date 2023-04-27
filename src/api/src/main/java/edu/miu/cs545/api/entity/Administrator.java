@@ -12,6 +12,6 @@ import java.util.List;
 @Data
 public class Administrator extends Person {
     @OneToMany(mappedBy = "blackListedBy", fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="person-blacklistedPerson")
     List<Person> blacklistedPersons;
 }

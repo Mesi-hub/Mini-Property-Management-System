@@ -12,6 +12,6 @@ public class AccessToken {
     @OneToOne
     User user;
     @ManyToOne(cascade = CascadeType.ALL)
-    @JsonBackReference
+    @JsonBackReference(value="accessToken-refreshToken")
     RefreshToken refreshToken;
 }

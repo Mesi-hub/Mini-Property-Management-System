@@ -88,18 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public List<OfferDto> findOffersByCustomerId(long customerId) {
-        var offersDtoList = new ArrayList<OfferDto>();
-        customerRepo.findById(customerId).ifPresent(customer -> {
-          offerRepo.findAllByCustomerEquals(customer).forEach(off -> {
-              System.out.println("findOffersByCustomerId - id: "+off.getId());
-              var dto = modelMapper.map(off, OfferDto.class);
-              var prop = off.getProperty();
-              dto.setProperty(modelMapper.map(prop, PropertyDto.class));
-              dto.setCustomer(modelMapper.map(customer, CustomerDto.class));
-              offersDtoList.add(dto);
-          });
-        });
-        return offersDtoList;
+        return offerRepo.findByCustomerId(customerId).stream().map(x->modelMapper.map(x, OfferDto.class)).toList();        
     }
 
     @Override

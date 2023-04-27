@@ -11,6 +11,7 @@ import SavedProperties from "../components/SavedProperties";
 import { CustomerOffersHistory } from "../components/Customers/CustomerOffersHistory";
 import SignUpOwner from "../pages/Auth/SignUpOwner";
 import SendMessage from "../components/Message/SendMessage";
+import { OwnerOffersHistory } from "../components/Owner/OwnerOffersHistory";
 
 const Dashboard = loadable(() => import("../pages/Dashboard/Dashboard"));
 const Login = loadable(() => import("../pages/Auth/Login"));
@@ -51,6 +52,10 @@ export default function PageRoutes(props) {
       <Route
         path="customer-offers-history"
         element={renderWithHeader(<CustomerOffersHistory />)}
+      />
+      <Route
+        path="owner-offers-history"
+        element={renderWithHeader(<OwnerOffersHistory />)}
       />
       <Route path="messages" element={renderWithHeader(<Messages />)} />
       <Route

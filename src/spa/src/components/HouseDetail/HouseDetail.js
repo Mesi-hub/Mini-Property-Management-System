@@ -27,6 +27,7 @@ const HouseDetail = () => {
         }
         saveOffer(newOffer)
             .then(response => {
+                navigate("/customer-offers-history");
                 console.log("makeOfferClick saved")
             })
             .catch(err => {

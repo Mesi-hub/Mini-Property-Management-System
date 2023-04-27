@@ -59,6 +59,7 @@ export default function PageRoutes(props) {
       />
       <Route path="add-house" element={renderWithHeader(<CreateHouse />)} />
       <Route path="send_message/property/:propertyId" element={renderWithHeader(<SendMessage />)} />
+      <Route path="send_message/property/:propertyId/reply/:replyToMessageId" element={renderWithHeader(<SendMessage />)} />
 
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />

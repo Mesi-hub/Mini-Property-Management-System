@@ -1,15 +1,24 @@
+import { useNavigate } from "react-router";
+
 const Message = (props) => {
+  const navigate = useNavigate()
+  const onSendMessage = (propertyId, messageId) => {
+    navigate(`/send_message/property/${propertyId}/reply/${messageId}`);
+  };
   return (
     <div class="card">
       <div className="card-body">
         <h5 className="card-title">
-          {props.message.sender.lastName}, {props.message.sender.firstName}
+          Sender: {props.message.sender.lastName}, {props.message.sender.firstName} [{props.message.sender.id}]<br/>
+          Recipient: {props.message.recipient.lastName}, {props.message.recipient.firstName} [{props.message.recipient.id}]<br/>
+          Property: {props.message.property.title} [{props.message.property.id}]<br/>
+          {(props.message) ? <>Reply To: {props.message?.replyTo?.message} [{props.message?.replyTo?.id}]</>:""}
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">
           {props.message.date} - {props.message.time}
         </h6>
         <p className="card-text">{props.message.message}</p>
-        <button className="card-link">Reply</button>
+        <button className="card-link" onClick={() => {onSendMessage(props.message.property.id, props.message.id)}}>Reply</button>
       </div>
     </div>
   );

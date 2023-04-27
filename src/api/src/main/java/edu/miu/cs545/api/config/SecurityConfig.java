@@ -35,7 +35,7 @@ public class SecurityConfig {
             "/pdfs/**"};
     String [] genericLoggedInUserUrls = {"/authenticate/userinfo", "/authenticate/logoff"};
     String [] customerAndOwnerUrls = {
-            "/messages"};
+            "/messages/**"};
     String [] customerUrls = {
             "/savedProperties/**"};
     String [] ownerUrls = {

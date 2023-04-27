@@ -35,7 +35,15 @@ public class MessageController {
         System.out.println("%%%%%%%%%%%%%%%%%%%%%%");
         return findAllByUser(Optional.empty());
     }
-
+    @GetMapping("/{id}")
+    public ResponseEntity<MessageDto> getPropertyById(@PathVariable("id") Long id) {
+        System.out.println("5%%%%%%%%%%%%%%%%%%%%%%");
+        MessageDto message = this.messageService.getById(id);
+        User user = controllerSecurityUtil.getLoggedinUser();
+        if(message.getRecipient().getUser().getId() == user.getId() || message.getSender().getUser().getId() == user.getId())
+            return ResponseEntity.ok(message);
+        return ResponseEntity.notFound().build();
+    }
     @GetMapping("/user/{id}")
     ResponseEntity<List<MessageDto>> findAllByUser(@PathVariable Optional<Long> userId) {
         System.out.println("1%%%%%%%%%%%%%%%%%%%%%%");
@@ -47,7 +55,6 @@ public class MessageController {
 
     @GetMapping("/user/{userId}/property/{propertyId}")
     ResponseEntity<List<MessageDto>> findAllByUserProperty(@PathVariable Optional<Long> userId, @PathVariable Optional<Long> propertyId) {
-        System.out.println("2%%%%%%%%%%%%%%%%%%%%%%");
         Long paramPropertyId = propertyId.orElse(null);
         PropertyDto propertyDto = null;
         if(paramPropertyId != null) {
@@ -59,6 +66,7 @@ public class MessageController {
         }
         return ResponseEntity.ok(messageService.getMessagesForUserForPropertyOrderByDateTimeDesc(getUser(userId), propertyDto));
     }
+    
     @PostMapping()
     ResponseEntity<MessageDto> addMessage(@RequestBody MessageDto messageDto) {
         return ResponseEntity

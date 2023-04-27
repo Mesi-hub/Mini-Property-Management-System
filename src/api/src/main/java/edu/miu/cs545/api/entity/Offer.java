@@ -17,10 +17,9 @@ public class Offer {
     LocalTime time;
     Double offerAmount;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
     Property property;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JsonBackReference
+    @JsonBackReference(value="offer-customer")
     Customer customer;
     @Enumerated(EnumType.STRING)
     OfferState status;

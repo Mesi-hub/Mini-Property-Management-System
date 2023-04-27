@@ -10,8 +10,8 @@ const Message = (props) => {
       <div className="card-body">
         <h5 className="card-title">
           Sender: {props.message.sender.lastName}, {props.message.sender.firstName} [{props.message.sender.id}]<br/>
-          Recipient: {props.message.recipient.lastName}, {props.message.recipient.firstName} [{props.message.recipient.id}]<br/>
-          Property: {props.message.property.title} [{props.message.property.id}]<br/>
+          {(props.message.recipient) ? <>Recipient: {props.message.recipient.lastName}, {props.message.recipient.firstName} [{props.message.recipient.id}]<br/></> : ""}
+          {(props.message.recipropertypient) ? <>Property: {props.message.property.title} [{props.message.property.id}]<br/></> : ""}
           {(props.message) ? <>Reply To: {props.message?.replyTo?.message} [{props.message?.replyTo?.id}]</>:""}
         </h5>
         <h6 className="card-subtitle mb-2 text-muted">

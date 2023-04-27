@@ -8,3 +8,10 @@ export const getMessages = async () => {
     });
     return result.data;
   };
+  export const sendMessage = async (data) => {
+    let result = await apiSecured().post("/messages", data).catch(error=> {
+      addErrorMessage(getErrorMessagesContext(), error.message);
+      return error;
+    });
+    return result.data;
+  };  

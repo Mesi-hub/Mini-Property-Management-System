@@ -46,7 +46,7 @@ public class PdfServiceImpl implements PdfService {
         table.addCell(offer.getProperty().getTitle() + " (" + offer.getProperty().getId()+ ")");
         table.addCell(offer.getCustomer().getLastName()+ "," + offer.getCustomer().getFirstName() + " (" + offer.getCustomer().getId()+ ")");
         table.addCell(offer.getProperty().getOwner().getLastName()+ "," + offer.getProperty().getOwner().getFirstName() + " (" + offer.getProperty().getOwner().getId()+ ")");
-        table.addCell("$ " + offer.getProperty().getPrice());
+        table.addCell("$ " + offer.getOfferAmount());
 
     }
     private void addCustomRows(PdfPTable table){

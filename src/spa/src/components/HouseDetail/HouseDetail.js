@@ -7,14 +7,14 @@ import { savePropertyToSavedList } from "../../services/api/SavedProperties";
 
 const HouseDetail = () => {
   const params = useParams();
-const navigate = useNavigate();
+  const navigate = useNavigate();
   const [property, setProperty] = useState({});
   useEffect(() => {
     getPropertyById(params.id).then((data) => setProperty(data));
   }, []);
 
   const onSave = (id) => {
-    savePropertyToSavedList({property :{id: id}})
+    savePropertyToSavedList({ property: { id: id } })
       .then((res) => {
         console.log(res);
         navigate("/saved-properties");
@@ -22,6 +22,10 @@ const navigate = useNavigate();
       .catch((err) => {
         console.log(err);
       });
+  };
+
+  const onSendMessage = (id) => {
+    navigate("/send_message/property/" + id);
   };
 
   return property ? (
@@ -70,14 +74,28 @@ const navigate = useNavigate();
                 {hasRole("CUSTOMER") ? (
                   <>
                     <div className="buttons d-flex flex-row mt-5 gap-3">
-                      <button className="btn btn-dark" onClick={()=>{onSave(property?.id)}}>Save</button>
+                      <button
+                        className="btn btn-dark"
+                        onClick={() => {
+                          onSave(property?.id);
+                        }}
+                      >
+                        Save
+                      </button>
                     </div>
                     <div className="buttons d-flex flex-row mt-5 gap-3">
                       <button className="btn btn-dark">Make an offer</button>
                     </div>
 
                     <div className="buttons d-flex flex-row mt-5 gap-3">
-                      <button className="btn btn-dark">Send Message</button>
+                      <button
+                        className="btn btn-dark"
+                        onClick={() => {
+                          onSendMessage(property?.id);
+                        }}
+                      >
+                        Send Message
+                      </button>
                     </div>
                   </>
                 ) : (

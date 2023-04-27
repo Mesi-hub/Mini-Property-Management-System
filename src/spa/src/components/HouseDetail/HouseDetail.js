@@ -49,7 +49,7 @@ const HouseDetail = () => {
         navigate("/send_message/property/" + id);
     };
 
-    return property ? (
+    return (property && property.id) ? (
         <div>
             <div className="container mt-5 mb-5">
                 <div className="card">
@@ -57,7 +57,7 @@ const HouseDetail = () => {
                         <div className="col-md-6 border-end">
                             <img
                                 alt="house"
-                                src="https://ap.rdcpix.com/de02eeb19bbf4ed177ba516795534095l-m3043654886od-w480_h360_x2.webp"
+                                src={property?.images[0].fullPath}
                                 className="image"
                             />
                         </div>

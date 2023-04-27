@@ -9,7 +9,7 @@ const House = (props) => {
                 <div className="card shadow-sm">
                     <div>
                         <Link to={"/house-detail/" + props?.property?.id}>
-                            <img src="https://ap.rdcpix.com/5fe850a043989a3b24730a05621a8849l-m563540908od-w480_h360.webp" alt={props?.property?.title}/>
+                            <img src={props.property?.images[0].fullPath} alt={props?.property?.title}/>
                         </Link>
                     </div>
 

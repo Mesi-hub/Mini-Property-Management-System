@@ -1,15 +1,36 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import "./HouseDetail";
-import { getPropertyById } from "../../services/api/properties";
+import {getPropertyById, saveOffer} from "../../services/api/properties";
 import { useParams } from "react-router";
 
 const HouseDetail = () => {
     const params = useParams();
+    const  offerAmountRef = useRef()
 
     const [property, setProperty] = useState({});
     useEffect(() => {
         getPropertyById(params.id).then((data) => setProperty(data));
     }, []);
+
+    const makeOfferClick = ()=>{
+        const newOffer =  {
+            "offerAmount": offerAmountRef.current.value,
+            "property": {
+                "id": property.id
+            },
+            "customer": {
+                "id": 3
+            },
+            "status": "PENDING"
+        }
+        saveOffer(newOffer)
+            .then(response => {
+                console.log("makeOfferClick saved")
+            })
+            .catch(err => {
+                console.log("makeOfferClick error")
+            })
+    }
 
     return (
         (property)?
@@ -61,7 +82,9 @@ const HouseDetail = () => {
                                 </ul>
 
                                 <div className="buttons d-flex flex-row mt-5 gap-3">
-                                    <button className="btn btn-dark">
+                                    <label>Offer amount: </label>
+                                    <input type="number" ref={offerAmountRef} name="offeramount"/>
+                                    <button className="btn btn-dark" onClick={makeOfferClick}>
                                         Make an offer
                                     </button>
                                 </div>

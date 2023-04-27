@@ -21,4 +21,16 @@ const saveProperty = async (property) => {
   return result.data;
 };
 
-export { getProperties, getPropertyById, saveProperty };
+const saveOffer = async (newOffer) => {
+    let result = await apiSecured()
+        .post("/customers/3/addoffer", newOffer)
+        .catch((error) => {
+            addErrorMessage(getErrorMessagesContext(), error.message);
+            return error;
+        });
+    return result.data;
+};
+
+
+
+export { getProperties, getPropertyById, saveProperty , saveOffer};

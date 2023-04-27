@@ -4,12 +4,16 @@ import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.CustomerService;
+import edu.miu.cs545.api.service.PdfService;
 import edu.miu.cs545.api.service.OfferService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 @RestController
@@ -21,7 +25,8 @@ public class CustomerController {
     private OfferService offerService;
     @Autowired
     ControllerSecurityUtil controllerSecurityUtil;
-
+    @Autowired
+    PdfService pdfService;
     @GetMapping
     ResponseEntity<List<CustomerDto>> findAll() {
         return ResponseEntity.ok(customerService.findAll());
@@ -111,7 +116,23 @@ public class CustomerController {
         }
     }
 
-    
+    @GetMapping("/{customerId}/offer/{offerId}/receipt")
+    public ResponseEntity receipt(@PathVariable Long customerId, @PathVariable Long offerId) throws Exception {
+        //Ignore customer Id
+        User user = controllerSecurityUtil.getLoggedinUser();
+        OfferDto offerDto = offerService.findById(offerId);
+        if(user.getPerson().getId() != offerDto.getCustomer().getId()){
+            throw new Exception("Only the customer can request receipts.");
+        }
+        try(ByteArrayOutputStream outputStream = new ByteArrayOutputStream()) {
+            pdfService.createOfferReceipt(offerService.findById(offerId), outputStream);
+            final byte[] bytes = outputStream.toByteArray();
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentLength(bytes.length);
+            return new ResponseEntity(bytes, headers, HttpStatus.OK);
+        }
+    }
 
     @PostMapping("/{customerId}/offer/{offerId}/cancel")
     public ResponseEntity<Boolean> cancel(@PathVariable Long customerId, @PathVariable Long offerId) throws Exception {

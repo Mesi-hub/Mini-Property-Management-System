@@ -48,9 +48,7 @@ const Header = () => {
               ) : (
                 ""
               )}
-              {
-                //TODO  loggedin
-                true ? (
+              {isLoggedIn(store) ? (
                   <>
                     <li className="nav-item">
                       <Link to="/messages" className="nav-link">
@@ -68,8 +66,7 @@ const Header = () => {
                 )
               }
               {
-                //TODO !hasRole(OWNER) and loggedin
-                true ? (
+                (!hasRole("OWNER") && isLoggedIn(store)) ? (
                   <>
                     <li className="nav-item">
                       <Link to="/become-a-seller" className="nav-link">
@@ -79,6 +76,11 @@ const Header = () => {
                     <li className="nav-item">
                       <Link to="/add-house" className="nav-link">
                         Add House
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/customer-offers-history" className="nav-link">
+                        My Offers
                       </Link>
                     </li>
                   </>
@@ -102,12 +104,7 @@ const Header = () => {
                 </>
               ) : (
                 ""
-              )}
-              <li className="nav-item">
-                <Link to="/customer-offers-history" className="nav-link">
-                  My Offers
-                </Link>
-              </li>
+              )}              
             </ul>
             <form className="d-flex">
               <input

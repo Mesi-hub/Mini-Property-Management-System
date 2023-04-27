@@ -43,18 +43,18 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
 
                 //Comment the lines after this line to bypass authentication during dev
-                //.requestMatchers(unsecuredUrls).permitAll()
-                //.requestMatchers(genericLoggedInUserUrls).hasAnyAuthority(roles)
-                //.requestMatchers(customerUrls).hasAuthority(RoleTypes.CUSTOMER.toString())
-                //.requestMatchers(ownerUrls).hasAuthority(RoleTypes.OWNER.toString())
-                //.requestMatchers(adminUrls).hasAuthority(RoleTypes.ADMIN.toString())
+                .requestMatchers(unsecuredUrls).permitAll()
+                .requestMatchers(genericLoggedInUserUrls).hasAnyAuthority(roles)
+                .requestMatchers(customerUrls).hasAuthority(RoleTypes.CUSTOMER.toString())
+                .requestMatchers(ownerUrls).hasAuthority(RoleTypes.OWNER.toString())
+                .requestMatchers(adminUrls).hasAuthority(RoleTypes.ADMIN.toString())
                 //Comment the lines upto this line to bypass authentication during dev
 
                 // below line should be uncommented during dev to bypass authentication
-                .anyRequest().permitAll()
+                //.anyRequest().permitAll()
 
                 //below line should be commented during dev to bypass authentication
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);

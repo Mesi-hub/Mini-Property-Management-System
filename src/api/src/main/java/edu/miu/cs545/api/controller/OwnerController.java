@@ -2,6 +2,7 @@ package edu.miu.cs545.api.controller;
 
 import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OwnerDto;
+import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.User;
 import edu.miu.cs545.api.service.OwnerService;
@@ -25,7 +26,14 @@ public class OwnerController {
     public ResponseEntity<List<OwnerDto>> getAll(){
         return ResponseEntity.ok(ownerService.getAll());
     }
-
+    @GetMapping("/{id}/offers")
+    public ResponseEntity<List<OfferDto>> checkOfferHistory(@PathVariable long id) {
+        //Ignore ID and send only the allowed offers
+        User user = controllerSecurityUtil.getLoggedinUser();
+        List<OfferDto> offers = ownerService.findOffersByOwnerId(user.getPerson().getId());
+        System.out.println("contrller checkOfferHistory size: " + offers.size());
+        return ResponseEntity.ok(offers);
+    }
     @PostMapping("/register")
     ResponseEntity<Long> register(@RequestBody OwnerDto ownerDto){
         return ResponseEntity

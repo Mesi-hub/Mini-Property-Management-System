@@ -2,6 +2,7 @@ package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OwnerDto;
+import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.entity.*;
 import edu.miu.cs545.api.repository.*;
 import jakarta.persistence.EntityExistsException;
@@ -26,6 +27,8 @@ public class OwnerServiceImpl implements OwnerService {
     @Autowired
     private UserRepository userRepo;
     @Autowired
+    private OfferRepository offerRepo;
+    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     ModelMapper modelMapper;
@@ -40,7 +43,10 @@ public class OwnerServiceImpl implements OwnerService {
     public Owner findById(long id) {
         return ownerRepository.findById(id).orElse(null);
     }
-
+    @Override
+    public List<OfferDto> findOffersByOwnerId(long ownerId){
+        return offerRepo.findByOwnerId(ownerId).stream().map(x->modelMapper.map(x, OfferDto.class)).toList();        
+    }
 
     @Override
     public boolean save(Owner owner) {

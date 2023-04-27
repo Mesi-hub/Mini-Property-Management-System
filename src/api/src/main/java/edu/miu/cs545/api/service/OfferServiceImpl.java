@@ -1,8 +1,10 @@
 package edu.miu.cs545.api.service;
 
+import edu.miu.cs545.api.dto.MessageDto;
 import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.entity.*;
 import edu.miu.cs545.api.repository.CustomerRepository;
+import edu.miu.cs545.api.service.MessageService;
 import edu.miu.cs545.api.repository.OfferRepository;
 import edu.miu.cs545.api.repository.PropertyRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -32,6 +34,10 @@ public class OfferServiceImpl implements OfferService {
 
     @Autowired
     private PropertyRepository propertyRepository;
+
+    @Autowired
+    MessageService messageService;
+
 
 //    @Override
 //    public List<OfferDto> findAll() {
@@ -253,6 +259,11 @@ public class OfferServiceImpl implements OfferService {
         states.add(OfferState.PENDING);
         states.add(OfferState.ACCEPTED);
         offerRepository.updateOffers(property.getId(), OfferState.CANCELLED, states);
+        
+        MessageDto messageDto = new MessageDto();
+        messageDto.setMessage("Congratulations!!! Transaction Successful. - Offer:" + offer.getId() + " - House: " + offer.getProperty().getTitle());
+        messageDto.setRecipient(offer.getCustomer());        
+        messageService.postMessage(messageDto, offer.getCustomer().getUser());
         
         return true;
     }

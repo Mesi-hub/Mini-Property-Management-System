@@ -99,8 +99,8 @@ public class CustomerController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/{customerId}/addoffer")
-    public ResponseEntity<Boolean> makeOffer(@PathVariable Long customerId, @RequestBody OfferDto offerDto) {
+    @PostMapping("/{customerId}/offer")
+    public ResponseEntity<Boolean> makeOffer(@PathVariable Long customerId, @RequestBody OfferDto offerDto) throws Exception {
         //Ignore customer Id
         User user = controllerSecurityUtil.getLoggedinUser();
         boolean success = offerService.makeOffer(user.getPerson().getId(), offerDto);
@@ -110,5 +110,16 @@ public class CustomerController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(false);
         }
     }
+
+    
+
+    @PostMapping("/{customerId}/offer/{offerId}/cancel")
+    public ResponseEntity<Boolean> cancel(@PathVariable Long customerId, @PathVariable Long offerId) throws Exception {
+        //Ignore customer Id
+        User user = controllerSecurityUtil.getLoggedinUser();
+        offerService.cancelByCustomer(user.getPerson().getId(), offerId);
+        return ResponseEntity.ok().build();
+    }
+    
 
 }

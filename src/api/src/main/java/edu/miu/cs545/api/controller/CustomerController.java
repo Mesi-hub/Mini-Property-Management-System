@@ -33,7 +33,7 @@ public class CustomerController {
     @Autowired
     private OfferService offerService;
 
-//    @Autowired
+    //    @Autowired
 //    private PropertyRepository propertyRepository;
     @Autowired
     ControllerSecurityUtil controllerSecurityUtil;
@@ -57,7 +57,7 @@ public class CustomerController {
     ResponseEntity<Boolean> registerCustomer(@RequestBody CustomerDto customerDto) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
-                .body (customerService.addNewCustomer(customerDto));
+                .body(customerService.addNewCustomer(customerDto));
     }
 
     @PostMapping()

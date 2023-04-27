@@ -14,6 +14,6 @@ public interface OwnerService {
 
     boolean save(Owner owner);
 
-    Long register(User user);
+    Long register(OwnerDto ownerDto);
 
 }

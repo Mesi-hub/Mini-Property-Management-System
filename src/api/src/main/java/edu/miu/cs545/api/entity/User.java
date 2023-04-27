@@ -8,6 +8,7 @@ import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -36,7 +37,18 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(x-> (GrantedAuthority) x::getRole).toList();
+        List<GrantedAuthority> authorityList = new ArrayList<>();
+        roles.stream().forEach(x-> {
+            Person person = this.person;
+            if(person.getClass()==Owner.class && ((Owner)person).approved){
+                authorityList.add((GrantedAuthority) () -> x.getRole());
+            }
+            if(person.getClass()!=Owner.class)
+            {
+                authorityList.add((GrantedAuthority) () -> x.getRole());
+            }
+        });
+        return authorityList;
     }
     @OneToOne(mappedBy = "user")
     @JsonBackReference
@@ -53,7 +65,7 @@ public class User implements UserDetails {
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return !this.person.isBlackListed();
     }
 
     @Override

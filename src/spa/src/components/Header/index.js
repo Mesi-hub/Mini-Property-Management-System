@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthenticationWidget } from "../AuthenticationWidget";
-import { hasRole } from "../../services/api";
+import { hasRole, ownerApprovalPending } from "../../services/api";
 import { isLoggedIn } from "../../feature/Authentication/authenticationSlice";
 import { useSelector } from "react-redux";
 
@@ -13,7 +13,7 @@ const Header = () => {
     evt.preventDefault();
 
     navigate(`/properties/${searchRef.current.value}`);
-};
+  };
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark  bg-dark">
@@ -56,45 +56,47 @@ const Header = () => {
                 ""
               )}
               {isLoggedIn(store) ? (
-                  <>
-                    <li className="nav-item">
-                      <Link to="/messages" className="nav-link">
-                        Messages
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/saved-properties" className="nav-link">
-                        Saved Properties
-                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  ""
-                )
-              }
-              {
-                (!hasRole("OWNER") && isLoggedIn(store)) ? (
-                  <>
-                    <li className="nav-item">
-                      <Link to="/become-a-seller" className="nav-link">
-                        Become a Seller
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/add-house" className="nav-link">
-                        Add House
-                      </Link>
-                    </li>
-                    <li className="nav-item">
-                      <Link to="/customer-offers-history" className="nav-link">
-                        My Offers
-                      </Link>
-                    </li>
-                  </>
-                ) : (
-                  ""
-                )
-              }
+                <>
+                  <li className="nav-item">
+                    <Link to="/messages" className="nav-link">
+                      Messages
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/saved-properties" className="nav-link">
+                      Saved Properties
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
+              {!isLoggedIn(store) &&
+              !ownerApprovalPending(store) ? (
+                <li className="nav-item">
+                  <Link to="/become-a-seller" className="nav-link">
+                    Become a Seller
+                  </Link>
+                </li>
+              ) : (
+                ""
+              )}
+              {hasRole("OWNER") ? (
+                <>
+                  <li className="nav-item">
+                    <Link to="/add-house" className="nav-link">
+                      Add House
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/customer-offers-history" className="nav-link">
+                      My Offers
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                ""
+              )}
 
               {hasRole("ADMIN") ? (
                 <>
@@ -111,16 +113,21 @@ const Header = () => {
                 </>
               ) : (
                 ""
-              )}              
+              )}
             </ul>
             <form className="d-flex">
-              <input ref={searchRef}
+              <input
+                ref={searchRef}
                 className="form-control me-2"
                 type="search"
                 placeholder="Search in City"
-                aria-label="Search"                
+                aria-label="Search"
               />
-              <button className="btn btn-outline-success" type="submit" onClick={(evt) => filterHandler(evt)}>
+              <button
+                className="btn btn-outline-success"
+                type="submit"
+                onClick={(evt) => filterHandler(evt)}
+              >
                 Search
               </button>
             </form>

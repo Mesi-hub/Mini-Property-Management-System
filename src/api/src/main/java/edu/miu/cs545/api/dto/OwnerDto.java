@@ -16,6 +16,9 @@ public class OwnerDto {
     private String email;
     private String phone;
     private Boolean approved;
+    private AddressDto address;
+    //To be sent from client when registering
+    private String password;
     private Boolean blackListed;
     private List<PropertyDto> properties;
 }

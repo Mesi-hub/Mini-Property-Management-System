@@ -17,6 +17,7 @@ public interface OfferRepository extends JpaRepository<Offer, Long> {
     @Query("SELECT offer FROM Offer offer INNER JOIN offer.property property INNER JOIN property.owner owner WHERE owner.id = :ownerId")
     List<Offer> findByOwnerId(Long ownerId);
     List<Offer> findByPropertyOwnerAndStatusIn(Customer customer, List<OfferState> offerStates);    
+    @Query("SELECT o FROM Offer o INNER JOIN o.property p WHERE o.status IN  :offerStates AND p.id = :propertyId")
     List<Offer> findByPropertyIdAndStatusIn(Long propertyId, List<OfferState> offerStates);
     @Transactional
     @Modifying

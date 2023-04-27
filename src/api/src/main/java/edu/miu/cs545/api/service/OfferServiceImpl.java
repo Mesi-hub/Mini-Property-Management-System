@@ -181,8 +181,10 @@ public class OfferServiceImpl implements OfferService {
 
         List<OfferState> states = new ArrayList<>();
         states.add(OfferState.EVALUATING);
-        if(offerRepository.findByPropertyIdAndStatusIn(property.getId(), states).size() == 0){
-            property.setStatus(PropertyState.PENDING);
+        states.add(OfferState.PENDING);
+        List<Offer> existing = offerRepository.findByPropertyIdAndStatusIn(property.getId(), states); 
+        if( existing.size()== 0){
+            property.setStatus(PropertyState.AVAILABLE);
             propertyRepository.save(property);        
         }
         return true;
@@ -195,8 +197,9 @@ public class OfferServiceImpl implements OfferService {
             throw new Exception("You can only cancel own offers.");
         }
         if(!(offer.getStatus() == OfferState.EVALUATING ||
-           offer.getStatus() == OfferState.PENDING)){
-            throw new Exception("Offer is not in state Evaluating");
+           offer.getStatus() == OfferState.PENDING ||
+           offer.getStatus() == OfferState.ACCEPTED)){
+            throw new Exception("Offer is not in state Evaluating, Pending or Accepted");
         }
         Property property = propertyRepository.findById(offer.getProperty().getId())
                 .orElseThrow(() -> new EntityNotFoundException("Property not found"));
@@ -211,7 +214,9 @@ public class OfferServiceImpl implements OfferService {
 
         List<OfferState> states = new ArrayList<>();
         states.add(OfferState.EVALUATING);
-        if(offerRepository.findByPropertyIdAndStatusIn(property.getId(), states).size() == 0){
+        states.add(OfferState.PENDING);
+        List<Offer> existing = offerRepository.findByPropertyIdAndStatusIn(property.getId(), states); 
+        if( existing.size()== 0){
             property.setStatus(PropertyState.AVAILABLE);
             propertyRepository.save(property);        
         }

@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthenticationWidget } from "../AuthenticationWidget";
 import { hasRole } from "../../services/api";
 import { isLoggedIn } from "../../feature/Authentication/authenticationSlice";
@@ -7,6 +7,13 @@ import { useSelector } from "react-redux";
 
 const Header = () => {
   const store = useSelector((state) => state);
+  const searchRef = useRef();
+  const navigate = useNavigate();
+  const filterHandler = (evt) => {
+    evt.preventDefault();
+
+    navigate(`/properties/${searchRef.current.value}`);
+};
   return (
     <header>
       <nav className="navbar navbar-expand-md navbar-dark  bg-dark">
@@ -48,9 +55,7 @@ const Header = () => {
               ) : (
                 ""
               )}
-              {
-                //TODO  loggedin
-                true ? (
+              {isLoggedIn(store) ? (
                   <>
                     <li className="nav-item">
                       <Link to="/messages" className="nav-link">
@@ -68,8 +73,7 @@ const Header = () => {
                 )
               }
               {
-                //TODO !hasRole(OWNER) and loggedin
-                true ? (
+                (!hasRole("OWNER") && isLoggedIn(store)) ? (
                   <>
                     <li className="nav-item">
                       <Link to="/become-a-seller" className="nav-link">
@@ -79,6 +83,11 @@ const Header = () => {
                     <li className="nav-item">
                       <Link to="/add-house" className="nav-link">
                         Add House
+                      </Link>
+                    </li>
+                    <li className="nav-item">
+                      <Link to="/customer-offers-history" className="nav-link">
+                        My Offers
                       </Link>
                     </li>
                   </>
@@ -102,21 +111,16 @@ const Header = () => {
                 </>
               ) : (
                 ""
-              )}
-              <li className="nav-item">
-                <Link to="/customer-offers-history" className="nav-link">
-                  My Offers
-                </Link>
-              </li>
+              )}              
             </ul>
             <form className="d-flex">
-              <input
+              <input ref={searchRef}
                 className="form-control me-2"
                 type="search"
-                placeholder="Search"
-                aria-label="Search"
+                placeholder="Search in City"
+                aria-label="Search"                
               />
-              <button className="btn btn-outline-success" type="submit">
+              <button className="btn btn-outline-success" type="submit" onClick={(evt) => filterHandler(evt)}>
                 Search
               </button>
             </form>

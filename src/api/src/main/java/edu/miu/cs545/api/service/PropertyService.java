@@ -1,13 +1,10 @@
 
-package edu.miu.cs545.api.service.interfaces;
+package edu.miu.cs545.api.service;
 
 import edu.miu.cs545.api.dto.PropertyDto;
 import edu.miu.cs545.api.entity.Property;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 public interface PropertyService {
 

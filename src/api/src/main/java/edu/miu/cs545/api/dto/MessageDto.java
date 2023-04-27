@@ -1,8 +1,6 @@
 package edu.miu.cs545.api.dto;
 
-import edu.miu.cs545.api.entity.Message;
 import edu.miu.cs545.api.entity.Person;
-import edu.miu.cs545.api.entity.Property;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

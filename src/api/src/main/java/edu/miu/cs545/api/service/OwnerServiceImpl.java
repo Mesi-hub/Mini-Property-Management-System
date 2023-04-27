@@ -1,13 +1,9 @@
 package edu.miu.cs545.api.service;
 
-import edu.miu.cs545.api.dto.AdministratorDto;
-import edu.miu.cs545.api.dto.CustomerDto;
 import edu.miu.cs545.api.dto.OwnerDto;
-import edu.miu.cs545.api.entity.Address;
 import edu.miu.cs545.api.entity.Customer;
 import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.User;
-import edu.miu.cs545.api.repository.AdministratorRepository;
 import edu.miu.cs545.api.repository.CustomerRepository;
 import edu.miu.cs545.api.repository.OwnerRepository;
 import jakarta.persistence.EntityExistsException;
@@ -34,7 +30,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Owner findById(long id) {
-        return ownerRepository.getById(id);
+        return ownerRepository.findById(id).orElse(null);
     }
 
 

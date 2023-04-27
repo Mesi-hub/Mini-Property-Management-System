@@ -4,6 +4,7 @@ import { injectStoreState } from "../services/api";
 import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import Customers from "../components/Customers/Customers";
+import CreateHouse from "../components/House/CreateHouse";
 import { PageNotFound } from "../components/PageNotFound/PageNotFound";
 import BecomeAnOwner from "../pages/Auth/BecomeAnOwner";
 import Messages from "../components/Messages";
@@ -54,6 +55,7 @@ export default function PageRoutes(props) {
         path="saved-properties"
         element={renderWithHeader(<SavedProperties />)}
       />
+      <Route path="add-house" element={renderWithHeader(<CreateHouse />)} />
 
       {/*<Route path="students/:id" element={<StudentDetails />} />
             <Route path="add-student" element={<NewProduct />} />

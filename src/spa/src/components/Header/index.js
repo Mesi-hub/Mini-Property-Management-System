@@ -76,6 +76,11 @@ const Header = () => {
                         Become a Seller
                       </Link>
                     </li>
+                    <li className="nav-item">
+                      <Link to="/add-house" className="nav-link">
+                        Add House
+                      </Link>
+                    </li>
                   </>
                 ) : (
                   ""

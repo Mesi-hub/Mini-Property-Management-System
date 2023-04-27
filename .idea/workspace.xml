@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="295b7d63-cdc5-4d9e-a43a-017255211ad0" name="Changes" comment="implemented Check offer History">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/83913fe8-17fc-48e7-a241-9623a8b7b460.xml" afterDir="false" />
+    <list default="true" id="295b7d63-cdc5-4d9e-a43a-017255211ad0" name="Changes" comment="implemented make Offer">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/controller/CustomerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/dto/PropertyDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/dto/PropertyDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/PropertyRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/repository/PropertyRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/OfferServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/PropertyService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/src/main/java/edu/miu/cs545/api/service/PropertyService.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,6 +57,9 @@
     ]
   }
 }</component>
+  <component name="ReactorSettings">
+    <option name="notificationShown" value="true" />
+  </component>
   <component name="RunManager">
     <configuration name="ApiApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="api" />
@@ -81,7 +79,7 @@
       <updated>1682434972326</updated>
       <workItem from="1682434974466" duration="274000" />
       <workItem from="1682435324913" duration="9439000" />
-      <workItem from="1682544479989" duration="14538000" />
+      <workItem from="1682544479989" duration="17056000" />
     </task>
     <task id="LOCAL-00001" summary="implemented Check offer History">
       <created>1682441961244</created>
@@ -104,7 +102,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682444638145</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="implemented make Offer">
+      <created>1682569363315</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1682569363315</updated>
+    </task>
+    <task id="LOCAL-00005" summary="implemented make Offer">
+      <created>1682569440206</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682569440206</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -123,6 +135,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="implemented Check offer History" />
-    <option name="LAST_COMMIT_MESSAGE" value="implemented Check offer History" />
+    <MESSAGE value="implemented make Offer" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented make Offer" />
   </component>
 </project>

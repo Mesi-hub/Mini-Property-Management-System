@@ -33,8 +33,8 @@ public class CustomerController {
     @Autowired
     private OfferService offerService;
 
-    @Autowired
-    private PropertyRepository propertyRepository;
+//    @Autowired
+//    private PropertyRepository propertyRepository;
     @Autowired
     ControllerSecurityUtil controllerSecurityUtil;
 
@@ -106,10 +106,12 @@ public class CustomerController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/{id}/offers")
-    public ResponseEntity<Boolean> makeOffer(@RequestParam Long id, @RequestBody OfferDto offerDto) {
-        offerDto.setProperty(new PropertyDto(id)); // Set the PropertyDto with the provided id
-        boolean success = offerService.makeOffer(id, offerDto);
+    @PostMapping("/{customerId}/addoffer")
+    public ResponseEntity<Boolean> makeOffer(@PathVariable Long customerId, @RequestBody OfferDto offerDto) {
+//        offerDto.setProperty(new PropertyDto(customerId)); // Set the PropertyDto with the provided id
+        System.out.println("customer id: " + offerDto.getCustomer().getId());
+        System.out.println("property id: " + offerDto.getProperty().getId());
+        boolean success = offerService.makeOffer(customerId, offerDto);
         if (success) {
             return ResponseEntity.status(HttpStatus.CREATED).body(true);
         } else {

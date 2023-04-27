@@ -1,17 +1,12 @@
 package edu.miu.cs545.api.controller;
 
-import edu.miu.cs545.api.dto.AdministratorDto;
-import edu.miu.cs545.api.dto.CustomerDto;
-import edu.miu.cs545.api.dto.OfferDto;
 import edu.miu.cs545.api.dto.OwnerDto;
 import edu.miu.cs545.api.entity.Owner;
 import edu.miu.cs545.api.entity.User;
-import edu.miu.cs545.api.service.AdministratorService;
 import edu.miu.cs545.api.service.OwnerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

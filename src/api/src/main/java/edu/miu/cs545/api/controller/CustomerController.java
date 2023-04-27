@@ -115,7 +115,7 @@ public class CustomerController {
 
     @PostMapping("/{customerId}/addoffer")
     public ResponseEntity<Boolean> makeOffer(@PathVariable Long customerId, @RequestBody OfferDto offerDto) {
-//        offerDto.setProperty(new PropertyDto(customerId)); // Set the PropertyDto with the provided id
+//        offerDto.setProperty(new PropertyDto(customerId));
         System.out.println("customer id: " + offerDto.getCustomer().getId());
         System.out.println("property id: " + offerDto.getProperty().getId());
         boolean success = offerService.makeOffer(customerId, offerDto);

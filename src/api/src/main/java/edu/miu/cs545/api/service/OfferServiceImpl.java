@@ -86,28 +86,7 @@ public class OfferServiceImpl implements OfferService {
 
         return offerDtos;
     }
-//// just commented for test in dev
-//    @Override
-//    public boolean makeOffer(OfferDto offerDto) {
-//        // Retrieve property entity from database
-//        Property property = propertyRepository.findById(offerDto.getProperty().getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
-//
-//        // Create a new offer entity
-//        Offer offer = new Offer();
-//        offer.setCustomer(customerRepository.findById(offerDto.getCustomer().getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Customer not found")));
-//        offer.setProperty(property);
-//        offer.setOfferAmount(offerDto.getOfferAmount());
-//        offer.setStatus(OfferState.PENDING);
-//
-//        // Save the offer entity to database
-//        offerRepository.save(offer);
-//
-//        return true;
-//    }
 
-    // TODO - UPDATing
     @Override
     public boolean makeOffer(Long customerId, OfferDto offerDto) {
         System.out.println("customer id: " + offerDto.getCustomer().getId());
@@ -150,31 +129,5 @@ public class OfferServiceImpl implements OfferService {
 
         return offerDtos;
     }
-
-
-
-//    @Override
-//    public boolean update(OfferDto offerDto) {
-//        Offer existingOffer = offerRepository.findById(offerDto.getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Offer not found"));
-//
-//        existingOffer.setDate(offerDto.getDate());
-//        existingOffer.setTime(offerDto.getTime());
-//        existingOffer.setOfferAmount(offerDto.getOfferAmount());
-//        existingOffer.setStatus(offerDto.getStatus());
-//
-//        Property property = propertyRepository.findById(offerDto.getProperty().getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Property not found"));
-//        existingOffer.setProperty(property);
-//
-//        Customer customer = customerRepository.findById(offerDto.getCustomer().getId())
-//                .orElseThrow(() -> new EntityNotFoundException("Customer not found"));
-//        existingOffer.setCustomer(customer);
-//
-//        offerRepository.save(existingOffer);
-//
-//        return true;
-//    }
-
 
 }

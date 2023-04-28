@@ -59,8 +59,8 @@ public class SecurityConfig {
                 .requestMatchers(unsecuredUrls).permitAll()
                 .requestMatchers(genericLoggedInUserUrls).hasAnyAuthority(roles)
                 .requestMatchers(customerAndOwnerUrls).hasAnyAuthority(RoleTypes.ADMIN.toString(), RoleTypes.CUSTOMER.toString(), RoleTypes.OWNER.toString())
-                .requestMatchers(customerUrls).hasAuthority(RoleTypes.CUSTOMER.toString())
-                .requestMatchers(ownerUrls).hasAuthority(RoleTypes.OWNER.toString())
+                .requestMatchers(customerUrls).hasAnyAuthority(RoleTypes.ADMIN.toString(), RoleTypes.CUSTOMER.toString())
+                .requestMatchers(ownerUrls).hasAnyAuthority(RoleTypes.ADMIN.toString(), RoleTypes.OWNER.toString())
                 .requestMatchers(adminUrls).hasAuthority(RoleTypes.ADMIN.toString())
                 //Comment the lines upto this line to bypass authentication during dev
 

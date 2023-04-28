@@ -47,6 +47,15 @@ const SignUp = () => {
   return (
     <div>
       <div className="content-center  row">
+      <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
+          <div className="jumbotron">
+            <h1 className="display-4">Get in contact with millions of sellers!</h1>
+            <p className="lead">
+              Get to know people who has what you are looking for.
+            </p>
+            
+          </div>
+        </div>
         <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
           <div>
             <h3>Sign up</h3>

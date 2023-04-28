@@ -104,10 +104,13 @@ const Customers = () => {
 
   return (
     <div className="content-center  row">
-      <div className="col-md-10 mx-auto mt-50 mb-50 py-5 px-5">
-        <div>
-          <h3>Customers List </h3>
-        </div>
+      <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
+          <div className="jumbotron">
+            <h1 className="display-4">Customers!</h1>
+            
+            
+          </div>
+        </div><div className="col-md-10 mx-auto mt-50 mb-50 py-5 px-5">
         <table className="table table-bordered">
           <thead>
             <tr>

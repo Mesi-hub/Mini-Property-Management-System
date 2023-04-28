@@ -13,7 +13,15 @@ const Messages = (props) => {
   return (
     <div>
       <div className="album py-8 bg-light">
-        <div className="container">
+      <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
+          <div className="jumbotron">
+            <h1 className="display-4">Hello!</h1>
+            <p className="lead">
+              You might have new messages
+            </p>
+            
+          </div>
+        </div><div className="container">
           <div className="row row-cols-1">
             {cardsCompo}
           </div>

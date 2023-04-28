@@ -94,7 +94,7 @@ const HouseDetail = () => {
                                 </ul>
                                 {hasRole("CUSTOMER") ? (
                                     <>
-                                        <div className="buttons d-flex flex-row mt-5 gap-3">
+                                        
                                             <button
                                                 className="btn btn-dark"
                                                 onClick={() => {
@@ -103,16 +103,10 @@ const HouseDetail = () => {
                                             >
                                                 Save
                                             </button>
-                                        </div>
-                                        <div className="buttons d-flex flex-row mt-5 gap-3">
-                                            <label>Offer amount: </label>
-                                            <input type="number" ref={offerAmountRef} name="offeramount"/>
-                                            <button className="btn btn-dark" onClick={makeOfferClick}>
-                                                Make an offer
-                                            </button>
-                                        </div>
+                                        {(property.status === 'AVAILABLE' || property.status === 'PENDING' ) ?
+                                        <>
 
-                                        <div className="buttons d-flex flex-row mt-5 gap-3">
+                                        <div className="buttons d-flex flex-row mt-1 gap-3">
                                             <button
                                                 className="btn btn-dark"
                                                 onClick={() => {
@@ -121,7 +115,15 @@ const HouseDetail = () => {
                                             >
                                                 Send Message
                                             </button>
+                                        </div> <br/><br/>
+                                        <div className="buttons d-flex flex-row mt-1 gap-3">
+                                            <label className="form-label">Offer amount: </label>
+                                            <input className="form-control" type="number" ref={offerAmountRef} name="offeramount"/>
+                                            <button className="btn btn-dark" onClick={makeOfferClick}>
+                                                Make an offer
+                                            </button>
                                         </div>
+                                        </>: ""}
                                     </>
                                 ) : (
                                     ""

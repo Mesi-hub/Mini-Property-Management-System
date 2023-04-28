@@ -58,8 +58,8 @@ public class PropertyController {
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('OWNER')")
-    public void deleteProperty(@PathVariable("id") Long id){
-        this.propertyService.deleteProperty(id);
+    public void deleteProperty(@PathVariable("id") Long id) throws Exception{
+        this.propertyService.deleteProperty(id, controllerSecurityUtil.getLoggedinUser());
     }
 
     private List<PropertyDto> addStockImage(List<PropertyDto> dtos){

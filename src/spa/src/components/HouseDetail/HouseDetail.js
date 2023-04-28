@@ -3,7 +3,7 @@ import "./HouseDetail";
 import {useNavigate, useParams} from "react-router";
 import {hasRole} from "../../services/api";
 import {savePropertyToSavedList} from "../../services/api/SavedProperties";
-import {getPropertyById, saveOffer} from "../../services/api/properties";
+import {deleteProperty, getPropertyById, saveOffer} from "../../services/api/properties";
 
 const HouseDetail = () => {
     const params = useParams();
@@ -39,6 +39,17 @@ const HouseDetail = () => {
             .then((res) => {
                 console.log(res);
                 navigate("/saved-properties");
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
+
+    const onDelete = (id) => {
+        deleteProperty(id)
+            .then((res) => {
+                console.log(res);
+                navigate("/");
             })
             .catch((err) => {
                 console.log(err);
@@ -128,6 +139,14 @@ const HouseDetail = () => {
                                 ) : (
                                     ""
                                 )}
+                                {hasRole("OWNER") && property.status === 'AVAILABLE'  ? <button
+                                    className="btn btn-dark"
+                                    onClick={() => {
+                                        onDelete(property.id);
+                                    }}
+                                >
+                                    Delete
+                                </button> : ""}
                             </div>
                         </div>
                     </div>

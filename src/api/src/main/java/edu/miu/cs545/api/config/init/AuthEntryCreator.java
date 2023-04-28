@@ -57,20 +57,38 @@ public class AuthEntryCreator {
         }
         roles.add(role);
 
-        User existingUser = userRepository.findByEmail("admin@admin.com").orElse(null);
-        if (existingUser != null) {
-            existingUser.setPassword(bCryptPasswordEncoder.encode("admin"));
-            userRepository.save(existingUser);
+        User existingUserBuyer = userRepository.findByEmail("customer@customer.com").orElse(null);
+        if (existingUserBuyer != null) {
+            existingUserBuyer.setPassword(bCryptPasswordEncoder.encode("customer"));
+            userRepository.save(existingUserBuyer);
+        }
+
+        User existingUserSeller = userRepository.findByEmail("owner@owner.com").orElse(null);
+        if (existingUserSeller != null) {
+            existingUserSeller.setPassword(bCryptPasswordEncoder.encode("owner"));
+            userRepository.save(existingUserSeller);
+        }
+
+        User existingUserBlacklisted = userRepository.findByEmail("blacklisted@blacklisted.com").orElse(null);
+        if (existingUserBlacklisted != null) {
+            existingUserBlacklisted.setPassword(bCryptPasswordEncoder.encode("blacklisted"));
+            userRepository.save(existingUserBlacklisted);
+        }
+
+        User existingUserAdmin = userRepository.findByEmail("admin@admin.com").orElse(null);
+        if (existingUserAdmin != null) {
+            existingUserAdmin.setPassword(bCryptPasswordEncoder.encode("admin"));
+            userRepository.save(existingUserAdmin);
         }
         else {
-            existingUser = new User();
-            existingUser.setName("admin");
-            existingUser.setEmail("admin@admin.com");
-            existingUser.setPassword(bCryptPasswordEncoder.encode("admin"));
-            userRepository.save(existingUser);
+            existingUserAdmin = new User();
+            existingUserAdmin.setName("admin");
+            existingUserAdmin.setEmail("admin@admin.com");
+            existingUserAdmin.setPassword(bCryptPasswordEncoder.encode("admin"));
+            userRepository.save(existingUserAdmin);
 
             List<User> users = new ArrayList<>();
-            users.add(existingUser);
+            users.add(existingUserAdmin);
             for(Role savedRole : roles){
                 savedRole.setUsers(users);
                 roleRepository.save(savedRole);

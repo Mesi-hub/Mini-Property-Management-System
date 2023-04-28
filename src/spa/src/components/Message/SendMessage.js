@@ -51,7 +51,7 @@ const SendMessage = () => {
           <div className="container">
             <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
               {property ? (
-                <div class="card">
+                <div className="card">
                   <h5 className="card-title">
                     {message && message.recipient ? (
                       <>
@@ -86,7 +86,7 @@ const SendMessage = () => {
                     onSubmit={AddHandler}
                   >
                     <div className="form-group">
-                      <label for="message" className="form-label">
+                      <label htmlFor="message" className="form-label">
                         Message
                       </label>
                       <input

@@ -54,7 +54,7 @@ const Houses = (props) => {
                                     <li className="nav-item">
                                         <div className="mb-2">
                                             <label
-                                                for="exampleFormControlInput1"
+                                                htmlFor="exampleFormControlInput1"
                                                 className="form-label"
                                             >
                                                 City:
@@ -73,7 +73,7 @@ const Houses = (props) => {
                                     <li className="nav-item">
                                         <div className="mb-2">
                                             <label
-                                                for="exampleFormControlInput1"
+                                                htmlFor="exampleFormControlInput1"
                                                 className="form-label"
                                             >
                                                 Max price:
@@ -91,7 +91,7 @@ const Houses = (props) => {
                                     <li className="nav-item">
                                         <div className="mb-2">
                                             <label
-                                                for="exampleFormControlInput1"
+                                                htmlFor="exampleFormControlInput1"
                                                 className="form-label"
                                             >
                                                 Min price:
@@ -109,7 +109,7 @@ const Houses = (props) => {
                                     <li className="nav-item">
                                         <div className="mb-2">
                                             <label
-                                                for="exampleFormControlInput1"
+                                                htmlFor="exampleFormControlInput1"
                                                 className="form-label"
                                             >
                                                 No. of bedroom:
@@ -117,9 +117,9 @@ const Houses = (props) => {
                                             <select
                                                 className="form-select form-select-sm"
                                                 aria-label=".form-select-sm example"
-                                                name="room"
+                                                name="room"                                                
                                             >
-                                                <option selected value="0">
+                                                <option defaultValue={"selected"} value="0">
                                                     Greater Than or Equal To
                                                 </option>
                                                 <option value="1">One</option>
@@ -134,7 +134,7 @@ const Houses = (props) => {
                                     &nbsp;
                                     <li className="nav-item">
                                         <label
-                                            for="exampleFormControlInput1"
+                                            htmlFor="exampleFormControlInput1"
                                             className="form-label"
                                         >
                                             &nbsp;

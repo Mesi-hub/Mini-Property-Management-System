@@ -21,7 +21,7 @@ const SavedProperty = (props) => {
           <div>
             <Link to={"/house-detail/" + props.savedProperty.id}>
               <img
-                src="https://ap.rdcpix.com/5fe850a043989a3b24730a05621a8849l-m563540908od-w480_h360.webp"
+                src={props?.savedProperty?.images[0].fullPath}
                 alt={props?.property?.title}
               />
             </Link>

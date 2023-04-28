@@ -106,7 +106,7 @@ const Customers = () => {
     <div className="content-center  row">
       <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
           <div className="jumbotron">
-            <h1 className="display-4">Customers!</h1>
+            <h1 className="display-4">Customers</h1>
             
             
           </div>
@@ -126,8 +126,10 @@ const Customers = () => {
           <tbody>
             {customersAllRowsUI.length > 0
               ? customersAllRowsUI
-              : "No customers found !!!"}
+              : null}
           </tbody>
+          {customersAllRowsUI.length === 0
+              ? "No customers found !!!" : null}
         </table>
       </div>
     </div>

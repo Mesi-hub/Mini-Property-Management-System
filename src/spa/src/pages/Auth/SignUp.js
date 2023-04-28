@@ -62,7 +62,7 @@ const SignUp = () => {
           </div>
           <form id="newcustomerform" ref={formRef} onSubmit={AddHandler}>
             <div className="form-group">
-              <label for="firstname" className="form-label">
+              <label htmlFor="firstname" className="form-label">
                 First Name
               </label>
               <input
@@ -73,7 +73,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="lastname" className="form-label">
+              <label htmlFor="lastname" className="form-label">
                 Last Name
               </label>
               <input
@@ -84,7 +84,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="email" className="form-label">
+              <label htmlFor="email" className="form-label">
                 Email
               </label>
               <input
@@ -95,7 +95,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="password" className="form-label">
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
               <input
@@ -107,7 +107,7 @@ const SignUp = () => {
             </div>
             Address:
             <div className="form-group">
-              <label for="street" className="form-label">
+              <label htmlFor="street" className="form-label">
                 Street
               </label>
               <input
@@ -118,7 +118,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="city" className="form-label">
+              <label htmlFor="city" className="form-label">
                 City
               </label>
               <input
@@ -129,7 +129,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="state" className="form-label">
+              <label htmlFor="state" className="form-label">
                 State
               </label>
               <select className="form-control"
@@ -139,7 +139,7 @@ const SignUp = () => {
               </select>              
             </div>
             <div className="form-group">
-              <label for="zip" className="form-label">
+              <label htmlFor="zip" className="form-label">
                 Zip
               </label>
               <input
@@ -150,7 +150,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="longitude" className="form-label">
+              <label htmlFor="longitude" className="form-label">
               Longitude
               </label>
               <input
@@ -162,7 +162,7 @@ const SignUp = () => {
               />
             </div>
             <div className="form-group">
-              <label for="longitude" className="form-label">
+              <label htmlFor="longitude" className="form-label">
               Latitude
               </label>
               <input

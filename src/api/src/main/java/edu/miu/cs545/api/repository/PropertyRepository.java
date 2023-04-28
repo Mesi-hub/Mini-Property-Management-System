@@ -15,6 +15,6 @@ public interface PropertyRepository extends JpaRepository<Property, Long> {
     List<Property> findByOwner(Customer owner);
     @Query("SELECT property FROM Property property INNER JOIN property.owner o WHERE o.blackListed = false ORDER BY property.id DESC")
     List<Property> findByOrderByIdDesc();
-    @Query("SELECT property FROM Property property INNER JOIN property.owner o WHERE o.blackListed = false")
+    @Query("SELECT property FROM Property property INNER JOIN property.owner o WHERE o.blackListed = false AND property.id = :id")
     Optional<Property> findById(Long id);
 }

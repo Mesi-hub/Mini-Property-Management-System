@@ -38,7 +38,20 @@ This is an engineering proof of concept. The goal is to get some hands-on experi
 
 
 
+## Running the project
 
+- Take a checkout
+  - To run the backend (API)
+    - `cd ./src/api`
+    - `./mvnw spring-boot:run`
+  - To  run the front end Single Page Application (SPA)
+    - `cd ./src/spa/`
+    - `npm install`
+    - `npm start`
+- Navigate to `http://localhost:3000` from your browser
+- *Note*: 
+  - The images are served from a Azure blob storage, if the storage is not running configure it in `application.properties` file
+  - The CORS policy is configured to `http://localhost:3000` 
 
 
 

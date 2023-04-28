@@ -128,7 +128,7 @@ const OwnerOffersHistory = () => {
 
   const createSingleRowUIFromData = (offer) => {
     return (
-      <tr>
+      <tr key={offer.id}>
         <th scope="row">{offer.id}</th>
         <td>{offer.offerAmount}</td>
         <td>{offer.date}</td>

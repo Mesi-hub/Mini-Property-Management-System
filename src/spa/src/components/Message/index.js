@@ -6,7 +6,7 @@ const Message = (props) => {
     navigate(`/send_message/property/${propertyId}/reply/${messageId}`);
   };
   return (
-    <div class="card">
+    <div className="card">
       <div className="card-body">
         <h5 className="card-title">
           Sender: {props.message.sender.lastName}, {props.message.sender.firstName} [{props.message.sender.id}]<br/>

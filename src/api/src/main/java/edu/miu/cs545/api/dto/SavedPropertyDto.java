@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 @Setter
 @Getter
@@ -15,5 +16,6 @@ public class SavedPropertyDto {
     LocalDate date;
     LocalTime time;
     PropertyDto property;
-    CustomerDto customer;
+    CustomerDto customer;    
+    private List<ImageFileInfoDto> images;
 }

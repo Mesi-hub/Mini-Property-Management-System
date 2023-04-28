@@ -127,9 +127,11 @@ const CustomerOffersHistory = () => {
           <tbody>
             {offersAllRowsUI.length > 0
               ? offersAllRowsUI
-              : "No Offers found !!!"}
-          </tbody>
+              : null}
+          </tbody>          
         </table>
+        {offersAllRowsUI.length === 0
+              ? "No Offers found !!!" : ""}
       </div>
     </div>
   );

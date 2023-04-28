@@ -44,7 +44,7 @@ const Login = () => {
         </div>
         <form ref={authenticationForm} onSubmit={authenticate}>
           <div className="mb-3">
-            <label for="email" className="form-label">
+            <label htmlFor="email" className="form-label">
               Email address
             </label>
             <input
@@ -55,7 +55,7 @@ const Login = () => {
             />
           </div>
           <div className="mb-3">
-            <label for="password" className="form-label">
+            <label htmlFor="password" className="form-label">
               Password
             </label>
             <input

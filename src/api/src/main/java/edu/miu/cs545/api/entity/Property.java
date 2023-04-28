@@ -7,6 +7,10 @@ import lombok.Data;
 
 import java.util.List;
 
+import org.hibernate.annotations.Where;
+
+
+
 @Entity
 @Data
 public class Property {

@@ -110,7 +110,7 @@ const OwnerOffersHistory = () => {
             onActionClick(offer, 'close');
           }}
         >
-          Close
+          Complete
         </button> : ""}
         {(offer.status === "ACCEPTED") ?
         <button

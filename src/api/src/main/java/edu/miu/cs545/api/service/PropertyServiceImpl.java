@@ -40,6 +40,7 @@ public class PropertyServiceImpl implements PropertyService {
         Property p = modelMapper.map(property, Property.class);
         p.setAddress(address);
         p.setOwner((Owner)user.getPerson()); // get the Owner info here
+        p.setStatus(PropertyState.AVAILABLE);
         return modelMapper.map(propertyRepo.save(p), PropertyDto.class) ;
     }
 
@@ -54,11 +55,12 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
-    public void deleteProperty(long id) {
-        Optional<Property> property = propertyRepo.findById(id);
-        if (property.isPresent())
-            if (property.get().getStatus() != PropertyState.PENDING)
-                propertyRepo.delete(property.orElseGet(null));
+    public void deleteProperty(long id, User user) throws Exception{
+        Property property = propertyRepo.findById(id).orElseThrow();
+        if(property.getOwner().getId() != user.getPerson().getId() || property.getStatus() != PropertyState.AVAILABLE){
+            throw new Exception("Only owner can delete the properties with status 'AVAILABLE'");
+        }
+        propertyRepo.delete(property);
     }
 
     public List<PropertyDto> findAll() {

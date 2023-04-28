@@ -11,7 +11,7 @@ public interface PropertyService {
     public PropertyDto createProperty(PropertyDto property, User user);
     public PropertyDto findPropertyById(Long id);
     public PropertyDto updateProperty(PropertyDto property);
-    public void deleteProperty(long id) ;
+    public void deleteProperty(long id, User user) throws Exception ;
     public List<PropertyDto> findAll() ;
     List<PropertyDto> findProperByFilter(String city, Double max, Double min, Integer room);
 

@@ -27,6 +27,16 @@ const saveProperty = async (property) => {
   return result.data;
 };
 
+const deleteProperty = async (id) => {
+  let result = await apiSecured()
+    .delete("/properties/"+ id)
+    .catch((error) => {
+      addErrorMessage(getErrorMessagesContext(), error.message);
+      return error;
+    });
+  return result.data;
+};
+
 const savePropertyImage = async (file) => {
   let result = await apiSecured()
     .post("/blob/upload", file, {
@@ -53,4 +63,4 @@ const saveOffer = async (newOffer) => {
 
 
 
-export { getProperties, getPropertyById, saveProperty , saveOffer, savePropertyImage};
+export { getProperties, getPropertyById, saveProperty , saveOffer, savePropertyImage, deleteProperty};

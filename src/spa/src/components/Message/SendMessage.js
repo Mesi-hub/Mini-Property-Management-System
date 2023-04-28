@@ -49,7 +49,7 @@ const SendMessage = () => {
       <div>
         <div className="album py-8 bg-light">
           <div className="container">
-            <div className="row row-cols-1">
+            <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
               {property ? (
                 <div class="card">
                   <h5 className="card-title">

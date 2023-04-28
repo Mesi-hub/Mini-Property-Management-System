@@ -15,8 +15,9 @@ const House = (props) => {
 
                     <div className="card-body">
                         <Link to={"/house-detail/" + props?.property?.id}>
-                            <h5 className="card-title">{props.property.title}</h5>
+                            <h5 className="card-title">{props.property.title}</h5>                            
                         </Link>
+                        <h6 className="card-title">{props.property.status} - {props.property.address?.city}</h6>
                         <p className="card-text">
                             {props.property.description.substring(0, 200) + (props.property.description.length > 200 ? "..." : "")}
                         </p>

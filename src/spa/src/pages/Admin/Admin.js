@@ -33,10 +33,13 @@ const Admin = () => {
 
     return (
         <div className="content-center  row">
-            <div className="col-md-10 mx-auto mt-50 mb-50 py-5 px-5">
-                <div>
-                    <h3>Owner List </h3>
-                </div>
+            <div className="col-md-8 mx-auto mt-50 mb-50 py-5 px-5">
+          <div className="jumbotron">
+            <h1 className="display-4">Owners registerd in the system</h1>
+            
+            
+          </div>
+        </div><div className="col-md-10 mx-auto mt-50 mb-50 py-5 px-5">
                 <table className="table table-bordered">
                     <thead>
                         <tr>

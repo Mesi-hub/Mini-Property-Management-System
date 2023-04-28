@@ -52,6 +52,9 @@ This is an engineering proof of concept. The goal is to get some hands-on experi
 - *Note*: 
   - The images are served from a Azure blob storage, if the storage is not running configure it in `application.properties` file
   - The CORS policy is configured to `http://localhost:3000` 
+  - All the html input fields are required. 
+    - The validations are omitted due to time constraints and server will only return an error, without helpful information.
+  - The 
 
 
 
@@ -63,3 +66,265 @@ Pre-defined users:
 | 2    | customer@customer.com | customer |
 | 3    | owner@owner.com       | owner    |
 
+
+
+### Diagrams
+
+![](images/ClassDiagram-ModelPacckage.png)
+
+![](images/DB-Tables.png)
+
+### Folder Structure
+```
+ |-.git
+ |-LICENSE
+ |-README.md
+ |-src
+ | |-api
+ | | |-.gitignore
+ | | |-.mvn
+ | | | |-wrapper
+ | | | | |-maven-wrapper.jar
+ | | | | |-maven-wrapper.properties
+ | | |-api.iml
+ | | |-HELP.md
+ | | |-logs
+ | | | |-student-project.log
+ | | |-mvnw
+ | | |-mvnw.cmd
+ | | |-pom.xml
+ | | |-src
+ | | | |-main
+ | | | | |-java
+ | | | | | |-edu
+ | | | | | | |-miu
+ | | | | | | | |-cs545
+ | | | | | | | | |-api
+ | | | | | | | | | |-ApiApplication.java
+ | | | | | | | | | |-config
+ | | | | | | | | | | |-Beans.java
+ | | | | | | | | | | |-init
+ | | | | | | | | | | | |-AuthEntryCreator.java
+ | | | | | | | | | | |-SecurityConfig.java
+ | | | | | | | | | |-controller
+ | | | | | | | | | | |-AdministratorController.java
+ | | | | | | | | | | |-AuthController.java
+ | | | | | | | | | | |-ControllerSecurityUtil.java
+ | | | | | | | | | | |-CustomerController.java
+ | | | | | | | | | | |-FileUploadController.java
+ | | | | | | | | | | |-MessageController.java
+ | | | | | | | | | | |-OwnerController.java
+ | | | | | | | | | | |-PdfController.java
+ | | | | | | | | | | |-PropertyController.java
+ | | | | | | | | | | |-SavedPropertyController.java
+ | | | | | | | | | | |-UserController.java
+ | | | | | | | | | |-dto
+ | | | | | | | | | | |-AddressDto.java
+ | | | | | | | | | | |-AdministratorDto.java
+ | | | | | | | | | | |-AuthDto.java
+ | | | | | | | | | | |-CustomerDto.java
+ | | | | | | | | | | |-ImageFileInfoConverter.java
+ | | | | | | | | | | |-ImageFileInfoDto.java
+ | | | | | | | | | | |-JwtResponseDto.java
+ | | | | | | | | | | |-MessageDto.java
+ | | | | | | | | | | |-OfferDto.java
+ | | | | | | | | | | |-OwnerDto.java
+ | | | | | | | | | | |-PersonDto.java
+ | | | | | | | | | | |-PropertyDto.java
+ | | | | | | | | | | |-RefreshDto.java
+ | | | | | | | | | | |-RoleDto.java
+ | | | | | | | | | | |-SavedPropertyDto.java
+ | | | | | | | | | | |-UserDto.java
+ | | | | | | | | | |-entity
+ | | | | | | | | | | |-AccessToken.java
+ | | | | | | | | | | |-Address.java
+ | | | | | | | | | | |-Administrator.java
+ | | | | | | | | | | |-BlobStorageInfo.java
+ | | | | | | | | | | |-Customer.java
+ | | | | | | | | | | |-Message.java
+ | | | | | | | | | | |-Offer.java
+ | | | | | | | | | | |-OfferState.java
+ | | | | | | | | | | |-Owner.java
+ | | | | | | | | | | |-Person.java
+ | | | | | | | | | | |-Property.java
+ | | | | | | | | | | |-PropertyState.java
+ | | | | | | | | | | |-RefreshToken.java
+ | | | | | | | | | | |-Role.java
+ | | | | | | | | | | |-RoleTypes.java
+ | | | | | | | | | | |-SavedProperty.java
+ | | | | | | | | | | |-User.java
+ | | | | | | | | | |-filter
+ | | | | | | | | | | |-JwtFilter.java
+ | | | | | | | | | |-repository
+ | | | | | | | | | | |-AccessTokenRepository.java
+ | | | | | | | | | | |-AddressRepository.java
+ | | | | | | | | | | |-AdministratorRepository.java
+ | | | | | | | | | | |-BlobStorageInfoRepository.java
+ | | | | | | | | | | |-CustomerRepository.java
+ | | | | | | | | | | |-MessageRepository.java
+ | | | | | | | | | | |-OfferRepository.java
+ | | | | | | | | | | |-OwnerRepository.java
+ | | | | | | | | | | |-PersonRepository.java
+ | | | | | | | | | | |-PropertyRepository.java
+ | | | | | | | | | | |-RefreshTokenRepository.java
+ | | | | | | | | | | |-RoleRepository.java
+ | | | | | | | | | | |-SavedPropertyRepository.java
+ | | | | | | | | | | |-UserRepository.java
+ | | | | | | | | | |-service
+ | | | | | | | | | | |-AccessTokenService.java
+ | | | | | | | | | | |-AccessTokenServiceImpl.java
+ | | | | | | | | | | |-AdministratorService.java
+ | | | | | | | | | | |-AdministratorServiceImpl.java
+ | | | | | | | | | | |-AuthService.java
+ | | | | | | | | | | |-AuthServiceImpl.java
+ | | | | | | | | | | |-BlobStorageService.java
+ | | | | | | | | | | |-BlobStorageServiceImpl.java
+ | | | | | | | | | | |-CustomerService.java
+ | | | | | | | | | | |-CustomerServiceImpl.java
+ | | | | | | | | | | |-MessageService.java
+ | | | | | | | | | | |-MessageServiceImpl.java
+ | | | | | | | | | | |-OfferService.java
+ | | | | | | | | | | |-OfferServiceImpl.java
+ | | | | | | | | | | |-OwnerService.java
+ | | | | | | | | | | |-OwnerServiceImpl.java
+ | | | | | | | | | | |-PdfService.java
+ | | | | | | | | | | |-PdfServiceImpl.java
+ | | | | | | | | | | |-PropertyService.java
+ | | | | | | | | | | |-PropertyServiceImpl.java
+ | | | | | | | | | | |-RoleService.java
+ | | | | | | | | | | |-RoleServiceImpl.java
+ | | | | | | | | | | |-SavedPropertyService.java
+ | | | | | | | | | | |-SavedPropertyServiceImpl.java
+ | | | | | | | | | | |-UserService.java
+ | | | | | | | | | | |-UserServiceImpl.java
+ | | | | | | | | | |-util
+ | | | | | | | | | | |-JwtUtil.java
+ | | | | |-resources
+ | | | | | |-application.properties
+ | | | | | |-application.yml
+ | | | | | |-import.sql
+ | | | | | |-static
+ | | | | | |-templates
+ | | | |-test
+ | | | | |-java
+ | | | | | |-edu
+ | | | | | | |-miu
+ | | | | | | | |-cs545
+ | | | | | | | | |-api
+ | | | | | | | | | |-ApiApplicationTests.java
+ | | | | | | | | | |-controller
+ | | | | | | | | | | |-AuthControllerIT.java
+ | | | | | | | | | | |-AuthControllerTest.java
+ | | | | |-resources
+ | | | | | |-application-test.properties
+ 
+ 
+ 
+ | |-spa
+ | | |-.gitignore
+ | | |-.vscode
+ | | | |-launch.json
+ | | |-package-lock.json
+ | | |-package.json
+ | | |-public
+ | | | |-favicon.ico
+ | | | |-index.html
+ | | | |-logo192.png
+ | | | |-logo512.png
+ | | | |-manifest.json
+ | | | |-robots.txt
+ | | |-README.md
+ | | |-src
+ | | | |-components
+ | | | | |-App
+ | | | | | |-index.js
+ | | | | |-AuthenticationWidget
+ | | | | | |-index.js
+ | | | | |-Banner
+ | | | | | |-Banner.css
+ | | | | | |-index.js
+ | | | | |-Customers
+ | | | | | |-CustomerOffersHistory.js
+ | | | | | |-Customers.js
+ | | | | |-ErrorToast
+ | | | | | |-ErrorToast.css
+ | | | | | |-index.js
+ | | | | |-Header
+ | | | | | |-index.js
+ | | | | |-House
+ | | | | | |-CreateHouse.js
+ | | | | | |-House.css
+ | | | | | |-index.js
+ | | | | |-HouseDetail
+ | | | | | |-HouseDetail.css
+ | | | | | |-HouseDetail.js
+ | | | | |-Houses
+ | | | | | |-index.js
+ | | | | |-Message
+ | | | | | |-index.js
+ | | | | | |-SendMessage.js
+ | | | | |-Messages
+ | | | | | |-index.js
+ | | | | |-Owner
+ | | | | | |-OwnerOffersHistory.js
+ | | | | |-PageNotFound
+ | | | | | |-PageNotFound.js
+ | | | | |-SavedProperties
+ | | | | | |-index.js
+ | | | | |-SavedProperty
+ | | | | | |-index.js
+ | | | | |-UsStatesDropDownOptions
+ | | | | | |-index.js
+ | | | |-context
+ | | | | |-errorMessagesContext.js
+ | | | |-feature
+ | | | | |-Authentication
+ | | | | | |-authenticationSlice.js
+ | | | | | |-loggedinUserSlice.js
+ | | | |-hooks
+ | | | |-index.css
+ | | | |-index.js
+ | | | |-pages
+ | | | | |-Admin
+ | | | | | |-Admin.js
+ | | | | |-Auth
+ | | | | | |-Login.js
+ | | | | | |-SignUp.js
+ | | | | | |-SignUpOwner.js
+ | | | | |-Dashboard
+ | | | | | |-Dashboard.js
+ | | | |-reportWebVitals.js
+ | | | |-Routes
+ | | | | |-PageRoutes.js
+ | | | |-services
+ | | | | |-api
+ | | | | | |-Admin
+ | | | | | | |-index.js
+ | | | | | |-authentication
+ | | | | | | |-index.js
+ | | | | | |-Customers
+ | | | | | | |-index.js
+ | | | | | | |-OfferHistory.js
+ | | | | | |-index.js
+ | | | | | |-loggedinUser
+ | | | | | | |-index.js
+ | | | | | |-Messages
+ | | | | | | |-index.js
+ | | | | | |-Owners
+ | | | | | | |-index.js
+ | | | | | | |-OfferHistory.js
+ | | | | | |-properties
+ | | | | | | |-index.js
+ | | | | | |-SavedProperties
+ | | | | | | |-index.js
+ | | | |-setupTests.js
+ | | | |-static
+ | | | | |-images
+ | | | | | |-logo.svg
+ | | | |-store
+ | | | | |-index.js
+ | | | |-util
+ | | | | |-testUtil.js
+ |-tree.txt
+```
+​	

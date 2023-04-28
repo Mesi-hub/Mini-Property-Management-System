@@ -75,7 +75,7 @@ Pre-defined users:
 ![](images/DB-Tables.png)
 
 ### Folder Structure
-``
+```
  |-.git
  |-LICENSE
  |-README.md
@@ -326,5 +326,5 @@ Pre-defined users:
  | | | |-util
  | | | | |-testUtil.js
  |-tree.txt
-``
+```
 ​	
